@@ -1,0 +1,15 @@
+#!/bin/bash
+SESSION=main
+tmux="tmux -2 -f $HOME/.tmux.conf"
+
+# if the session is already running, just attach to it
+$tmux has-session -t $SESSION
+if [ $? -eq 0 ]; then
+    echo "session $SESSION already exists. attaching..."
+    sleep 1
+else
+    # create a new session
+    $tmux new-session -d -s  $SESSION
+fi
+
+$tmux attach -t          $SESSION
