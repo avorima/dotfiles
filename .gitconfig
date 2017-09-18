@@ -15,6 +15,7 @@
     co = checkout
     ap = add --patch
     be = branch --edit-description
+    cm = commit -m
     ci = commit --interactive
     st = status
     amend = commit --amend
