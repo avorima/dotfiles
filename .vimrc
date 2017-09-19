@@ -88,6 +88,9 @@ set textwidth=79
 set colorcolumn=80
 set showmatch
 set matchtime=2
+set modeline
+
+set path+=**
 
 set tags=./tags;~
 
@@ -139,6 +142,7 @@ set novisualbell
 " write to readonly file
 cnoremap w!! %!sudo tee > /dev/null %
 
+" Hex mode mapping
 cnoremap hex :%!xxd
 
 nmap ]h <Plug>GitGutterNextHunk
@@ -367,6 +371,7 @@ augroup FileTypeRules
     autocmd bufnewfile,bufreadpre *.psgi   setfiletype perl
     autocmd bufnewfile,bufreadpre cpanfile setfiletype perl
     autocmd bufnewfile,bufreadpre *.t      setfiletype perl
+    autocmd bufnewfile,bufreadpre *.conf   setfiletype cfg
 augroup END
 " }}}
 
