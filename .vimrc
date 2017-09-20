@@ -381,6 +381,8 @@ augroup END
 let g:syntastic_cpp_check_header = 1
 let g:syntastic_cpp_compiler_options = ' -std=c++0x'
 
+let g:syntastic_python_checkers = [ 'pep8', 'pylint' ]
+
 let g:syntastic_mode_map = {
       \ 'mode': 'passive',
       \ 'active_filetypes': [ 'c', 'cpp', 'perl', 'python', 'ruby', 'javascript' ],
