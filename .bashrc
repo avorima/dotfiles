@@ -123,3 +123,5 @@ done
 # }}}
 
 source "/home/mari0/.rvm/scripts/rvm" # Load rvm
+
+eval `keychain --eval --agents ssh id_rsa`
