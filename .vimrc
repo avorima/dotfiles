@@ -107,10 +107,6 @@ let g:seoul256_background = 236
 let g:seoul256_srgb = 1
 colo seoul256
 
-" if (&term =~ "xterm") || (&term =~ "screen")
-"   set t_Co=256
-" endif
-
 " mode cursors
 let &t_SI = "\<Esc>[6 q"
 let &t_SR = "\<Esc>[4 q"
@@ -144,6 +140,11 @@ cnoremap w!! %!sudo tee > /dev/null %
 
 " Hex mode mapping
 cnoremap hex :%!xxd
+
+" Fuzzy searching
+cnoremap <leader>e e **/**/
+cnoremap <leader>vs vs **/**/
+cnoremap <leader>new new **/**/
 
 nmap ]h <Plug>GitGutterNextHunk
 nmap [h <Plug>GitGutterPrevHunk
