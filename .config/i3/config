@@ -154,11 +154,17 @@ mode "resize" {
 }
 
 mode "move" {
-    bindsym h mode "default"; move workspace to output left
-    bindsym l mode "default"; move workspace to output right
-    bindsym 1 mode "default"; move workspace to output eDP1
-    bindsym 2 mode "default"; move workspace to output DP1-1
-    bindsym 3 mode "default"; move workspace to output DP1-2
+    bindsym h mode "default"; move container to output left
+    bindsym l mode "default"; move container to output right
+    bindsym 1 mode "default"; move container to output eDP1
+    bindsym 2 mode "default"; move container to output DP1-1
+    bindsym 3 mode "default"; move container to output DP1-2
+
+    bindsym Shift+h mode "default"; move workspace to output left
+    bindsym Shift+l mode "default"; move workspace to output right
+    bindsym Shift+1 mode "default"; move workspace to output eDP1
+    bindsym Shift+2 mode "default"; move workspace to output DP1-1
+    bindsym Shift+3 mode "default"; move workspace to output DP1-2
 
     bindsym q      mode "default"
     bindsym Return mode "default"
