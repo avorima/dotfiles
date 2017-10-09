@@ -26,6 +26,8 @@ exec --no-startup-id compton --config ~/.config/compton.conf
 exec --no-startup-id setxkbmap -layout us -option caps:escape
 exec --no-startup-id unclutter --timeout 2 --jitter 40 --ignore-scrolling
 exec --no-startup-id feh --bg-scale ~/.config/i3/rice.png
+# Lock screen after 2 minutes
+exec xautolock -time 2 -locker '~/.config/i3/lock.sh' &
 # }}}
 
 # Basic Bindings {{{
