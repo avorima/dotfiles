@@ -89,6 +89,8 @@ bindsym $mod+a  focus parent
 
 # reload the configuration file
 bindsym $mod+Shift+c    reload
+
+bindsym $mod+b  workspace back_and_forth
 # }}}
 
 # Workspace Bindings {{{
@@ -132,24 +134,35 @@ bindsym $mod+Shift+9 move container to workspace $ws9
 bindsym $mod+Shift+0 move container to workspace $ws10
 
 assign [class="Firefox"] $ws3
-
 # }}}
 
 # Mode Bindings {{{
 mode "resize" {
-        bindsym h resize shrink width 10 px or 10 ppt
-        bindsym j resize grow height 10 px or 10 ppt
-        bindsym k resize shrink height 10 px or 10 ppt
-        bindsym l resize grow width 10 px or 10 ppt
+    bindsym h resize shrink width 10 px or 10 ppt
+    bindsym j resize grow height 10 px or 10 ppt
+    bindsym k resize shrink height 10 px or 10 ppt
+    bindsym l resize grow width 10 px or 10 ppt
 
-        bindsym Return mode "default"
-        bindsym Escape mode "default"
+    bindsym Return mode "default"
+    bindsym Escape mode "default"
+}
+
+mode "move" {
+    bindsym h mode "default"; move workspace to output left
+    bindsym l mode "default"; move workspace to output right
+    bindsym 1 mode "default"; move workspace to output eDP1
+    bindsym 2 mode "default"; move workspace to output DP1-1
+    bindsym 3 mode "default"; move workspace to output DP1-2
+
+    bindsym Return mode "default"
+    bindsym Escape mode "default"
 }
 
 mode "leader" {
     bindsym r mode "resize"
     bindsym q mode "default"; exec i3-msg exit
     bindsym l mode "default"; exec --no-startup-id ~/.config/i3/lock.sh
+    bindsym m mode "move"
 
     bindsym Return mode "default"
     bindsym Escape mode "default"
