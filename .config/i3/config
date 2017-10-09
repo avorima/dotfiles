@@ -4,8 +4,11 @@
 hide_edge_borders both
 for_window [class="^.*"] border pixel 0
 
-gaps inner 5
-gaps outer 5
+set $default_gaps_inner 5
+set $default_gaps_outer 5
+
+gaps inner $default_gaps_inner
+gaps outer $default_gaps_outer
 
 set $mod    Mod4
 set $alt    Mod1
@@ -55,7 +58,7 @@ bindsym $mod+Shift+q    kill
 bindsym $mod+w  exec --no-startup-id firefox
 
 bindsym $mod+r          exec $term -e ranger
-bindsym $mod+Shift+r    restart
+# bindsym $mod+Shift+r    restart
 
 # start dmenu
 bindsym $mod+d  exec dmenu_run
@@ -66,7 +69,7 @@ bindsym $mod+$down  focus down
 bindsym $mod+$up    focus up
 bindsym $mod+$right focus right
 
-#  move focused window
+# move focused window
 bindsym $mod+Shift+$left    move left
 bindsym $mod+Shift+$down    move down
 bindsym $mod+Shift+$up      move up
@@ -90,7 +93,7 @@ bindsym $mod+e  layout toggle split
 bindsym $mod+a  focus parent
 
 # reload the configuration file
-bindsym $mod+Shift+c    reload
+# bindsym $mod+Shift+c    reload
 
 bindsym $mod+b  workspace back_and_forth
 # }}}
@@ -145,6 +148,7 @@ mode "resize" {
     bindsym k resize shrink height 10 px or 10 ppt
     bindsym l resize grow width 10 px or 10 ppt
 
+    bindsym q      mode "default"
     bindsym Return mode "default"
     bindsym Escape mode "default"
 }
@@ -156,15 +160,34 @@ mode "move" {
     bindsym 2 mode "default"; move workspace to output DP1-1
     bindsym 3 mode "default"; move workspace to output DP1-2
 
+    bindsym q      mode "default"
+    bindsym Return mode "default"
+    bindsym Escape mode "default"
+}
+
+mode "gaps" {
+    bindsym j       gaps inner all minus 5
+    bindsym Shift+j gaps outer all minus 5
+    bindsym k       gaps inner all plus 5
+    bindsym Shift+k gaps outer all plus 5
+
+    bindsym r mode "default"; gaps inner all set $default_gaps_inner; gaps outer all set $default_gaps_outer
+
+    bindsym q      mode "default"
     bindsym Return mode "default"
     bindsym Escape mode "default"
 }
 
 mode "leader" {
-    bindsym r mode "resize"
+    bindsym c mode "default"; reload
+    bindsym r mode "default"; restart
+
+    bindsym s mode "resize"
+    bindsym m mode "move"
+    bindsym g mode "gaps"
+
     bindsym q mode "default"; exec i3-msg exit
     bindsym l mode "default"; exec --no-startup-id ~/.config/i3/lock.sh
-    bindsym m mode "move"
 
     bindsym Return mode "default"
     bindsym Escape mode "default"
