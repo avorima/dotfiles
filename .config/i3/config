@@ -104,6 +104,12 @@ bindsym $mod+a  focus parent
 bindsym $mod+b  workspace back_and_forth
 # }}}
 
+# Multimedia Bindings {{{
+bindsym XF86AudioRaiseVolume exec --no-startup-id ~/bin/audio raise
+bindsym XF86AudioLowerVolume exec --no-startup-id ~/bin/audio lower
+bindsym XF86AudioMute exec --no-startup-id ~/bin/audio toggle
+# }}}
+
 # Workspace Bindings {{{
 
 # Use Mouse+$mod to drag floating windows to their wanted position
