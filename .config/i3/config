@@ -165,18 +165,22 @@ mode "resize" {
     bindsym Escape mode "default"
 }
 
+set $monitorLeft   DP1-1
+set $monitorCenter DP1-2
+set $monitorRight  eDP1
+
 mode "move" {
     bindsym h mode "default"; move container to output left
     bindsym l mode "default"; move container to output right
-    bindsym 1 mode "default"; move container to output eDP1
-    bindsym 2 mode "default"; move container to output DP1-1
-    bindsym 3 mode "default"; move container to output DP1-2
+    bindsym 1 mode "default"; move container to output $monitorLeft
+    bindsym 2 mode "default"; move container to output $monitorCenter
+    bindsym 3 mode "default"; move container to output $monitorRight
 
     bindsym Shift+h mode "default"; move workspace to output left
     bindsym Shift+l mode "default"; move workspace to output right
-    bindsym Shift+1 mode "default"; move workspace to output eDP1
-    bindsym Shift+2 mode "default"; move workspace to output DP1-1
-    bindsym Shift+3 mode "default"; move workspace to output DP1-2
+    bindsym Shift+1 mode "default"; move workspace to output $monitorLeft
+    bindsym Shift+2 mode "default"; move workspace to output $monitorCenter
+    bindsym Shift+3 mode "default"; move workspace to output $monitorRight
 
     bindsym q      mode "default"
     bindsym Return mode "default"
