@@ -25,17 +25,23 @@ font pango:monospace 10
 # }}}
 
 # Startup {{{
+# Detect displays
+exec ~/bin/monitors.sh
+# Lock screen after 2 minutes
+exec xautolock -time 2 -locker '~/.config/i3/lock.sh' &
+
 exec --no-startup-id compton --config ~/.config/compton.conf
 exec --no-startup-id setxkbmap -layout us -option caps:escape
 exec --no-startup-id unclutter --timeout 2 --jitter 40 --ignore-scrolling
 exec --no-startup-id feh --bg-scale ~/.config/i3/rice.png
-# Lock screen after 2 minutes
-exec xautolock -time 2 -locker '~/.config/i3/lock.sh' &
+
+exec_always --no-startup-id ~/.config/polybar/launch.sh
 # }}}
 
 # Basic Bindings {{{
 # Start a terminal
 bindsym $mod+Return             exec $term
+bindsym $mod+Shift+Return       exec $term -e tmux
 
 # change focus between tiling / floating windows
 bindsym $mod+space              focus mode_toggle
@@ -138,7 +144,7 @@ bindsym $mod+Shift+8 move container to workspace $ws8
 bindsym $mod+Shift+9 move container to workspace $ws9
 bindsym $mod+Shift+0 move container to workspace $ws10
 
-assign [class="Firefox"] $ws3
+assign [class="Firefox"] $ws1
 # }}}
 
 # Mode Bindings {{{
@@ -203,8 +209,8 @@ bindsym $mod+$leader mode "leader"
 # }}}
 
 # Status Bar {{{
-bar {
-        status_command i3status
-        tray_output primary
-}
+# bar {
+#         status_command i3status
+#         tray_output primary
+# }
 # }}}
