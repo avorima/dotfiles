@@ -108,20 +108,25 @@ if ! shopt -oq posix; then
   fi
 fi
 
-source ~/perl5/perlbrew/etc/bashrc
+[ -d ~/perl5/perlbrew ] && source ~/perl5/perlbrew/etc/bashrc
 
-export NVM_DIR="/home/mari0/.nvm"
-[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
+export NVM_DIR="$HOME/.nvm"
+if [ -d $NVM_DIR ]; then
+    [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
+fi
 
-# {{{
 # Node Completion - Auto-generated, do not touch.
 shopt -s progcomp
-for f in $(command ls ~/.node-completion); do
-  f="$HOME/.node-completion/$f"
-  test -f "$f" && . "$f"
-done
-# }}}
+if [ -d ~/.node-completion ]; then
+    for f in $(command ls ~/.node-completion); do
+        f="$HOME/.node-completion/$f"
+        test -f "$f" && . "$f"
+    done
+fi
 
-source "/home/mari0/.rvm/scripts/rvm" # Load rvm
+export RVM_DIR="$HOME/.rvm"
+if [ -d $RVM_DIR ]; then
+    source "$RVM_DIR/scripts/rvm" # Load rvm
+fi
 
 eval `keychain --eval --agents ssh id_rsa`
