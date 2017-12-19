@@ -1,10 +1,10 @@
-#!/bin/bash
+#!/usr/bin/env sh
 # vim: set ft=sh
 # audio controls taken from : https://ubuntuforums.org/showthread.php?t=2316875
 
-ACTIVESYNC=$(pacmd list-sinks | grep \* | awk '{print $3}')
+ACTIVESYNC=`pacmd list-sinks | grep \* | awk '{print $3}'`
 
-[[ $# -lt 2 ]] && AMOUNT=5 || AMOUNT="$2"
+[ $# -lt 2 ] && AMOUNT=5 || AMOUNT="$2"
 
 case "$1" in
     "+"|"plus"|"raise")

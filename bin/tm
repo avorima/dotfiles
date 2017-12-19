@@ -1,4 +1,5 @@
-#!/bin/bash
+#!/usr/bin/env sh
+
 SESSION=main
 tmux="tmux -2 -f $HOME/.tmux.conf"
 
@@ -9,7 +10,7 @@ if [ $? -eq 0 ]; then
     sleep 1
 else
     # create a new session
-    $tmux new-session -d -s  $SESSION
+    $tmux new-session -d -s $SESSION
 fi
 
-$tmux attach -t          $SESSION
+$tmux attach -t $SESSION
