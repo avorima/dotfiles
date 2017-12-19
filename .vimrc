@@ -85,8 +85,6 @@ set ttyfast
 set splitbelow
 set splitright
 set nowrap
-set textwidth=79
-set colorcolumn=80
 set showmatch
 set matchtime=2
 set modeline
@@ -113,15 +111,16 @@ let &t_SI = "\<Esc>[6 q"
 let &t_SR = "\<Esc>[4 q"
 let &t_EI = "\<Esc>[2 q"
 
-autocmd InsertLeave,WinEnter * set cursorline
-autocmd InsertEnter,WinLeave * set nocursorline
+autocmd insertleave,winenter * set cursorline
+autocmd insertenter,winleave * set nocursorline
 
 autocmd bufleave * call <SID>StripTrailingWhitespace()
 
 set more
+set textwidth=79
+set colorcolumn=80
 set relativenumber
 set number
-set scrolloff=7
 set noshowmode
 set showcmd
 set wildignore=*~,*.a,*.o,*.so,*.pyc,
@@ -231,14 +230,13 @@ nnoremap <leader>S :%s/\<<C-r><C-w>\>//g<left><left>
 " }}}
 
 " Functions {{{
-
 " Lightline Helpers {{{
 function! LightlineFugitive()
   try
     if exists('*fugitive#head')
       let mark = ' '
       let _ = fugitive#head()
-      return strlen(_) ? mark._ : ''
+      return strlen(_) ? mark . _ : ''
     endif
   catch
   endtry
@@ -353,7 +351,6 @@ function! DeleteMultipleEmptyLines()
   g/^\_$\n\_^$/d
 endfunction
 " }}}
-
 " }}}
 
 " Autocommands {{{
@@ -382,7 +379,6 @@ augroup END
 " }}}
 
 " Plugins {{{
-
 " syntastic {{{
 let g:syntastic_cpp_check_header = 1
 let g:syntastic_cpp_compiler_options = ' -std=c++0x'
@@ -521,5 +517,4 @@ let g:auto_ctags = 1
 " perl-tags-vim {{{
 let g:PT_use_ppi = 1
 " }}}
-
 " }}}
