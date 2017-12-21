@@ -126,7 +126,7 @@ if [[ $INSTALL_PLUGINS ]]; then
     rm ~/.vimrc.plugin
 
     # Fill .vim folder
-    mkdir -p ~/.vim/backup ~/.vim/undo ~/.vim/swap
+    mkdir -p ~/.vim/{backup,undo,swap,cache}
 
     log_success "Installed ViM plugins."
 fi
