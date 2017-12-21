@@ -222,7 +222,10 @@ nnoremap <leader>di( vi(<ESC>g`>xg`<x
 nnoremap <leader>di{ vi{<ESC>g`>xg`<x
 nnoremap <leader>di[ vi[<ESC>g`>xg`<x
 
-nnoremap <leader>dd :call DeleteMultipleEmptyLines()<CR>
+" squash newlines under cursors
+nnoremap <leader>dd vips<ESC>
+" squash newlines in file
+nnoremap <leader>%dd :g/^\_$\n\_^$/d<CR>
 
 " add/remove newlines above and below current line
 nnoremap <leader><space><space> mmO<ESC>jo<ESC>k`m
@@ -353,10 +356,6 @@ function! <SID>StripTrailingWhitespace()
     call cursor(l, c)
     set nohlsearch
   endif
-endfunction
-
-function! DeleteMultipleEmptyLines()
-  g/^\_$\n\_^$/d
 endfunction
 " }}}
 " }}}
