@@ -166,6 +166,9 @@ nnoremap <F3> :set foldlevel=0<CR>
 " paste things continuously
 xnoremap p "_dP
 
+" replace inside visual selection boundaries
+xmap <leader>s :s/\%V
+
 " easy align
 xmap ga <Plug>(EasyAlign)
 nmap ga <Plug>(EasyAlign)
