@@ -129,4 +129,4 @@ if [ -d $RVM_DIR ]; then
     source "$RVM_DIR/scripts/rvm" # Load rvm
 fi
 
-eval `keychain --eval --agents ssh id_rsa`
+[ -z $TMUX ] && eval `keychain --eval --agents ssh id_rsa`
