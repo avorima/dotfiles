@@ -1,4 +1,4 @@
-" vim: tw=99 cc=100 foldmethod=marker
+" vim: sw=2 tw=99 cc=100 foldmethod=marker
 
 " Plugins {{{
 call plug#begin('~/.vim/bundle')
@@ -235,9 +235,9 @@ vnoremap > >gv
 function! LightlineFugitive()
   try
     if exists('*fugitive#head')
-      let mark = ' '
-      let _ = fugitive#head()
-      return strlen(_) ? mark . _ : ''
+      let l:mark = "\ue0a0"
+      let l:_ = fugitive#head()
+      return strlen(_) ? l:mark . l:_ : ''
     endif
   catch
   endtry
@@ -245,11 +245,11 @@ function! LightlineFugitive()
 endfunction
 
 function! LightlineReadonly()
-  return &ft !~? 'help' && &readonly ? ' 🔒' : ''
+  return &ft !~? 'help' && &ro ? "\ue0a2" : ''
 endfunction
 
 function! LightlineFileformat()
-  return winwidth('.') > 90 ? (&fileformat . ' ' . WebDevIconsGetFileFormatSymbol()) : ''
+  return winwidth('.') > 90 ? (&ff . ' ' . WebDevIconsGetFileFormatSymbol()) : ''
 endfunction
 
 function! LightlineFileencoding()
@@ -257,7 +257,7 @@ function! LightlineFileencoding()
 endfunction
 
 function! LightlineFiletype()
-  return winwidth('.') > 70 ? (strlen(&filetype) ? &filetype . ' ' . WebDevIconsGetFileTypeSymbol() : 'no ft') : ''
+  return winwidth('.') > 70 ? (strlen(&ft) ? &ft . ' ' . WebDevIconsGetFileTypeSymbol() : 'no ft') : ''
 endfunction
 
 function! LightlineMode()
@@ -427,10 +427,9 @@ let g:lightline = {
       \     ]
       \ },
       \ 'component': {
-      \     'paste': '%{&paste?"!":""}'
+      \     'paste': '%{&paste ? "!" : ""}'
       \ },
       \ 'component_function': {
-      \     'mode'         : 'LightlineMode',
       \     'fugitive'     : 'LightlineFugitive',
       \     'readonly'     : 'LightlineReadonly',
       \     'bufferline'   : 'LightlineBufferline',
@@ -445,10 +444,10 @@ let g:lightline = {
       \     'syntastic': 'middle'
       \ },
       \ 'separator': {
-      \     'left': '', 'right': ''
+      \     'left': "\ue0b0", 'right': "\ue0b2"
       \ },
       \ 'subseparator': {
-      \     'left': '', 'right': ''
+      \     'left': "\ue0b1", 'right': "\ue0b3"
       \ }
       \ }
 
