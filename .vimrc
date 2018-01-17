@@ -29,8 +29,8 @@ Plug 'junegunn/limelight.vim', { 'for': 'markdown' }
 Plug 'junegunn/seoul256.vim'
 Plug 'ryanoasis/vim-devicons'
 Plug 'szw/vim-tags', { 'for': ['c', 'cpp', 'python', 'ruby'] }
-Plug 'SirVer/ultisnips'
-Plug 'honza/vim-snippets'
+Plug 'SirVer/ultisnips', { 'for': ['c','cpp','python','ruby','perl'] }
+Plug 'honza/vim-snippets', { 'for': ['c','cpp','python','ruby','perl'] }
 
 call plug#end()
 " Plugin End }}}
