@@ -217,6 +217,14 @@ nnoremap <expr> N 'nN'[v:searchforward]
 nnoremap <leader>s :s/\<<C-r><C-w>\>//g<left><left>
 nnoremap <leader>S :%s/\<<C-r><C-w>\>//g<left><left>
 
+" faster upper/lowercase
+nnoremap <leader>uc gUiw
+nnoremap <leader>lc guiw
+
+" reverse word / line
+nnoremap riw viwc<C-O>:set revins<CR><C-R>"<ESC>:set norevins<CR>
+nnoremap ris ^v$hc<C-O>:set revins<CR><C-R>"<ESC>:set norevins<CR>
+
 " add and remove folds
 vnoremap <space> zf
 vnoremap d<space> zE
@@ -230,6 +238,9 @@ xmap <leader>s :s/\%V
 " don't leave visual mode when indenting
 vnoremap < <gv
 vnoremap > >gv
+
+" reverse block
+vnoremap <leader>rv :!tac<CR>
 " }}}
 
 " Functions {{{
