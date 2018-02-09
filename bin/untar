@@ -1,0 +1,17 @@
+#!/usr/bin/env sh
+
+suffixes='\.tar\.bz2\|\.tb2\|\.tbz\|\.tbz2\|\.tar.gz\|\.tgz\|\.tar.lz\|\.tar\.lzma\|\.tlz\|\.tar\.xz\|\.txz\|\.tar\.Z\|\.tZ'
+
+archive=$1
+
+[ $# -eq 0 ] && echo 'missing arguments' && exit 1
+
+if [ $# -eq 1 ]; then
+    target=`echo $archive | sed "s/$suffixes//g"`
+else
+    target=$2
+fi
+
+mkdir -p $target > /dev/null
+
+tar -xf $archive -C $target --strip-components=1
