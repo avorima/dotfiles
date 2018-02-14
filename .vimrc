@@ -100,8 +100,14 @@ let mapleader=','
 " }}}
 
 " User interface {{{
-let g:seoul256_background = 236
-let g:seoul256_srgb = 1
+if has('termguicolors')
+  set termguicolors
+  let g:seoul256_srgb = 1
+  let g:seoul256_background = 236
+else
+  let g:seoul256_background = 235
+endif
+
 colo seoul256
 
 " mode cursors
