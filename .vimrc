@@ -1,5 +1,3 @@
-" vim: sw=2 tw=99 cc=100 foldmethod=marker
-
 " Plugins {{{
 call plug#begin('~/.vim/bundle')
 
@@ -558,3 +556,5 @@ let g:tmuxline_preset = {
         \'z'    : '#H' }
 " }}}
 " }}}
+
+" vim: sw=2 tw=99 cc=100 foldmethod=marker:
