@@ -430,7 +430,7 @@ let g:PT_use_ppi = 1
 " ultisnips
 let g:UltiSnipsExpandTrigger = "<tab><tab>"
 let g:UltiSnipsJumpForwardTrigger = "<C-n>"
-let g:UltiSnipsJumpBackwardTrigger = "<C-z>"
+let g:UltiSnipsJumpBackwardTrigger = "<C-p>"
 
 " vim-tags {{{
 let g:vim_tags_auto_generate = 1
