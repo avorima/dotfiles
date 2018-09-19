@@ -22,7 +22,7 @@
     lg = log --graph --all --decorate --pretty=short
     last = log -1 HEAD'
     unstage = reset HEAD --
-    temp = !"git branch -D temp; git checkout -b temp"
+    temp = !"git branch | grep -q temp && git branch -D temp; git checkout -b temp"
     switch = "!./.git/hooks/pre-checkout.sh $1"
     nicelog = log --pretty=format:'%Cred%h%Creset -%Creset %s %Cgreen(%cr) %C(bold blue)<%aE>%Creset [%G?]'
     children = "!f() { git rev-list --all --not $1^@ --children | grep $(git rev-parse $1); }; f" # reachable children of a ref
