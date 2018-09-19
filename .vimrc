@@ -145,7 +145,7 @@ map Q <nop>
 cnoremap w!! %!sudo tee > /dev/null %
 
 " Hex mode mapping
-cnoremap hex :%!xxd
+cnoremap hex %!xxd
 
 " Fuzzy searching
 cnoremap <leader>e e **/**/
