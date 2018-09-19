@@ -32,28 +32,39 @@ shopt -s checkwinsize
 [ -x /usr/bin/lesspipe ] && eval "$(SHELL=/bin/sh lesspipe)"
 
 # Colors for the prompt
-RED="\e[1;31m"
-GREEN="\e[0;32m"
-YELLOW="\e[1;33m"
-LITEBLUE="\e[0;36m"
-DARKBLUE="\e[0;34m"
-CLEAR="\e[0m"
+RED="\\[\\033[1;31m\\]"
+GREEN="\\[\\033[0;32m\\]"
+YELLOW="\\[\\033[1;33m\\]"
+LITEBLUE="\\[\\033[0;36m\\]"
+DARKBLUE="\\[\\033[0;34m\\]"
+CLEAR="\\[\\033[0m\\]"
+
+if [ "$TERM" != "linux" ]; then
+    ICON_GIT_CLEAN="✓"
+    ICON_GIT_DIRTY="✗"
+    ICON_PROMPT="➜"
+else
+    ICON_GIT_CLEAN="."
+    ICON_GIT_DIRTY="x"
+    ICON_PROMPT="$"
+fi
 
 parse_git_dirty() {
     if [[ $(git status 2> /dev/null | grep "Changes to be committed") != "" ]]
     then
-        echo "${GREEN}✓${CLEAR} "
+        echo "${GREEN}${ICON_GIT_CLEAN}${CLEAR} "
     elif [[ $(git diff --shortstat 2> /dev/null | tail -n1) != "" ]]
     then
-        echo "${YELLOW}✗${CLEAR} "
-    elif [[ $(git status --porcelain 2>/dev/null | grep "^??" | wc -l) -ne 0 ]]
+        echo "${YELLOW}${ICON_GIT_DIRTY}${CLEAR} "
+    elif [[ $(git status --porcelain 2>/dev/null | grep -c "^??") -ne 0 ]]
     then
-        echo "${RED}✗${CLEAR} "
+        echo "${RED}${ICON_GIT_DIRTY}${CLEAR} "
     fi
 }
 
 git_prompt() {
-    local ref=$(git symbolic-ref HEAD 2>/dev/null | cut -d'/' -f3)
+    local ref
+    ref=$(git symbolic-ref HEAD 2>/dev/null | cut -d'/' -f3)
     if [ "$ref" != "" ]; then
         echo "${DARKBLUE}git:(${RED}$ref${DARKBLUE})${CLEAR} $(parse_git_dirty)"
     fi
@@ -62,8 +73,7 @@ git_prompt() {
 set_prompt() {
     # Get last exit code
     local EXIT="$?"
-
-    current_dir="\[$LITEBLUE\]\W\[$CLEAR\]"
+    local current_dir="${LITEBLUE}\\W${CLEAR}"
 
     if [[ $VIRTUAL_ENV != "" ]]
     then
@@ -73,12 +83,13 @@ set_prompt() {
     fi
 
     if [ $EXIT -ne 0 ]; then
-        arrow="${RED}➜${CLEAR}"
+        arrow="${RED}${ICON_PROMPT}${CLEAR}"
     else
-        arrow="${GREEN}➜${CLEAR}"
+        arrow="${GREEN}${ICON_PROMPT}${CLEAR}"
     fi
 
-    export PS1="${arrow} ${venv} ${current_dir} $(git_prompt)"
+    PS1="${arrow} ${venv} ${current_dir} $(git_prompt)"
+    export PS1
 }
 
 export PROMPT_COMMAND=set_prompt
