@@ -116,10 +116,9 @@ let &t_SI = "\<Esc>[6 q"
 let &t_SR = "\<Esc>[4 q"
 let &t_EI = "\<Esc>[2 q"
 
-autocmd insertleave,winenter * set cursorline
-autocmd insertenter,winleave * set nocursorline
-
-autocmd bufleave * call <SID>StripTrailingWhitespace()
+set lcs=tab:»·,trail:␣,nbsp:˷
+highlight InvisibleSpaces ctermfg=Black ctermbg=Black
+call matchadd('InvisibleSpaces', '\S\@<=\s\+\%#\ze\s*$', -10)
 
 set more
 set textwidth=79
@@ -218,6 +217,8 @@ nnoremap <expr> n 'Nn'[v:searchforward]
 nnoremap <expr> N 'nN'[v:searchforward]
 
 " substitude word under cursor on line/globally
+"nmap S   :%s//g<LEFT><LEFT>
+"xmap S   :s//g<LEFT><LEFT>
 nnoremap <leader>s :s/\<<C-r><C-w>\>//g<left><left>
 nnoremap <leader>S :%s/\<<C-r><C-w>\>//g<left><left>
 
@@ -243,8 +244,20 @@ xmap <leader>s :s/\%V
 vnoremap < <gv
 vnoremap > >gv
 
-" reverse block
-vnoremap <leader>rv :!tac<CR>
+" delete block/function
+nnoremap <silent> <leader>db ]}mb[{^d'b:delmarks b<CR>
+
+nnoremap <leader>ifl ^mvw"byt;^%dd`vdd"bPa<space>&&<ESC>==
+
+nmap <silent> <BS><BS> :call <SID>StripTrailingWhitespace()<CR>
+
+nnoremap K :grep! "\b<C-R><C-W>\b"<CR>:cw<CR>
+
+" Duplicate visual selection
+xmap D y'>p
+
+nnoremap <leader>sle :setlocal spelllang=en<CR>
+nnoremap <leader>sld :setlocal spelllang=de<CR>
 " }}}
 
 " Functions {{{
@@ -408,6 +421,15 @@ augroup filetype_configs
   autocmd bufnewfile,bufreadpre *.t      setfiletype perl
   autocmd bufnewfile,bufreadpre *.conf   setfiletype cfg
   autocmd bufnewfile,bufreadpre *.yp     setfiletype yacc
+  autocmd filetype gitcommit setlocal spell
+  autocmd filetype markdown setlocal spell
+augroup END
+
+augroup VisibleNaughtiness
+    autocmd!
+    autocmd BufEnter *       set list
+    autocmd BufEnter *.txt   set nolist
+    autocmd BufEnter *       if !&modifiable | set nolist | endif
 augroup END
 " }}}
 
