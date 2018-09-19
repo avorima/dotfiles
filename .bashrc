@@ -1,8 +1,11 @@
 # If not running interactively, don't do anything
+# shellcheck disable=SC1091 disable=SC1094 disable=1090
 case $- in
     *i*) ;;
       *) return;;
 esac
+
+stty -ixoff -ixon
 
 # don't put duplicate lines or lines starting with space in the history.
 # See bash(1) for more options
