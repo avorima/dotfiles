@@ -14,7 +14,6 @@
     bl = blame -w
     co = checkout
     ap = add --patch
-    cm = commit -m
     st = status
     amend = commit --amend
     branches = branch -a
@@ -27,5 +26,7 @@
     switch = "!./.git/hooks/pre-checkout.sh $1"
     nicelog = log --pretty=format:'%Cred%h%Creset -%Creset %s %Cgreen(%cr) %C(bold blue)<%aE>%Creset [%G?]'
     children = "!f() { git rev-list --all --not $1^@ --children | grep $(git rev-parse $1); }; f" # reachable children of a ref
+
+    cmsg = "!f() { if [ $# -gt 0 ]; then msg=\"$@\"; git commit -m \"$msg\"; else read -r msg; git commit -m \"$msg\"; fi; }; f"
 [format]
     pretty = "%h %ci $ce %ae %d %s"
