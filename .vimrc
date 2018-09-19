@@ -431,6 +431,8 @@ augroup END
 xmap ga <Plug>(EasyAlign)
 nmap ga <Plug>(EasyAlign)
 
+let g:easy_align_ignore_groups = ['Comment', 'String']
+
 " vim-gitgutter
 nmap ]h <Plug>GitGutterNextHunk
 nmap [h <Plug>GitGutterPrevHunk
