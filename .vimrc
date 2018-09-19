@@ -9,12 +9,12 @@ Plug 'tpope/vim-repeat'
 Plug 'tpope/vim-sensible'
 Plug 'tpope/vim-surround'
 Plug 'tpope/vim-unimpaired'
-Plug 'mileszs/ack.vim'
 Plug 'junegunn/vim-easy-align'
 Plug 'airblade/vim-gitgutter'
 Plug 'itchyny/lightline.vim'
 Plug 'sheerun/vim-polyglot'
-Plug 'vim-syntastic/syntastic'
+Plug 'w0rp/ale'
+Plug 'maximbaz/lightline-ale'
 Plug 'scrooloose/nerdtree', { 'on': 'NERDTreeToggle' }
 Plug 'kopischke/vim-stay'
 Plug 'kopischke/vim-fetch'
@@ -440,32 +440,25 @@ let g:vim_tags_use_language_field = 1
 let g:vim_tags_cache_dir = expand($HOME . '/.vim/cache')
 " }}}
 
-" syntastic {{{
-let g:syntastic_cpp_check_header = 1
-let g:syntastic_cpp_compiler_options = ' -std=c++0x'
-
-let g:syntastic_python_checkers = [ 'pep8', 'pylint' ]
-
-let g:syntastic_mode_map = {
-      \ 'mode': 'passive',
-      \ 'active_filetypes': [ 'c', 'cpp', 'perl', 'python', 'ruby', 'javascript' ],
-      \ 'passive_filetypes': [ 'puppet', 'html', 'css', 'json'  ]
-      \ }
-" }}}
-
 " lightline.vim {{{
+let g:lightline#ale#indicator_checking = "\uf110"
+let g:lightline#ale#indicator_warnings = "\uf071"
+let g:lightline#ale#indicator_errors = "\uf05e"
+let g:lightline#ale#indicator_ok = "\uf00c"
+
 let g:lightline = {
       \ 'colorscheme': 'seoul256',
       \ 'active': {
       \     'left': [
       \         [ 'mode', 'paste' ],
       \         [ 'readonly', 'fugitive' ],
-      \         [ 'filename' ]
+      \         [ 'filename' ],
       \     ],
       \     'right': [
+      \         [ 'linter_checking', 'linter_errors', 'linter_warnings', 'linter_ok' ],
       \         [ 'lineinfo' ],
       \         [ 'percent' ],
-      \         [ 'fileformat', 'fileencoding', 'filetype', 'syntastic' ],
+      \         [ 'fileformat', 'fileencoding', 'filetype' ],
       \     ]
       \ },
       \ 'component': {
@@ -477,13 +470,19 @@ let g:lightline = {
       \     'bufferline'   : 'LightlineBufferline',
       \     'fileformat'   : 'LightlineFileformat',
       \     'fileencoding' : 'LightlineFileencoding',
-      \     'filetype'     : 'LightlineFiletype'
+      \     'filetype'     : 'LightlineFiletype',
       \ },
       \ 'component_expand': {
-      \     'syntastic': 'SyntasticStatuslineFlag'
+      \     'linter_checking': 'lightline#ale#checking',
+      \     'linter_warnings': 'lightline#ale#warnings',
+      \     'linter_errors': 'lightline#ale#errors',
+      \     'linter_ok': 'lightline#ale#ok',
       \ },
       \ 'component_type': {
-      \     'syntastic': 'middle'
+      \     'lightline_checking': 'left',
+      \     'lightline_warnings': 'warning',
+      \     'lightline_errors': 'error',
+      \     'lightline_ok': 'left',
       \ },
       \ 'separator': {
       \     'left': "\ue0b0", 'right': "\ue0b2"
