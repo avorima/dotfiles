@@ -377,42 +377,35 @@ function! <SID>StripTrailingWhitespace()
     set nohlsearch
   endif
 endfunction
-
-function! OptimizeForLargeFile()
-  " no syntax highlighting
-  setlocal eventignore+=filetype
-  " save memoty when other file is viewed
-  setlocal bufhidden=unload
-  " lower undolevels
-  setlocal undolevels=10
-  " disable syntastic
-  let b:syntastic_skip_checks = 1
-  SyntasticReset
-  " display message
-  autocmd vimenter * echo 'The file is larger than ' . (g:max_usable_filesize / 1024) 'KB.'
-endfunction
 " }}}
 " }}}
 
 " Autocommands {{{
-let g:max_usable_filesize = 1024 * 250 " 250 K seems to be quite a lot for my laptop
+augroup ToggleCursorLine
+  autocmd!
+  autocmd insertleave,winenter * set cursorline
+  autocmd insertenter,winleave * set nocursorline
+augroup END
 
-augroup reload_vimrc
+augroup StripTrailingWhitespace
+  autocmd!
+  autocmd bufleave * call <SID>StripTrailingWhitespace()
+augroup END
+
+augroup ReloadVimrc
   autocmd!
   autocmd bufwritepost $MYVIMRC nested source $MYVIMRC
 augroup END
 
-augroup global_configs
+augroup GlobalConfigs
   autocmd!
   " return to last edit position when opening files
   autocmd bufreadpost * if line ("'\"") > 0 && line("'\"") <= line("$") | exe "normal! g`\"" | endif
   " create intermediate directories (if necessary)
   autocmd bufnewfile * :call EnsureDirExists()
-  "check if file exceeds sensible limit
-  autocmd bufreadpre * let f=getfsize(expand("<afile>")) | if f > g:max_usable_filesize || f == -2 | call OptimizeForLargeFile() | endif
 augroup END
 
-augroup filetype_configs
+augroup FiletypeConfigs
   autocmd!
   autocmd bufnewfile,bufreadpre *.tt     setfiletype tt2
   autocmd bufnewfile,bufreadpre *.tt2    setfiletype tt2html
