@@ -7,7 +7,7 @@
     default = simple
 [alias]
     a = add
-    b = branch
+    b = !"git symbolic-ref HEAD 2>/dev/null | cut -d'/' -f3"
     c = commit
     s = status -sb
     m = merge --no-ff --edit
