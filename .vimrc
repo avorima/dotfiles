@@ -1,6 +1,30 @@
 " Plugins {{{
 call plug#begin('~/.vim/bundle')
 
+" Plug 'sheerun/vim-polyglot'
+Plug 'pearofducks/ansible-vim'
+Plug 'octol/vim-cpp-enhanced-highlight', { 'for': ['c', 'cpp'] }
+Plug 'vim-jp/vim-cpp', { 'for': ['c', 'cpp'] }
+Plug 'ekalinin/Dockerfile.vim'
+Plug 'tpope/vim-git'
+Plug 'fatih/vim-go', { 'for': ['go'] }
+Plug 'b4b4r07/vim-hcl'
+Plug 'towolf/vim-helm'
+Plug 'othree/html5.vim'
+Plug 'pangloss/vim-javascript'
+Plug 'lervag/vimtex'
+Plug 'plasticboy/vim-markdown'
+Plug 'vim-perl/vim-perl'
+Plug 'voxpupuli/vim-puppet'
+" Plug 'aliev/vim-compiler-python'
+Plug 'Vimjas/vim-python-pep8-indent', { 'for': ['python'] }
+Plug 'vim-python/python-syntax', { 'for': ['python'] }
+Plug 'wgwoods/vim-systemd-syntax'
+Plug 'hashivim/vim-terraform'
+Plug 'ericpruitt/tmux.vim'
+Plug 'cespare/vim-toml'
+Plug 'stephpy/vim-yaml'
+
 Plug 'tpope/vim-abolish'
 Plug 'tpope/vim-commentary'
 Plug 'tpope/vim-dispatch'
@@ -12,9 +36,9 @@ Plug 'tpope/vim-unimpaired'
 Plug 'junegunn/vim-easy-align'
 Plug 'airblade/vim-gitgutter'
 Plug 'itchyny/lightline.vim'
-Plug 'sheerun/vim-polyglot'
-Plug 'b4b4r07/vim-hcl'
-Plug 'hashivim/vim-terraform'
+
+Plug '~/.fzf'
+Plug 'jremmen/vim-ripgrep'
 Plug 'w0rp/ale'
 Plug 'maximbaz/lightline-ale'
 Plug 'scrooloose/nerdtree', { 'on': 'NERDTreeToggle' }
@@ -29,8 +53,8 @@ Plug 'junegunn/limelight.vim', { 'for': 'markdown' }
 Plug 'junegunn/seoul256.vim'
 Plug 'ryanoasis/vim-devicons'
 Plug 'szw/vim-tags', { 'for': ['c', 'cpp', 'python', 'ruby'] }
-Plug 'SirVer/ultisnips', { 'for': ['c','cpp','python','ruby','perl','go'] }
-Plug 'honza/vim-snippets', { 'for': ['c','cpp','python','ruby','perl','go'] }
+Plug 'SirVer/ultisnips', { 'for': ['c','cpp','python','ruby','perl','go','tex'] }
+Plug 'honza/vim-snippets', { 'for': ['c','cpp','python','ruby','perl','go','tex'] }
 Plug 'kana/vim-textobj-user'
 
 call plug#end()
