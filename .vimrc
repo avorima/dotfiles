@@ -284,8 +284,38 @@ nnoremap K :grep! "\b<C-R><C-W>\b"<CR>:cw<CR>
 " Duplicate visual selection
 xmap D y'>p
 
+" set spelllang
 nnoremap <leader>sle :setlocal spelllang=en<CR>
 nnoremap <leader>sld :setlocal spelllang=de<CR>
+
+function! <SID>ResizeVisualSelection(direction, side, count)
+    let l:cmd = "normal! g"
+    if a:direction == 1
+        let l:move = "k"
+    else
+        let l:move = "j"
+    endif
+
+    if a:count > 1
+        let l:move = a:count . l:move
+    endif
+
+    if a:side == 1
+        let l:start = "`<"
+        let l:end = "V`>"
+    else
+        let l:start = "`>"
+        let l:end = "V`<"
+    endif
+
+    execute l:cmd.l:start.l:move.l:end
+endfunction
+
+" Extend or reduce visual selection up or down (works with count)
+vnoremap <silent> <leader>k :<C-U>call <SID>ResizeVisualSelection(1, 1, v:count)<CR>
+vnoremap <silent> <leader>j :<C-U>call <SID>ResizeVisualSelection(0, 0, v:count)<CR>
+vnoremap <silent> <leader>K :<C-U>call <SID>ResizeVisualSelection(0, 1, v:count)<CR>
+vnoremap <silent> <leader>J :<C-U>call <SID>ResizeVisualSelection(1, 0, v:count)<CR>
 " }}}
 
 " Functions {{{
