@@ -469,23 +469,48 @@ nmap <leader>hv <Plug>GitGutterPreviewHunk
 " nerdtree
 nnoremap <leader>5 :NERDTreeToggle<CR>
 
-" perl-tags-vim
-let g:PT_use_ppi = 1
+let g:python_highlight_all = 1
 
 " ultisnips
 let g:UltiSnipsExpandTrigger = "<leader><tab>"
 let g:UltiSnipsJumpForwardTrigger = "<C-n>"
 let g:UltiSnipsJumpBackwardTrigger = "<C-p>"
 
-if executable('ag')
-  set grepprg=ag\ --nogroup\ --nocolor
-  let g:ctrlp_user_command = 'ag %s -l --nocolor -g ""'
-  let g:ctrlp_use_caching = 0
-endif
+" let g:ale_fix_on_save = 1
+let g:ale_linters = {
+      \ 'go': ['golangci-lint'],
+      \ 'tex': ['chktex'],
+      \ 'plaintex': ['chktex'],
+      \}
 
-let g:go_auto_type_info = 1
+" let g:ale_fixers = {
+"       \ 'go': ['goimports'],
+"       \}
+
+" let g:ale_go_gometalinter_options = '--disable-all --enable=vet --enable=errcheck --enable=golint'
+" let g:ale_go_gometalinter_options = '--disable-all --enable=vet --enable=errcheck -enable=goimports'
+" let g:ale_go_gometalinter_options = '--disable-all --enable=vet --enable=test'
+" let g:ale_go_gometalinter_lint_package = 1
+let g:ale_go_golangci_lint_options = '--no-config --disable-all -E gofmt -E goimports'
+
+let g:go_highlight_types = 1
+let g:go_highlight_fields = 1
+let g:go_highlight_extra_types = 1
+
+" let g:go_auto_type_info = 1
 let g:go_addtags_transform = "snakecase"
-let g:go_fmt_command = "goimports"
+" let g:go_auto_sameids = 1
+let g:go_fmt_command = ""
+" let g:go_fmt_options = "-tabs=false -tabwidth=4"
+
+augroup GoMappings
+  autocmd!
+  autocmd filetype go command! -bang GA call go#alternate#Switch(<bang>0, 'edit')
+  autocmd filetype go command! -bang GAV call go#alternate#Switch(<bang>0, 'vsplit')
+  autocmd filetype go nnoremap <leader>ga  :GA<CR>
+  autocmd filetype go nnoremap <leader>gav :GAV<CR>
+  autocmd filetype go nnoremap <leader>gi :GoImports<CR>
+augroup END
 
 " vim-textobj-user {{{
 
