@@ -151,7 +151,8 @@ if [ -z "$TMUX" ]; then
     ln -sf "$SSH_AUTH_SOCK" "$HOME/.ssh/auth_sock"
 fi
 
-source <(kubectl completion bash)
+type -p kubectl >/dev/null && source <(kubectl completion bash)
+type -p kubeadm >/dev/null && source <(kubeadm completion bash)
 
 [ -f ~/.fzf.bash ] && source ~/.fzf.bash
 
