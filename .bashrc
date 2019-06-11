@@ -154,6 +154,7 @@ fi
 type -p kubectl >/dev/null && source <(kubectl completion bash)
 type -p kubeadm >/dev/null && source <(kubeadm completion bash)
 type -p helm >/dev/null && source <(helm completion bash)
+type -p docker-ls >/dev/null && source <(docker-ls autocomplete bash)
 
 [ -f ~/.fzf.bash ] && source ~/.fzf.bash
 
