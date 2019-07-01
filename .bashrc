@@ -138,9 +138,11 @@ fi
 
 PATH=$PATH:$HOME/.local/bin:$HOME/bin
 
+export GOROOT=$HOME/.local/go
 export GOPATH=$HOME/go
+export GO111MODULE=auto
 
-PATH=$PATH:$HOME/.local/go/bin:$GOPATH/bin
+PATH=$PATH:$GOROOT/bin:$GOPATH/bin
 
 [ -d ~/.plenv/bin ] && PATH=$HOME/.plenv/bin:$PATH && eval "$(plenv init -)"
 
