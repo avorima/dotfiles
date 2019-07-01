@@ -429,7 +429,7 @@ function! GoAlternateSwitch(bang, cmd) abort
   if empty(file)
     echoe "no buffer name"
     return
-  elseif file =~# '^\f+_\test\.go$'
+  elseif file =~# '^\f\+_test\.go$'
     let l:root = split(file, '_test.go$')[0]
     let l:alt_file = l:root . ".go"
   elseif file =~# '^\f\+\.go$'
@@ -614,11 +614,11 @@ nnoremap <leader>gf :ALEFindReferences<CR>
 
 nnoremap <leader>do :ALEGoToDefinition<CR>
 nnoremap <leader>ds :ALEGoToDefinitionInSplit<CR>
-nnoremap <leader>ds :ALEGoToDefinitionInVSplit<CR>
+nnoremap <leader>dv :ALEGoToDefinitionInVSplit<CR>
 
 nnoremap <leader>to :ALEGoToTypeDefinition<CR>
 nnoremap <leader>ts :ALEGoToTypeDefinitionInSplit<CR>
-nnoremap <leader>ts :ALEGoToTypeDefinitionInVSplit<CR>
+nnoremap <leader>tv :ALEGoToTypeDefinitionInVSplit<CR>
 " }}}
 
 " vim-textobj-user {{{
