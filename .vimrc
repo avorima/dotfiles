@@ -1,13 +1,11 @@
 " Plugins {{{
 call plug#begin('~/.vim/bundle')
 
-" Plug 'sheerun/vim-polyglot'
 Plug 'pearofducks/ansible-vim'
 Plug 'octol/vim-cpp-enhanced-highlight', { 'for': ['c', 'cpp'] }
 Plug 'vim-jp/vim-cpp', { 'for': ['c', 'cpp'] }
 Plug 'ekalinin/Dockerfile.vim'
 Plug 'tpope/vim-git'
-Plug 'fatih/vim-go', { 'for': ['go'] }
 Plug 'b4b4r07/vim-hcl'
 Plug 'towolf/vim-helm'
 Plug 'othree/html5.vim'
@@ -16,7 +14,6 @@ Plug 'lervag/vimtex'
 Plug 'plasticboy/vim-markdown'
 Plug 'vim-perl/vim-perl'
 Plug 'voxpupuli/vim-puppet'
-" Plug 'aliev/vim-compiler-python'
 Plug 'Vimjas/vim-python-pep8-indent', { 'for': ['python'] }
 Plug 'vim-python/python-syntax', { 'for': ['python'] }
 Plug 'wgwoods/vim-systemd-syntax'
@@ -41,6 +38,7 @@ Plug '~/.fzf'
 Plug 'jremmen/vim-ripgrep'
 Plug 'w0rp/ale'
 Plug 'maximbaz/lightline-ale'
+
 Plug 'scrooloose/nerdtree', { 'on': 'NERDTreeToggle' }
 Plug 'kopischke/vim-stay'
 Plug 'kopischke/vim-fetch'
@@ -53,8 +51,6 @@ Plug 'junegunn/limelight.vim', { 'for': 'markdown' }
 Plug 'junegunn/seoul256.vim'
 Plug 'ryanoasis/vim-devicons'
 Plug 'szw/vim-tags', { 'for': ['c', 'cpp', 'python', 'ruby'] }
-Plug 'SirVer/ultisnips', { 'for': ['c','cpp','python','ruby','perl','go','tex'] }
-Plug 'honza/vim-snippets', { 'for': ['c','cpp','python','ruby','perl','go','tex'] }
 Plug 'kana/vim-textobj-user'
 
 call plug#end()
@@ -279,8 +275,6 @@ nnoremap <silent> <leader>ifl ^mvw"byt;^%dd`vdd"bPa<space>&&<ESC>==
 " strip trailing whitespace in file
 nmap <silent> <BS><BS> :call <SID>StripTrailingWhitespace()<CR>
 
-nnoremap K :grep! "\b<C-R><C-W>\b"<CR>:cw<CR>
-
 " Duplicate visual selection
 xmap D y'>p
 
@@ -425,16 +419,6 @@ function! EnsureDirExists ()
         endtry
     endif
 endfunction
-
-function! <SID>StripTrailingWhitespace()
-  if &modifiable
-    let l = line('.')
-    let c = col('.')
-    %s/\s\+$//e
-    call cursor(l, c)
-    set nohlsearch
-  endif
-endfunction
 " }}}
 " }}}
 
@@ -443,11 +427,6 @@ augroup ToggleCursorLine
   autocmd!
   autocmd insertleave,winenter * set cursorline
   autocmd insertenter,winleave * set nocursorline
-augroup END
-
-augroup StripTrailingWhitespace
-  autocmd!
-  autocmd bufleave * call <SID>StripTrailingWhitespace()
 augroup END
 
 augroup ReloadVimrc
@@ -482,6 +461,11 @@ augroup VisibleNaughtiness
     autocmd BufEnter *.txt   set nolist
     autocmd BufEnter *       if !&modifiable | set nolist | endif
 augroup END
+
+augroup GoCommands
+  autocmd!
+  autocmd filetype go nnoremap <leader>ta :term go test ./...<CR>
+augroup END
 " }}}
 
 " Plugins {{{
@@ -506,41 +490,48 @@ let g:UltiSnipsExpandTrigger = "<leader><tab>"
 let g:UltiSnipsJumpForwardTrigger = "<C-n>"
 let g:UltiSnipsJumpBackwardTrigger = "<C-p>"
 
-" let g:ale_fix_on_save = 1
+" ale {{{
+
 let g:ale_linters = {
-      \ 'go': ['golangci-lint'],
+      \ 'go': ['bingo'],
       \ 'tex': ['chktex'],
       \ 'plaintex': ['chktex'],
       \}
 
-" let g:ale_fixers = {
-"       \ 'go': ['goimports'],
-"       \}
+let g:ale_fixers = {
+      \ '*': ['remove_trailing_lines', 'trim_whitespace'],
+      \ 'go': ['goimports'],
+      \}
 
-" let g:ale_go_gometalinter_options = '--disable-all --enable=vet --enable=errcheck --enable=golint'
-" let g:ale_go_gometalinter_options = '--disable-all --enable=vet --enable=errcheck -enable=goimports'
-" let g:ale_go_gometalinter_options = '--disable-all --enable=vet --enable=test'
-" let g:ale_go_gometalinter_lint_package = 1
-let g:ale_go_golangci_lint_options = '--no-config --disable-all -E gofmt -E goimports'
+let g:ale_lint_on_enter = 1
+let g:ale_lint_on_filetype_changed = 1
 
-let g:go_highlight_types = 1
-let g:go_highlight_fields = 1
-let g:go_highlight_extra_types = 1
+let g:ale_set_loclist = 0
+let g:ale_set_quickfix = 1
 
-" let g:go_auto_type_info = 1
-let g:go_addtags_transform = "snakecase"
-" let g:go_auto_sameids = 1
-let g:go_fmt_command = ""
-" let g:go_fmt_options = "-tabs=false -tabwidth=4"
+let g:ale_completion_enabled = 1
+let g:ale_completion_delay = 250
+let g:ale_completion_max_suggestions = 20
 
-augroup GoMappings
-  autocmd!
-  autocmd filetype go command! -bang GA call go#alternate#Switch(<bang>0, 'edit')
-  autocmd filetype go command! -bang GAV call go#alternate#Switch(<bang>0, 'vsplit')
-  autocmd filetype go nnoremap <leader>ga  :GA<CR>
-  autocmd filetype go nnoremap <leader>gav :GAV<CR>
-  autocmd filetype go nnoremap <leader>gi :GoImports<CR>
-augroup END
+let g:ale_set_balloons_legacy_echo = 1
+
+set omnifunc=ale#completion#OmniFunc
+set completeopt=menu,menuone,preview,noselect,noinsert
+
+nnoremap <BS><BS> :ALEFix<CR>
+
+nnoremap K :ALEHover<CR>
+
+nnoremap <leader>gf :ALEFindReferences<CR>
+
+nnoremap <leader>do :ALEGoToDefinition<CR>
+nnoremap <leader>ds :ALEGoToDefinitionInSplit<CR>
+nnoremap <leader>ds :ALEGoToDefinitionInVSplit<CR>
+
+nnoremap <leader>to :ALEGoToTypeDefinition<CR>
+nnoremap <leader>ts :ALEGoToTypeDefinitionInSplit<CR>
+nnoremap <leader>ts :ALEGoToTypeDefinitionInVSplit<CR>
+" }}}
 
 " vim-textobj-user {{{
 
