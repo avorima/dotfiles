@@ -423,7 +423,7 @@ endfunction
 
 " Golang {{{
 
-" Taken from https://github.com/fatih/vim-go/blob/master/autoload/go/alternate.vim
+" Source: https://github.com/fatih/vim-go/blob/master/autoload/go/alternate.vim
 function! GoAlternateSwitch(bang, cmd) abort
   let file = expand('%')
   if empty(file)
@@ -449,13 +449,69 @@ function! GoAlternateSwitch(bang, cmd) abort
   endif
 endfunction
 
-nnoremap <silent> <Plug>(go-alternate-edit) :<C-u>call GoAlternateSwitch(0, "edit")<CR>
-nnoremap <silent> <Plug>(go-alternate-vertical) :<C-u>call GoAlternateSwitch(0, "vsplit")<CR>
-nnoremap <silent> <Plug>(go-alternate-split) :<C-u>call GoAlternateSwitch(0, "split")<CR>
-
 nnoremap <leader>gas :call GoAlternateSwitch(0, "split")<CR>
 nnoremap <leader>gav :call GoAlternateSwitch(0, "vsplit")<CR>
 
+" Source: https://github.com/fatih/vim-go/blob/master/autoload/go/test.vim
+function! GoTestFunc(bang, ...) abort
+  " search flags legend (used only)
+  " 'b' search backwards instead of forward
+  " 'c' accept a match at the cursor position
+  " 'n' do Not move the cursor
+  " 'W' don't wrap around the end of the file
+  "
+  " for the full list
+  " :help search
+  let test = search('func \(Test\|Example\)', 'bcnW')
+
+  if test == 0
+    echo "no test found immediate to cursor"
+    return
+  endif
+
+  let line = getline(test)
+  let name = split(split(line, " ")[1], "(")[0]
+  let args = [a:bang, 0, "-run", name . "$"]
+
+  if a:0
+    call extend(args, a:000)
+  else
+    " only add this if no custom flags are passed
+    call add(args, "-timeout=10s")
+  endif
+
+  call call("GoTestRun", args)
+endfunction
+
+function! GoTestRun(bang, compile, ...) abort
+    let args = ["test"]
+
+    " don't run the test, only compile it. Useful to capture and fix errors
+    if a:compile
+      let testfile = tempname() . ".test"
+      call extend(args, ["-c", "-o", testfile])
+    endif
+
+    if a:0
+      let goargs = a:000
+
+      " do not expand for coverage mode as we're passing the arg ourself
+      if a:1 != '-coverprofile'
+        " expand all wildcards(i.e. '%' to the current file name)
+        let goargs = map(copy(a:000), "expand(v:val)")
+      endif
+
+      call extend(args, goargs, 1)
+    else
+      " only add this if no custom flags are passed
+      call add(args, "-timeout=10s")
+    endif
+
+    execute ":term go " . join(args, " ") . " ./..."
+endfunction
+
+nnoremap <leader>ta :call GoTestRun(0, 0)<CR>
+nnoremap <leader>tf :call GoTestFunc(0, "-v")<CR>
 " }}}
 " }}}
 
@@ -497,11 +553,6 @@ augroup VisibleNaughtiness
     autocmd BufEnter *       set list
     autocmd BufEnter *.txt   set nolist
     autocmd BufEnter *       if !&modifiable | set nolist | endif
-augroup END
-
-augroup GoCommands
-  autocmd!
-  autocmd filetype go nnoremap <leader>ta :term go test ./...<CR>
 augroup END
 " }}}
 
