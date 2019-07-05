@@ -449,8 +449,9 @@ function! GoAlternateSwitch(bang, cmd) abort
   endif
 endfunction
 
-nnoremap <leader>gas :call GoAlternateSwitch(0, "split")<CR>
-nnoremap <leader>gav :call GoAlternateSwitch(0, "vsplit")<CR>
+nnoremap <leader>gao :call GoAlternateSwitch(1, "edit")<CR>
+nnoremap <leader>gas :call GoAlternateSwitch(1, "split")<CR>
+nnoremap <leader>gav :call GoAlternateSwitch(1, "vsplit")<CR>
 
 " Source: https://github.com/fatih/vim-go/blob/master/autoload/go/test.vim
 function! GoTestFunc(bang, ...) abort
