@@ -153,11 +153,11 @@ if [ -z "$TMUX" ]; then
     ln -sf "$SSH_AUTH_SOCK" "$HOME/.ssh/auth_sock"
 fi
 
-type -p kubectl >/dev/null && source <(kubectl completion bash)
-type -p kubeadm >/dev/null && source <(kubeadm completion bash)
-type -p helm >/dev/null && source <(helm completion bash)
-type -p docker-ls >/dev/null && source <(docker-ls autocomplete bash)
-type -p operator-sdk >/dev/null && source <(operator-sdk completion bash)
+command -v kubectl >/dev/null && source <(kubectl completion bash)
+command -v kubeadm >/dev/null && source <(kubeadm completion bash)
+command -v helm >/dev/null && source <(helm completion bash)
+command -v docker-ls >/dev/null && source <(docker-ls autocomplete bash)
+command -v operator-sdk >/dev/null && source <(operator-sdk completion bash)
 
 [ -f ~/.fzf.bash ] && source ~/.fzf.bash
 
