@@ -22,6 +22,9 @@
     branches = branch -a
     stashes = stash list
     unstage = reset HEAD --
+    semver = tag --sort=v:refname
+    pick = cherry-pick
+    sneak-push = push -o ci.skip
 
     c = commit
     amend = commit --amend
@@ -36,6 +39,10 @@
 
     children = "!f() { git rev-list --all --not $1^@ --children | grep $(git rev-parse $1); }; f" # reachable children of a ref
     deltag = "!f() { [ -z \"$1\" ] && return; git tag -d $1; git push origin :refs/tags/$1; }; f"
+
+    continue = "!f() { git status | grep -q 'rebase in progress' && git rebase --continue; }; f "
+    skip = "!f() { git status | grep -q 'rebase in progress' && git rebase --skip; }; f "
+    abort = "!f() { git status | grep -q 'rebase in progress' && git rebase --abort; }; f"
 
 [format]
     pretty = "%h %ci $ce %ae %d %s"
