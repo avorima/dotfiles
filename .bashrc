@@ -137,6 +137,11 @@ if [ -d "$RVM_DIR" ]; then
 fi
 
 PATH=$PATH:$HOME/.local/bin:$HOME/bin
+[ -d ~/.local/kubebuilder ] && {
+    PATH=$PATH:$HOME/.local/kubebuilder/bin
+    KUBEBUILDER_ASSETS=$HOME/.local/kubebuilder/bin
+    export KUBEBUILDER_ASSETS
+}
 
 export GOROOT=$HOME/.local/go
 export GOPATH=$HOME/go
