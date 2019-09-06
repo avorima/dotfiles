@@ -1,34 +1,41 @@
 [user]
     name = "Mario Valderrama"
     email = "<>"
+
 [core]
     editor = vim
+
 [push]
     default = simple
+
 [alias]
     a = add
-    b = !"git symbolic-ref HEAD 2>/dev/null | cut -d'/' -f3"
-    c = commit
+    ap = add --patch
+
     s = status -sb
+    st = status
+
     m = merge --ff
     bl = blame -w
+    b = !"git symbolic-ref HEAD 2>/dev/null | cut -d'/' -f3"
     co = checkout
-    ap = add --patch
-    st = status
-    amend = commit --amend
     branches = branch -a
     stashes = stash list
+    unstage = reset HEAD --
+
+    c = commit
+    amend = commit --amend
+    cmsg = "!f() { if [ $# -gt 0 ]; then msg=\"$@\"; git commit -m \"$msg\"; else read -r msg; git commit -m \"$msg\"; fi; }; f"
+    uncommit = !"git reset --soft HEAD~1 && git reset HEAD --"
+    faceroll = !"git commit --amend --no-edit; git push -f"
+
     l = log --graph --oneline --decorate
     lg = log --graph --all --decorate --pretty=short
     last = log -1 HEAD'
-    unstage = reset HEAD --
-    temp = !"git branch | grep -q temp && git branch -D temp; git checkout -b temp"
-    switch = "!./.git/hooks/pre-checkout.sh $1"
     nicelog = log --pretty=format:'%Cred%h%Creset -%Creset %s %Cgreen(%cr) %C(bold blue)<%aE>%Creset [%G?]'
+
     children = "!f() { git rev-list --all --not $1^@ --children | grep $(git rev-parse $1); }; f" # reachable children of a ref
     deltag = "!f() { [ -z \"$1\" ] && return; git tag -d $1; git push origin :refs/tags/$1; }; f"
-    faceroll = !"git commit --amend --no-edit; git push -f"
-    uncommit = !"git reset --soft HEAD~1 && git reset HEAD --"
-    cmsg = "!f() { if [ $# -gt 0 ]; then msg=\"$@\"; git commit -m \"$msg\"; else read -r msg; git commit -m \"$msg\"; fi; }; f"
+
 [format]
     pretty = "%h %ci $ce %ae %d %s"
