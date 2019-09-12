@@ -1,0 +1,11 @@
+#!/usr/bin/env sh
+
+VERSION=$1
+[ -z "$VERSION" ] && { echo "Missing version" 1>&2; exit 1; }
+
+# Check if we already have this go version installed
+if ! command -v "go$VERSION" 2>/dev/null; then
+    go get "golang.org/dl/go$VERSION"
+    "go$VERSION" download
+fi
+ln -sf "$(realpath "$(command -v "go$VERSION")")" "$HOME/.local/bin/go"
