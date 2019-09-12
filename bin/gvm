@@ -1,11 +1,80 @@
 #!/usr/bin/env sh
+# Go Version Manager
 
-VERSION=$1
-[ -z "$VERSION" ] && { echo "Missing version" 1>&2; exit 1; }
+_cmd=$1
+_args="ARGS ..."
 
-# Check if we already have this go version installed
-if ! command -v "go$VERSION" 2>/dev/null; then
-    go get "golang.org/dl/go$VERSION"
-    "go$VERSION" download
-fi
-ln -sf "$(realpath "$(command -v "go$VERSION")")" "$HOME/.local/bin/go"
+print_usage() {
+    echo "Usage: $(basename "$0") $_cmd $_args"
+    case ${_cmd} in
+        install|switch|compile)
+            ;;
+        *)
+            echo ""
+            echo "Commands:"
+            echo ""
+            echo "  install      Install a go version"
+            echo "  switch       Switch to a previously installed go version"
+            echo "  compile      Compile using the given go version"
+            echo ""
+            ;;
+    esac
+}
+
+_check_arg() {
+    [ -z "${1}" ] && {
+        echo "Missing ${2}" 1>&2
+        print_usage 1>&2
+        exit 1
+    }
+    echo "${1}"
+}
+
+_switch_to_version() {
+    ln -sf "$(realpath "$(command -v "go${1}")")" "$HOME/.local/bin/go"
+}
+
+install_cmd() {
+    version=$(_check_arg "$1" "version" "switch")
+    if ! command -v "go${version}" 2>/dev/null; then
+        go get "golang.org/dl/go${version}"
+        "go${version}" download
+        print "Use newly go ${version}? (y/N)"
+        read -r yn
+        [ "$yn" = "y" ] && _switch_to_version "${version}"
+    fi
+}
+
+switch_cmd() {
+    _switch_to_version "$(_check_arg "$1" "version" "switch")"
+    go version
+}
+
+compile_cmd() {
+    version=$(_check_arg "$1" "version")
+    target=$(_check_arg "$2" "target")
+
+    "go${version}" build "${target}"
+}
+
+set -e
+
+case $1 in
+    install|i)
+        _args="VERSION"
+        install_cmd "$2"
+        ;;
+    switch|s)
+        _args="VERSION"
+        switch_cmd "$2"
+        ;;
+    compile|c)
+        _args="VERSION TARGET"
+        compile_cmd "$2" "$3"
+        ;;
+    *)
+        _cmd=COMMAND
+        print_usage
+        exit 1
+        ;;
+esac
