@@ -34,19 +34,29 @@ _switch_to_version() {
     ln -sf "$(realpath "$(command -v "go${1}")")" "$HOME/.local/bin/go"
 }
 
+_install_version() {
+    go get "golang.org/dl/go${1}"
+    "go${1}" download
+}
+
 install_cmd() {
-    version=$(_check_arg "$1" "version" "switch")
+    version=$(_check_arg "$1" "version")
     if ! command -v "go${version}" 2>/dev/null; then
-        go get "golang.org/dl/go${version}"
-        "go${version}" download
-        print "Use newly go ${version}? (y/N)"
+        _install_version "${version}"
+        print "Switch to go ${version}? (y/N)"
         read -r yn
         [ "$yn" = "y" ] && _switch_to_version "${version}"
     fi
 }
 
 switch_cmd() {
-    _switch_to_version "$(_check_arg "$1" "version" "switch")"
+    version=$(_check_arg "$1" "version")
+    if ! command -v "go${version}" 2>/dev/null; then
+        print "Go ${version} is not installed. Install now? (y/N)"
+        read -r yn
+        [ "$yn" = "y" ] && _install_version "${version}"
+    fi
+    _switch_to_version "${version}"
     go version
 }
 
