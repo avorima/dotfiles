@@ -13,9 +13,9 @@ print_usage() {
             echo ""
             echo "Commands:"
             echo ""
-            echo "  install      Install a go version"
-            echo "  switch       Switch to a previously installed go version"
-            echo "  compile      Compile using the given go version"
+            echo "  install, i      Install a go version"
+            echo "  switch, s       Switch to a previously installed go version"
+            echo "  compile, c      Compile using the given go version"
             echo ""
             ;;
     esac
