@@ -36,7 +36,7 @@ Plug 'itchyny/lightline.vim'
 
 Plug '~/.fzf'
 Plug 'jremmen/vim-ripgrep'
-Plug 'w0rp/ale'
+Plug 'dense-analysis/ale'
 Plug 'maximbaz/lightline-ale'
 
 Plug 'scrooloose/nerdtree', { 'on': 'NERDTreeToggle' }
