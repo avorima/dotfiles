@@ -587,6 +587,7 @@ let g:ale_linters = {
       \ 'go': ['gopls'],
       \ 'tex': ['chktex'],
       \ 'plaintex': ['chktex'],
+      \ 'python': ['pyls'],
       \}
 
 let g:ale_fixers = {
@@ -605,6 +606,8 @@ let g:ale_completion_delay = 250
 let g:ale_completion_max_suggestions = 20
 
 let g:ale_set_balloons_legacy_echo = 1
+
+let g:ale_python_pyls_auto_pipenv = 1
 
 set omnifunc=ale#completion#OmniFunc
 set completeopt=menu,menuone,preview,noselect,noinsert
