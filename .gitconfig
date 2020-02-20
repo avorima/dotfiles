@@ -17,6 +17,8 @@
 
     m = merge --ff
     bl = blame -w
+    bm = branch -m
+    bd = branch -D
     b = !"git symbolic-ref HEAD 2>/dev/null | cut -d'/' -f3"
     co = checkout
     branches = branch -a
@@ -33,6 +35,9 @@
     faceroll = !"git commit --amend --no-edit; git push -f"
     dammit = "!f() { $EDITOR $1; git add $1; git commit --amend --no-edit; git push -f; }; f"
     purge-tag = "!f() { [ -z \"$1\" ] && return; git tag -d $1; git push origin :refs/tags/$1; }; f"
+
+    pum = pull upstream master
+    pom = push origin master
 
     l = log --graph --oneline --decorate
     lg = log --graph --all --decorate --pretty=short
