@@ -21,6 +21,7 @@
     bd = branch -D
     b = !"git symbolic-ref HEAD 2>/dev/null | cut -d'/' -f3"
     co = checkout
+    cob = checkout -b
     branches = branch -a
     stashes = stash list
     unstage = reset HEAD --
@@ -30,6 +31,7 @@
 
     c = commit
     amend = commit --amend
+    signoff = commit --amend --no-edit --signoff
     cmsg = "!f() { if [ $# -gt 0 ]; then msg=\"$@\"; git commit -m \"$msg\"; else read -r msg; git commit -m \"$msg\"; fi; }; f"
     uncommit = !"git reset --soft HEAD~1 && git reset HEAD --"
     faceroll = !"git commit --amend --no-edit; git push -f"
