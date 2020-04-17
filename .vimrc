@@ -610,6 +610,12 @@ let g:ale_set_balloons_legacy_echo = 1
 
 let g:ale_python_pyls_auto_pipenv = 1
 
+let g:ale_c_ccls_init_options = {
+      \   'cache': {
+      \     'directory': '/tmp/ccls/cache'
+      \   }
+      \ }
+
 set omnifunc=ale#completion#OmniFunc
 set completeopt=menu,menuone,preview,noselect,noinsert
 
