@@ -546,6 +546,7 @@ augroup FiletypeConfigs
   autocmd bufnewfile,bufreadpre *.t      setfiletype perl
   autocmd bufnewfile,bufreadpre *.conf   setfiletype cfg
   autocmd bufnewfile,bufreadpre *.yp     setfiletype yacc
+  autocmd bufnewfile,bufreadpre .envrc   setfiletype sh
   autocmd filetype gitcommit setlocal spell
   autocmd filetype markdown setlocal spell
   autocmd filetype resolv setlocal commentstring=#\ %s
