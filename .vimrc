@@ -550,6 +550,7 @@ augroup FiletypeConfigs
   autocmd filetype gitcommit setlocal spell
   autocmd filetype markdown setlocal spell
   autocmd filetype resolv setlocal commentstring=#\ %s
+  autocmd filetype helm setlocal commentstring=#\ %s
 augroup END
 
 augroup VisibleNaughtiness
