@@ -32,63 +32,64 @@ shopt -s checkwinsize
 [ -x /usr/bin/lesspipe ] && eval "$(SHELL=/bin/sh lesspipe)"
 
 # Colors for the prompt
-RED="\\[\\033[1;31m\\]"
-GREEN="\\[\\033[0;32m\\]"
-YELLOW="\\[\\033[1;33m\\]"
-LITEBLUE="\\[\\033[0;36m\\]"
-DARKBLUE="\\[\\033[0;34m\\]"
-CLEAR="\\[\\033[0m\\]"
+__RED="\\[\\033[1;31m\\]"
+__GREEN="\\[\\033[0;32m\\]"
+__YELLOW="\\[\\033[1;33m\\]"
+__LITEBLUE="\\[\\033[0;36m\\]"
+__DARKBLUE="\\[\\033[0;34m\\]"
+__CLEAR="\\[\\033[0m\\]"
 
 if [ "$TERM" != "linux" ]; then
-    ICON_GIT_CLEAN="✓"
-    ICON_GIT_DIRTY="✗"
-    ICON_PROMPT="➜"
+    __ICON_GIT_CLEAN="✓"
+    __ICON_GIT_DIRTY="✗"
+    __ICON_PROMPT="➜"
 else
-    ICON_GIT_CLEAN="."
-    ICON_GIT_DIRTY="x"
-    ICON_PROMPT="$"
+    __ICON_GIT_CLEAN="."
+    __ICON_GIT_DIRTY="x"
+    __ICON_PROMPT="$"
 fi
 
-parse_git_dirty() {
+__parse_git_dirty() {
     if git status 2> /dev/null | grep -q "Changes to be committed"; then
-        echo "${GREEN}${ICON_GIT_CLEAN}${CLEAR} "
+        echo "${__GREEN}${__ICON_GIT_CLEAN}${__CLEAR} "
     elif [ "$(git diff --shortstat 2> /dev/null | tail -n1 )" != "" ]; then
-        echo "${YELLOW}${ICON_GIT_DIRTY}${CLEAR} "
+        echo "${__YELLOW}${__ICON_GIT_DIRTY}${__CLEAR} "
     elif git status --porcelain 2>/dev/null | grep -q "^??"; then
-        echo "${RED}${ICON_GIT_DIRTY}${CLEAR} "
+        echo "${__RED}${__ICON_GIT_DIRTY}${__CLEAR} "
     fi
 }
 
-git_prompt() {
+__git_prompt() {
+    local local_ref
     local_ref=$(git symbolic-ref HEAD 2>/dev/null | sed 's/refs\/heads\///')
     if [ "${local_ref}" != "" ]; then
-        echo "${DARKBLUE}git:(${RED}${local_ref}${DARKBLUE})${CLEAR} $(parse_git_dirty)"
+        echo "${__DARKBLUE}git:(${__RED}${local_ref}${__DARKBLUE})${__CLEAR} $(__parse_git_dirty)"
     fi
 }
 
-set_prompt() {
+__set_prompt() {
     # Get last exit code
     EXIT_CODE="$?"
-    current_dir="${LITEBLUE}\\W${CLEAR}"
+    current_dir="${__LITEBLUE}\\W${__CLEAR}"
 
     if [ "${VIRTUAL_ENV}" != "" ]
     then
-        venv=" ${YELLOW}[${VIRTUAL_ENV##*/}]"
+        venv=" ${__YELLOW}[${VIRTUAL_ENV##*/}]"
     else
-        venv="${CLEAR}"
+        venv="${__CLEAR}"
     fi
 
     if [ ${EXIT_CODE} -ne 0 ]; then
-        arrow="${RED}${ICON_PROMPT}${CLEAR}"
+        arrow="${__RED}${__ICON_PROMPT}${__CLEAR}"
     else
-        arrow="${GREEN}${ICON_PROMPT}${CLEAR}"
+        arrow="${__GREEN}${__ICON_PROMPT}${__CLEAR}"
     fi
 
-    PS1="${arrow} ${venv} ${current_dir} $(git_prompt)"
+    PS1="${arrow} ${venv} ${current_dir} $(__git_prompt)"
     export PS1
 }
 
-export PROMPT_COMMAND=set_prompt
+export PROMPT_COMMAND=__set_prompt
 
 LS_COLORS='di=1;34:fi=0;0:ln=0;35:ex=0;32:'
 export LS_COLORS
