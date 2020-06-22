@@ -549,6 +549,8 @@ augroup FiletypeConfigs
   autocmd bufnewfile,bufreadpre .envrc   setfiletype sh
   autocmd filetype gitcommit setlocal spell
   autocmd filetype markdown setlocal spell
+  autocmd filetype markdown setlocal foldmethod=manual
+  autocmd filetype markdown setlocal foldlevel=999
   autocmd filetype resolv setlocal commentstring=#\ %s
   autocmd filetype helm setlocal commentstring=#\ %s
 augroup END
