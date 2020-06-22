@@ -623,20 +623,20 @@ let g:ale_c_ccls_init_options = {
 set omnifunc=ale#completion#OmniFunc
 set completeopt=menu,menuone,preview,noselect,noinsert
 
-nnoremap <BS><BS> :ALEFix<CR>
+nnoremap <silent> <BS><BS> :ALEFix<CR>
 
-nnoremap K :ALEHover<CR>
+nnoremap <silent> K :ALEHover<CR>
 
-nnoremap <leader>gf :ALEFindReferences<CR>
-nnoremap <leader>gs :ALESymbolSearch<CR>
+nnoremap <silent> <leader>gf :ALEFindReferences<CR>
+nnoremap <silent> <leader>gs :ALESymbolSearch<CR>
 
-nnoremap <leader>do :ALEGoToDefinition<CR>
-nnoremap <leader>ds :ALEGoToDefinitionInSplit<CR>
-nnoremap <leader>dv :ALEGoToDefinitionInVSplit<CR>
+nnoremap <silent> <leader>do :ALEGoToDefinition<CR>
+nnoremap <silent> <leader>ds :ALEGoToDefinition -split<CR>
+nnoremap <silent> <leader>dv :ALEGoToDefinition -vsplit<CR>
 
-nnoremap <leader>to :ALEGoToTypeDefinition<CR>
-nnoremap <leader>ts :ALEGoToTypeDefinitionInSplit<CR>
-nnoremap <leader>tv :ALEGoToTypeDefinitionInVSplit<CR>
+nnoremap <silent> <leader>to :ALEGoToTypeDefinition<CR>
+nnoremap <silent> <leader>ts :ALEGoToTypeDefinition -split<CR>
+nnoremap <silent> <leader>tv :ALEGoToTypeDefinition -vsplit<CR>
 " }}}
 
 " vim-textobj-user {{{
