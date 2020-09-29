@@ -633,6 +633,8 @@ nnoremap <silent> <BS><BS> :ALEFix<CR>
 
 nnoremap <silent> K :ALEHover<CR>
 
+nnoremap <silent> <leader>gr :ALERename<CR>
+
 nnoremap <silent> <leader>gf :ALEFindReferences<CR>
 nnoremap <silent> <leader>gs :ALESymbolSearch<CR>
 
