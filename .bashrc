@@ -157,6 +157,7 @@ if [ -z "$TMUX" ]; then
     fi
 fi
 
+command -v pip >/dev/null && source <(pip completion --bash)
 command -v kubectl >/dev/null && source <(kubectl completion bash)
 command -v kubeadm >/dev/null && source <(kubeadm completion bash)
 command -v kind >/dev/null && source <(kind completion bash)
