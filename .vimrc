@@ -315,17 +315,23 @@ vnoremap <silent> <leader>J :<C-U>call <SID>ResizeVisualSelection(1, 0, v:count)
 
 inoremap <leader>pwd <ESC>mp:.r!pwd<CR>i<BS><C-O>A
 
-" Run go test under cursor
-nnoremap <leader>gt :term go test -run=<C-r><C-w><CR>
-
-function! <SID>RunGoUnitTest()
+function! <SID>RunGoTests()
   let l:path = '.' . substitute(expand('%:p:h'), getcwd(), '', '')
-  let l:cmd = 'go test -short ' . l:path
+  let l:cmd = 'go test -cover ' . l:path
   let l:bufnr = term_start(cmd)
   echom 'Running: ' . l:cmd
 endfunction
 
-nnoremap <leader>gu :call<SID>RunGoUnitTest()<CR>
+nnoremap <leader>gt :call<SID>RunGoTests()<CR>
+
+function! <SID>RunGoUnitTests()
+  let l:path = '.' . substitute(expand('%:p:h'), getcwd(), '', '')
+  let l:cmd = 'go test -cover -short ' . l:path
+  let l:bufnr = term_start(cmd)
+  echom 'Running: ' . l:cmd
+endfunction
+
+nnoremap <leader>gu :call<SID>RunGoUnitTests()<CR>
 
 " }}}
 
