@@ -189,3 +189,5 @@ fkill() {
         echo "$pid" | xargs kill -"${1:-9}"
     fi
 }
+
+[ -e ~/.local/bin/mc ] && complete -C /home/mv/.local/bin/mc mc
