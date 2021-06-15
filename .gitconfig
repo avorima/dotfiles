@@ -69,3 +69,6 @@
 
 [url "git@github.com:ionos-cloud"]
     insteadOf = https://github.com/ionos-cloud
+
+[url "git@github.com:avorima"]
+    insteadOf = https://github.com/avorima
