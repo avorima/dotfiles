@@ -39,30 +39,27 @@ __DARKBLUE="\\[\\033[0;34m\\]"
 __CLEAR="\\[\\033[0m\\]"
 
 if [ "$TERM" != "linux" ]; then
-    __ICON_GIT_CLEAN="✓"
+    __ICON_GIT_STAGE="✓"
     __ICON_GIT_DIRTY="✗"
     __ICON_PROMPT="➜"
 else
-    __ICON_GIT_CLEAN="."
+    __ICON_GIT_STAGE="-"
     __ICON_GIT_DIRTY="x"
     __ICON_PROMPT="$"
 fi
 
-__parse_git_dirty() {
-    if git status 2> /dev/null | grep -q "Changes to be committed"; then
-        echo "${__GREEN}${__ICON_GIT_CLEAN}${__CLEAR} "
-    elif [ "$(git diff --shortstat 2> /dev/null | tail -n1 )" != "" ]; then
-        echo "${__YELLOW}${__ICON_GIT_DIRTY}${__CLEAR} "
-    elif git status --porcelain 2>/dev/null | grep -q "^??"; then
-        echo "${__RED}${__ICON_GIT_DIRTY}${__CLEAR} "
-    fi
-}
-
 __git_prompt() {
-    local local_ref
-    local_ref=$(git symbolic-ref HEAD 2>/dev/null | sed 's/refs\/heads\///')
-    if [ "${local_ref}" != "" ]; then
-        echo "${__DARKBLUE}git:(${__RED}${local_ref}${__DARKBLUE})${__CLEAR} $(__parse_git_dirty)"
+    local ref state
+    ref=$(git symbolic-ref HEAD 2>/dev/null | sed 's/refs\/heads\///')
+    if [ "${ref}" != "" ]; then
+        if git status 2>/dev/null | grep -q "Changes to be committed"; then
+            state=" ${__GREEN}${__ICON_GIT_STAGE}"
+        elif [ "$(git diff --shortstat 2>/dev/null)" != "" ]; then
+            state=" ${__YELLOW}${__ICON_GIT_DIRTY}"
+        elif git status --porcelain 2>/dev/null | grep -q "^??"; then
+            state=" ${__RED}${__ICON_GIT_DIRTY}"
+        fi
+        echo " ${__DARKBLUE}git:(${__RED}${ref}${__DARKBLUE})${state}${__CLEAR}"
     fi
 }
 
@@ -71,12 +68,16 @@ __set_prompt() {
     EXIT_CODE="$?"
     current_dir="${__LITEBLUE}\\W${__CLEAR}"
 
-    if [ "${VIRTUAL_ENV}" != "" ]
-    then
+    if [ "${VIRTUAL_ENV}" != "" ]; then
         venv=" ${__YELLOW}[${VIRTUAL_ENV##*/}]"
-    else
-        venv="${__CLEAR}"
     fi
+    venv="${venv}${__CLEAR}"
+
+    kube_context=$(kubectl config current-context 2>/dev/null || echo "")
+    if [ -n "${kube_context}" ]; then
+        kubectx=" ${__DARKBLUE}k8s:(${__RED}${kube_context}${__DARKBLUE})"
+    fi
+    kubectx="${kubectx}${__CLEAR}"
 
     if [ ${EXIT_CODE} -ne 0 ]; then
         arrow="${__RED}${__ICON_PROMPT}${__CLEAR}"
@@ -84,7 +85,7 @@ __set_prompt() {
         arrow="${__GREEN}${__ICON_PROMPT}${__CLEAR}"
     fi
 
-    PS1="${arrow} ${venv} ${current_dir} $(__git_prompt)"
+    PS1="${arrow}${venv} ${current_dir}${kubectx}$(__git_prompt) "
     export PS1
 }
 
