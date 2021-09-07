@@ -641,6 +641,8 @@ let g:ale_fixers = {
       \ '*': ['remove_trailing_lines', 'trim_whitespace'],
       \ 'go': ['goimports'],
       \ 'json': ['jq'],
+      \ 'terraform': ['terraform'],
+      \ 'hcl': ['terraform'],
       \}
 
 let g:ale_lint_on_enter = 1
