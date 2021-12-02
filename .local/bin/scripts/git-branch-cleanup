@@ -1,0 +1,37 @@
+#!/usr/bin/sh
+
+while getopts ":i" opt; do
+    case $opt in
+        i) interactive=true ;;
+        *) ;;
+    esac
+done
+shift $((OPTIND-1))
+
+if [ -n "$1" ]; then
+    git remote update --prune "$1"
+else
+    for r in $(git remote); do
+        git remote update --prune "$r"
+    done
+fi
+
+cur=$(git branch | grep '\*' | cut -d' ' -f2)
+for b in $(git branch | sed 's/^[\* ] //g'); do
+    has_remote=false
+    for r in $(git branch -r | grep -v HEAD | cut -d'/' -f2- | sort -u); do
+        if [ "$b" = "$r" ]; then
+            has_remote=true
+        fi
+    done
+    if ! $has_remote; then
+        [ "$b" != "$cur" ] && {
+            if [ -n "$interactive" ]; then
+                printf "delete branch '%s'? (y/N): " "$b"
+                read -r yn
+                [ "$yn" != "y" ] && continue
+            fi
+            git branch -D "$b"
+        }
+    fi
+done
