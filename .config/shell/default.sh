@@ -27,6 +27,8 @@ export EDITOR=/usr/bin/nvim
 
 export HISTSIZE=1000
 
+export MYSQL_HISTFILE=/dev/null
+
 alias ls='ls --color=auto --group-directories-first'
 alias ll='ls -lhA --color=auto --group-directories-first'
 alias lt='ls -lht --color=auto --group-directories-first'
