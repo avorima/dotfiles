@@ -1,0 +1,51 @@
+[user]
+  name = "Mario Valderrama"
+  email = "mario.valderrama@ionos.com"
+  signingkey = 54C103A0484A864929CAD5818B3977FB51077104
+
+[core]
+  editor = /usr/bin/nvim
+
+[push]
+  default = simple
+
+[pull]
+  rebase = true
+
+[alias]
+  a = add
+  ap = add --patch
+  b = !"git symbolic-ref HEAD 2>/dev/null | cut -d/ -f3-"
+  bm = branch -m
+  bd = branch -d
+  c = commit
+  m = merge --ff
+  s = status -sb
+  st = status
+  l = log --graph --oneline --decorate
+  lg = log --graph --all --decorate --pretty=short
+  sc = switch -C
+
+  branches = branch -a
+  last = log -1 HEAD
+  amend = commit --amend
+  redate = !"git commit --amend --no-edit --date=\"$(date -R)\""
+  uncommit = !"git reset --soft HEAD~1 && git reset HEAD --"
+  unstage = reset HEAD --
+  semver = tag --sort=v:refname
+  pick = cherry-pick
+  sneak-push = push -o ci.skip
+  faceroll = !"git commit --amend --no-edit && git push -f"
+  fetch--tags = fetch --tags
+
+  continue = "!f() { git status | grep -q 'rebase in progress' && git rebase --continue; }; f "
+  skip = "!f() { git status | grep -q 'rebase in progress' && git rebase --skip; }; f "
+  abort = "!f() { git status | grep -q 'rebase in progress' && git rebase --abort; }; f"
+
+[url "git@github.com:ionos-cloud"]
+  insteadOf = https://github.com/ionos-cloud
+
+[url "git@github.com:avorima"]
+  insteadOf = https://github.com/avorima
+
+# vim: sw=2 sts=2
