@@ -1,0 +1,9 @@
+#!/usr/bin/env sh
+
+[ $# -eq 0 ] && SESSION=$(whoami) || SESSION=$1
+
+if ! tmux has-session -t "$SESSION"; then
+    tmux new-session -d -s "$SESSION"
+fi
+
+tmux -2 -u -f ~/.config/tmux/tmux.conf attach -t "$SESSION"
