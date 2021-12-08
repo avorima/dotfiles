@@ -1,0 +1,4 @@
+#!/bin/sh
+[ "$(kubectx -c)" = "dev" ] || kubectx dev
+[ "$(kubens -c)" = "default" ] || kubens default
+
