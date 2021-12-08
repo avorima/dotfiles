@@ -1,11 +1,6 @@
 " Plugins {{{1
 call plug#begin('~/.config/nvim/bundle')
 
-Plug 'dense-analysis/ale'
-Plug 'nvim-lua/plenary.nvim'
-Plug 'lewis6991/gitsigns.nvim'
-Plug 'neovim/nvim-lspconfig'
-
 Plug 'tpope/vim-abolish'
 Plug 'tpope/vim-commentary'
 Plug 'tpope/vim-dispatch'
@@ -17,10 +12,16 @@ Plug 'tpope/vim-fugitive'
 Plug 'lambdalisue/suda.vim'
 Plug 'junegunn/vim-easy-align'
 Plug 'jremmen/vim-ripgrep'
+Plug 'nvim-lua/plenary.nvim'
+Plug 'lewis6991/gitsigns.nvim'
+Plug 'neovim/nvim-lspconfig'
+Plug 'dense-analysis/ale'
 
 Plug 'morhetz/gruvbox'
 Plug 'itchyny/lightline.vim'
-Plug 'josa42/nvim-lightline-lsp'
+" Plug 'josa42/nvim-lightline-lsp'
+" See https://github.com/josa42/nvim-lightline-lsp/pull/3
+Plug 'Teyras/nvim-lightline-lsp', { 'branch': 'patch-1' }
 
 call plug#end()
 " 1}}}
@@ -29,7 +30,6 @@ set expandtab
 set softtabstop=4
 set shiftwidth=4
 
-set nohlsearch
 set ignorecase
 set smartcase
 
@@ -41,10 +41,13 @@ set wildignore=*~,*.a,*.o,*.so,*.pyc,
       \*.jpg,*.jpeg,*.png,*.gif,*.pdf,*.git,
       \*.swp,*.swo
 set wildmode=list,list:longest,full
-" set completeopt=menu,menuone,noselect
+set completeopt=menuone,noselect
+set mouse=a
 
 " give files without filetype suffixes lower priority
 set suffixes+=,,
+
+set dictionary=/usr/share/dict/words
 
 " don't continue comment when hitting 'o'/'O' in normal mode
 set formatoptions-=r
@@ -54,6 +57,7 @@ set lcs=tab:»·,trail:␣,nbsp:˷
 highlight InvisibleSpaces ctermfg=Black ctermbg=Black
 call matchadd('InvisibleSpaces', '\S\@<=\s\+\%#\ze\s*$', -10)
 
+set nohlsearch
 set number
 set relativenumber
 
@@ -65,8 +69,9 @@ let g:gruvbox_italic = 1
 let g:gruvbox_contrast_dark = 'medium'
 colorscheme gruvbox
 
-" Mappings {{{1
 let mapleader = ','
+
+" Mappings {{{1
 
 " paste things continuously
 xnoremap p "_dP
@@ -107,12 +112,16 @@ function! TogglePaste()
     set nopaste
     set number
     set relativenumber
-    set list
+    if &ft == "go"
+      set list
+    endif
   else
     set paste
     set nonumber
     set norelativenumber
-    set nolist
+    if &ft == "go"
+      set nolist
+    endif
   endif
   execute "Gitsigns toggle_signs"
 endfunction
@@ -220,9 +229,79 @@ augroup END
 
 " Plugins {{{1
 
+let g:rg_command = 'rg --vimgrep --hidden'
+let g:rg_derive_root = 1
+
+let g:ale_linters = {
+    \ 'sh': ['shellcheck'],
+    \ }
+let g:ale_fixers = []
+let g:ale_disable_lsp = 1
+let g:ale_virtualtext_cursor = 1
+
+" Lua plugins {{{2
+
 lua <<EOF
-require('gitsigns').setup()
+-- Gitsigns
+require('gitsigns').setup {
+  signs = {
+    add = { hl = 'GitGutterAdd', text = '+' },
+    change = { hl = 'GitGutterChange', text = '~' },
+    delete = { hl = 'GitGutterDelete', text = '_' },
+    topdelete = { hl = 'GitGutterDelete', text = '‾' },
+    changedelete = { hl = 'GitGutterChange', text = '~' },
+  },
+}
+
+local nvim_lsp = require('lspconfig')
+
+-- Use an on_attach function to only map the following keys
+-- after the language server attaches to the current buffer
+local on_attach = function(_, bufnr)
+  local function buf_set_keymap(...) vim.api.nvim_buf_set_keymap(bufnr, ...) end
+  local function buf_set_option(...) vim.api.nvim_buf_set_option(bufnr, ...) end
+
+  -- Enable completion triggered by <c-x><c-o>
+  buf_set_option('omnifunc', 'v:lua.vim.lsp.omnifunc')
+
+  -- Mappings.
+  local opts = { noremap=true, silent=true }
+
+  -- See `:help vim.lsp.*` for documentation on any of the below functions
+  buf_set_keymap('n', '<leader>gD', '<cmd>lua vim.lsp.buf.declaration()<CR>', opts)
+  buf_set_keymap('n', '<leader>gd', '<cmd>lua vim.lsp.buf.definition()<CR>', opts)
+  buf_set_keymap('n', '<leader>gt', '<cmd>lua vim.lsp.buf.type_definition()<CR>', opts)
+  buf_set_keymap('n', '<leader>gi', '<cmd>lua vim.lsp.buf.implementation()<CR>', opts)
+  buf_set_keymap('n', 'K', '<cmd>lua vim.lsp.buf.hover()<CR>', opts)
+  buf_set_keymap('n', '<C-k>', '<cmd>lua vim.lsp.buf.signature_help()<CR>', opts)
+  -- buf_set_keymap('n', '<space>wa', '<cmd>lua vim.lsp.buf.add_workspace_folder()<CR>', opts)
+  -- buf_set_keymap('n', '<space>wr', '<cmd>lua vim.lsp.buf.remove_workspace_folder()<CR>', opts)
+  -- buf_set_keymap('n', '<space>wl', '<cmd>lua print(vim.inspect(vim.lsp.buf.list_workspace_folders()))<CR>', opts)
+  buf_set_keymap('n', '<leader>rn', '<cmd>lua vim.lsp.buf.rename()<CR>', opts)
+  buf_set_keymap('n', '<leader>ca', '<cmd>lua vim.lsp.buf.code_action()<CR>', opts)
+  buf_set_keymap('n', '<leader>fr', '<cmd>lua vim.lsp.buf.references()<CR>', opts)
+  buf_set_keymap('n', '<leader>e', '<cmd>lua vim.diagnostic.open_float()<CR>', opts)
+  buf_set_keymap('n', '[d', '<cmd>lua vim.diagnostic.goto_prev()<CR>', opts)
+  buf_set_keymap('n', ']d', '<cmd>lua vim.diagnostic.goto_next()<CR>', opts)
+  buf_set_keymap('n', '<leader>q', '<cmd>lua vim.diagnostic.setloclist()<CR>', opts)
+  buf_set_keymap('n', '<bs><bs>', '<cmd>lua vim.lsp.buf.formatting()<CR>', opts)
+
+end
+
+-- Use a loop to conveniently call 'setup' on multiple servers and
+-- map buffer local keybindings when the language server attaches
+local servers = { 'pylsp', 'gopls', 'vimls' }
+for _, lsp in ipairs(servers) do
+  nvim_lsp[lsp].setup {
+    on_attach = on_attach,
+    flags = {
+      debounce_text_changes = 150,
+    }
+  }
+end
 EOF
+
+" 2}}}
 
 " vim-easy-align {{{2
 xmap ga <Plug>(EasyAlign)
@@ -231,60 +310,16 @@ nmap ga <Plug>(EasyAlign)
 let g:easy_align_ignore_groups = ['Comment', 'String']
 " 2}}}
 
-" vim-ripgrep
-let g:rg_command = 'rg --vimgrep --hidden'
-let g:rg_derive_root = 1
-
-" ale {{{2
-let g:ale_linters = {
-      \ 'go': ['gopls'],
-      \ 'python': ['pyls'],
-      \}
-
-let g:ale_fixers = {
-      \ '*': ['remove_trailing_lines', 'trim_whitespace'],
-      \ 'go': ['goimports'],
-      \ 'json': ['jq'],
-      \ 'terraform': ['terraform'],
-      \ 'hcl': ['terraform'],
-      \}
-
-nnoremap <silent> <BS><BS> :ALEFix<CR>
-
-nnoremap <silent> <leader>gr :ALERename<CR>
-
-nnoremap <silent> <leader>gf :ALEFindReferences<CR>
-nnoremap <silent> <leader>gs :ALESymbolSearch<CR>
-
-nnoremap <silent> <leader>do :ALEGoToDefinition<CR>
-nnoremap <silent> <leader>ds :ALEGoToDefinition -split<CR>
-nnoremap <silent> <leader>dv :ALEGoToDefinition -vsplit<CR>
-
-nnoremap <silent> <leader>to :ALEGoToTypeDefinition<CR>
-nnoremap <silent> <leader>ts :ALEGoToTypeDefinition -split<CR>
-nnoremap <silent> <leader>tv :ALEGoToTypeDefinition -vsplit<CR>
-" 2}}}
-
 " lightline.vim {{{2
+
+let g:lightline#lsp#indicator_hints = "\uf110 "
+let g:lightline#lsp#indicator_info = "\uf129 "
+let g:lightline#lsp#indicator_warnings = "\uf071 "
+let g:lightline#lsp#indicator_errors = "\uf05e "
+let g:lightline#lsp#indicator_ok = "\uf00c "
+
 let g:lightline = {}
 let g:lightline.colorscheme = 'gruvbox'
-let g:lightline.component_expand = {
-    \ 'linter_warnings': 'lightline#lsp#warnings',
-    \ 'linter_errors': 'lightline#lsp#errors',
-    \ 'linter_info': 'lightline#lsp#info',
-    \ 'linter_hints': 'lightline#lsp#hints',
-    \ 'linter_ok': 'lightline#lsp#ok',
-    \ 'status': 'lightline#lsp#status',
-    \ }
-
-" Set color to the components:
-let g:lightline.component_type = {
-    \ 'linter_warnings': 'warning',
-    \ 'linter_errors': 'error',
-    \ 'linter_info': 'info',
-    \ 'linter_hints': 'hints',
-    \ 'linter_ok': 'left',
-    \ }
 
 let g:lightline.component_function = {
     \ 'gitbranch': 'fugitive#head',
@@ -292,15 +327,18 @@ let g:lightline.component_function = {
 
 let g:lightline.active = {
     \ 'left': [
-        \ [ 'mode', 'paste' ], [ 'gitbranch', 'readonly', 'filename', 'modified' ],
+        \ [ 'mode', 'paste' ],
+        \ [ 'gitbranch', 'readonly', 'filename', 'modified' ],
         \ ],
     \ 'right': [
-        \ [ 'lsp_info', 'lsp_hints', 'lsp_errors', 'lsp_warnings', 'lsp_ok' ], [ 'lsp_status' ],
+        \ [ 'lsp_info', 'lsp_hints', 'lsp_errors', 'lsp_warnings', 'lsp_ok' ],
         \ [ 'lineinfo' ],
         \ [ 'percent' ],
         \ [ 'spell', 'fileformat', 'fileencoding', 'filetype'],
         \ ],
     \ }
+
+call lightline#lsp#register()
 
 let g:lightline.separator = {'left': "\ue0b0", 'right': "\ue0b2"}
 let g:lightline.subseparator = {'left': "\ue0b1", 'right': "\ue0b3"}
@@ -318,6 +356,10 @@ let g:lightline.mode_map = {
       \ "\<C-s>" : 'S-B',
       \ '?'      : ' ? '
       \ }
+
+" Redraw the status each second
+call timer_start(1000, {->execute('call lightline#update()')}, #{repeat: -1})
+
 " 2}}}
 
 " 1}}}
