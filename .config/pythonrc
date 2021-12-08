@@ -1,0 +1,36 @@
+# vim: ft=python
+# Customized version of: https://hg.python.org/cpython/file/3.5/Lib/site.py#l376
+import sys
+
+def custom_register_readline():
+    import atexit
+    try:
+        import readline
+        import rlcompleter
+    except ImportError:
+        return
+
+    # Enable tab-completion
+    readline_doc = getattr(readline, '__doc__', '')
+    if readline_doc is not None and 'libedit' in readline_doc:
+        readline.parse_and_bind('bind ^I rl_complete')
+    else:
+        readline.parse_and_bind('tab: complete')
+
+    try:
+        readline.read_init_file()
+    except OSError:
+        pass
+
+    if readline.get_current_history_length() == 0:
+        from os import getenv
+        from os.path import join, expanduser
+        history = join(getenv('XDG_CACHE_DIR', join(expanduser('~'), '.cache')),
+                        'python_history')
+        try:
+            readline.read_history_file(history)
+        except IOError:
+            pass
+        atexit.register(readline.write_history_file, history)
+
+sys.__interactivehook__ = custom_register_readline
