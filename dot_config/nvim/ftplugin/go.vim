@@ -9,6 +9,8 @@ setlocal comments=s1:/*,mb:*,ex:*/,://
 setlocal commentstring=//\ %s
 
 setlocal noexpandtab
+setlocal shiftwidth=8
+setlocal softtabstop=8
 
 setlocal list
 
