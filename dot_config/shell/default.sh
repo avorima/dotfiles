@@ -11,6 +11,9 @@ export NPM_CONFIG_CACHE=$XDG_CACHE_HOME/npm
 export NPM_CONFIG_TMP=$XDG_RUNTIME_DIR/npm
 export PYTHONSTARTUP=$XDG_CONFIG_HOME/pythonrc
 export MYSQL_HISTFILE=/dev/null
+export VAGRANT_HOME=$XDG_DATA_HOME/vagrant
+export VAGRANT_ALIAS_FILE=$XDG_DATA_HOME/vagrant/aliases
+export K9SCONFIG=$XDG_CONFIG_HOME/k9s
 
 SESSION_DIR=$(find "$XDG_RUNTIME_DIR/gnupg" -type d ! -path "$XDG_RUNTIME_DIR/gnupg" 2>/dev/null)
 [ -d "$SESSION_DIR" ] && {
