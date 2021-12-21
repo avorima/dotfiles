@@ -29,8 +29,8 @@ SESSION_DIR=$(find "$XDG_RUNTIME_DIR/gnupg" -type d ! -path "$XDG_RUNTIME_DIR/gn
     export KUBEBUILDER_ASSETS
 }
 
-
-PATH=$HOME/.local/bin:$HOME/.local/bin/scripts:$HOME/go/bin:$KREW_ROOT/bin:$PATH
+command -v go >/dev/null && PATH=$(go env GOPATH)/bin:$PATH
+PATH=$HOME/.local/bin:$HOME/.local/bin/scripts:$KREW_ROOT/bin:$PATH
 export PATH
 
 export EDITOR=/usr/bin/nvim
