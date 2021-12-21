@@ -238,113 +238,32 @@ augroup END
 let g:rg_command = 'rg --vimgrep --hidden'
 let g:rg_derive_root = 1
 
+" overwrite ale defaults to prevent conflicts with lsp
 let g:ale_linters = {
-    \ 'sh': ['shellcheck'],
-    \ }
-let g:ale_fixers = []
+      \ 'apkbuild': [],
+      \ 'csh': [],
+      \ 'elixir': [],
+      \ 'go': [],
+      \ 'hack': [],
+      \ 'help': [],
+      \ 'inko': [],
+      \ 'perl': [],
+      \ 'perl6': [],
+      \ 'python': [],
+      \ 'rust': [],
+      \ 'spec': [],
+      \ 'svelte': [],
+      \ 'text': [],
+      \ 'vue': [],
+      \ 'v': [],
+      \ }
+
+let g:ale_fixers = {
+      \ 'json': ['jq'],
+      \ }
+
 let g:ale_disable_lsp = 1
 let g:ale_virtualtext_cursor = 1
-
-" Lua plugins {{{2
-
-lua <<EOF
--- Gitsigns
-require('gitsigns').setup {
-  signs = {
-    add = { hl = 'GitGutterAdd', text = '+' },
-    change = { hl = 'GitGutterChange', text = '~' },
-    delete = { hl = 'GitGutterDelete', text = '_' },
-    topdelete = { hl = 'GitGutterDelete', text = '‾' },
-    changedelete = { hl = 'GitGutterChange', text = '~' },
-  },
-  keymaps = {
-    -- Default keymap options
-    noremap = true,
-
-    ['n ]c'] = { expr = true, "&diff ? ']c' : '<cmd>Gitsigns next_hunk<CR>'"},
-    ['n [c'] = { expr = true, "&diff ? '[c' : '<cmd>Gitsigns prev_hunk<CR>'"},
-
-    ['n <leader>hs'] = '<cmd>Gitsigns stage_hunk<CR>',
-    ['v <leader>hs'] = ':Gitsigns stage_hunk<CR>',
-    ['n <leader>hu'] = '<cmd>Gitsigns undo_stage_hunk<CR>',
-    ['n <leader>hr'] = '<cmd>Gitsigns reset_hunk<CR>',
-    ['v <leader>hr'] = ':Gitsigns reset_hunk<CR>',
-    ['n <leader>hR'] = '<cmd>Gitsigns reset_buffer<CR>',
-    ['n <leader>hp'] = '<cmd>Gitsigns preview_hunk<CR>',
-    ['n <leader>hb'] = '<cmd>lua require"gitsigns".blame_line{full=true}<CR>',
-    ['n <leader>hS'] = '<cmd>Gitsigns stage_buffer<CR>',
-    ['n <leader>hU'] = '<cmd>Gitsigns reset_buffer_index<CR>',
-
-    -- Text objects
-    ['o ih'] = ':<C-U>Gitsigns select_hunk<CR>',
-    ['x ih'] = ':<C-U>Gitsigns select_hunk<CR>'
-  },
-  current_line_blame = true, -- Toggle with `:Gitsigns toggle_current_line_blame`
-  preview_config = {
-    -- Options passed to nvim_open_win
-    border = 'shadow',
-    style = 'minimal',
-    relative = 'cursor',
-    row = 0,
-    col = 1
-  },
-}
-
-local nvim_lsp = require('lspconfig')
-
--- Use an on_attach function to only map the following keys
--- after the language server attaches to the current buffer
-local on_attach = function(_, bufnr)
-  local function buf_set_keymap(...) vim.api.nvim_buf_set_keymap(bufnr, ...) end
-  local function buf_set_option(...) vim.api.nvim_buf_set_option(bufnr, ...) end
-
-  -- Enable completion triggered by <c-x><c-o>
-  buf_set_option('omnifunc', 'v:lua.vim.lsp.omnifunc')
-
-  -- Mappings.
-  local opts = { noremap=true, silent=true }
-
-  -- See `:help vim.lsp.*` for documentation on any of the below functions
-  -- buf_set_keymap('n', '<leader>gD', '<cmd>lua vim.lsp.buf.declaration()<CR>', opts)
-  buf_set_keymap('n', '<leader>gd', '<cmd>lua vim.lsp.buf.definition()<CR>', opts)
-  buf_set_keymap('n', '<leader>gds', '<cmd>sp<CR>:lua vim.lsp.buf.definition()<CR>', opts)
-  buf_set_keymap('n', '<leader>gdv', '<cmd>vsp<CR>:lua vim.lsp.buf.definition()<CR>', opts)
-  buf_set_keymap('n', '<leader>gt', '<cmd>lua vim.lsp.buf.type_definition()<CR>', opts)
-  buf_set_keymap('n', '<leader>gts', '<cmd>sp<CR>:lua vim.lsp.buf.type_definition()<CR>', opts)
-  buf_set_keymap('n', '<leader>gtv', '<cmd>vps<CR>:lua vim.lsp.buf.type_definition()<CR>', opts)
-  buf_set_keymap('n', '<leader>gi', '<cmd>lua vim.lsp.buf.implementation()<CR>', opts)
-  buf_set_keymap('n', '<leader>gis', '<cmd>sp<CR>:lua vim.lsp.buf.implementation()<CR>', opts)
-  buf_set_keymap('n', '<leader>giv', '<cmd>vsp<CR>:lua vim.lsp.buf.implementation()<CR>', opts)
-  buf_set_keymap('n', 'K', '<cmd>lua vim.lsp.buf.hover()<CR>', opts)
-  buf_set_keymap('n', '<C-k>', '<cmd>lua vim.lsp.buf.signature_help()<CR>', opts)
-  -- buf_set_keymap('n', '<space>wa', '<cmd>lua vim.lsp.buf.add_workspace_folder()<CR>', opts)
-  -- buf_set_keymap('n', '<space>wr', '<cmd>lua vim.lsp.buf.remove_workspace_folder()<CR>', opts)
-  -- buf_set_keymap('n', '<space>wl', '<cmd>lua print(vim.inspect(vim.lsp.buf.list_workspace_folders()))<CR>', opts)
-  buf_set_keymap('n', '<leader>rn', '<cmd>lua vim.lsp.buf.rename()<CR>', opts)
-  buf_set_keymap('n', '<leader>ca', '<cmd>lua vim.lsp.buf.code_action()<CR>', opts)
-  buf_set_keymap('n', '<leader>fr', '<cmd>lua vim.lsp.buf.references()<CR>', opts)
-  buf_set_keymap('n', '<leader>e', '<cmd>lua vim.diagnostic.open_float()<CR>', opts)
-  buf_set_keymap('n', '[d', '<cmd>lua vim.diagnostic.goto_prev()<CR>', opts)
-  buf_set_keymap('n', ']d', '<cmd>lua vim.diagnostic.goto_next()<CR>', opts)
-  buf_set_keymap('n', '<leader>q', '<cmd>lua vim.diagnostic.setloclist()<CR>', opts)
-  buf_set_keymap('n', '<bs><bs>', '<cmd>lua vim.lsp.buf.formatting()<CR>', opts)
-
-end
-
--- Use a loop to conveniently call 'setup' on multiple servers and
--- map buffer local keybindings when the language server attaches
-local servers = { 'pylsp', 'gopls', 'vimls' }
-for _, lsp in ipairs(servers) do
-  nvim_lsp[lsp].setup {
-    on_attach = on_attach,
-    flags = {
-      debounce_text_changes = 150,
-    }
-  }
-end
-EOF
-
-" 2}}}
 
 " vim-easy-align {{{2
 xmap ga <Plug>(EasyAlign)
