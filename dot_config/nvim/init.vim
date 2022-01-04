@@ -53,6 +53,9 @@ set suffixes+=,,
 
 set dictionary=/usr/share/dict/words
 
+" enable undo persistence
+set undofile
+
 " don't continue comment when hitting 'o'/'O' in normal mode
 set formatoptions-=r
 set formatoptions-=o
