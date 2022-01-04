@@ -23,9 +23,7 @@ Plug 'dense-analysis/ale'
 
 Plug 'morhetz/gruvbox'
 Plug 'itchyny/lightline.vim'
-" Plug 'josa42/nvim-lightline-lsp'
-" See https://github.com/josa42/nvim-lightline-lsp/pull/3
-Plug 'Teyras/nvim-lightline-lsp', { 'branch': 'patch-1' }
+Plug 'avorima/nvim-lightline-lsp', { 'branch': 'fix-diagnostics' }
 
 call plug#end()
 " 1}}}
