@@ -42,6 +42,9 @@
   skip = "!f() { git status | grep -q 'rebase in progress' && git rebase --skip; }; f "
   abort = "!f() { git status | grep -q 'rebase in progress' && git rebase --abort; }; f"
 
+[diff "sopsdiffer"]
+  textconv = sops -d
+
 [url "git@github.com:ionos-cloud"]
   insteadOf = https://github.com/ionos-cloud
 
