@@ -32,7 +32,6 @@
   redate = !"git commit --amend --no-edit --date=\"$(date -R)\""
   uncommit = !"git reset --soft HEAD~1 && git reset HEAD --"
   unstage = reset HEAD --
-  semver = tag --sort=v:refname
   pick = cherry-pick
   sneak-push = push -o ci.skip
   faceroll = !"git commit --amend --no-edit && git push -f"
@@ -50,5 +49,16 @@
 
 [url "git@github.com:avorima"]
   insteadOf = https://github.com/avorima
+
+[tag]
+  sort = version:refname
+
+[versionsort]
+  suffix = alpha
+  suffix = -alpha
+  suffix = beta
+  suffix = -beta
+  suffix = rc
+  suffix = -rc
 
 # vim: sw=2 sts=2
