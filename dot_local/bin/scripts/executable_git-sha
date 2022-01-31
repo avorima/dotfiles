@@ -1,4 +1,0 @@
-#!/usr/bin/sh
-ref=HEAD
-[ -n "$1" ] && ref=$1
-git rev-parse --short "$ref"
