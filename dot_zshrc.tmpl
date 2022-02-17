@@ -8,11 +8,6 @@ function zvm_after_init() {
     }
 }
 
-SESSION_DIR=$(find "$XDG_RUNTIME_DIR/gnupg" -type d ! -path "$XDG_RUNTIME_DIR/gnupg" 2>/dev/null)
-if [ -z "$SESSION_DIR" ]; then
-    eval "$(gpg-agent --enable-ssh-support --daemon --homedir $GNUPGHOME)"
-fi
-
 alias k=kubectl
 alias kctx=kubectx
 alias vim=nvim
