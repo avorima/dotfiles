@@ -32,7 +32,11 @@ fi
     export KUBEBUILDER_ASSETS
 }
 
-command -v go >/dev/null && PATH=$(go env GOPATH)/bin:$PATH
+if command -v go >/dev/null; then
+    PATH=$(go env GOPATH)/bin:$PATH
+    GOPATH=$(go env GOPATH)
+    export GOPATH
+fi
 PATH=$HOME/.local/bin:$HOME/.local/bin/scripts:$KREW_ROOT/bin:$PATH
 export PATH
 
