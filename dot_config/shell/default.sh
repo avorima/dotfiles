@@ -16,6 +16,7 @@ export VAGRANT_ALIAS_FILE=$XDG_DATA_HOME/vagrant/aliases
 export K9SCONFIG=$XDG_CONFIG_HOME/k9s
 # export GTK2_RC_FILES=$XDG_CONFIG_HOME/gtk-2.0/gtkrc
 # export KDEHOME=$XDG_CONFIG_HOME/kde
+export BAT_THEME=gruvbox-dark
 
 SESSION_DIR=$(find "$XDG_RUNTIME_DIR/gnupg" -type d ! -path "$XDG_RUNTIME_DIR/gnupg" 2>/dev/null)
 if [ -d "$SESSION_DIR" ]; then
@@ -43,6 +44,7 @@ alias ls='ls --color=auto --group-directories-first'
 alias ll='ls -lhA --color=auto --group-directories-first'
 alias lt='ls -lht --color=auto --group-directories-first'
 alias ..='cd ..'
+alias bat='bat --paging=always --italic-text=always'
 
 alias sssh='ssh -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null'
 alias sscp='scp -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null'
