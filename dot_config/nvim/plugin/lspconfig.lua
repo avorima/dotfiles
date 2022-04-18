@@ -1,4 +1,4 @@
-local nvim_lsp = require('lspconfig')
+local lspconfig = require('lspconfig')
 
 -- Use an on_attach function to only map the following keys
 -- after the language server attaches to the current buffer
@@ -41,12 +41,30 @@ end
 
 -- Use a loop to conveniently call 'setup' on multiple servers and
 -- map buffer local keybindings when the language server attaches
-local servers = { 'pylsp', 'gopls', 'vimls', 'bashls' }
+local servers = { 'pylsp', 'vimls', 'bashls', 'rust_analyzer' }
 for _, lsp in ipairs(servers) do
-  nvim_lsp[lsp].setup {
+  lspconfig[lsp].setup {
     on_attach = on_attach,
     flags = {
       debounce_text_changes = 150,
     }
   }
 end
+
+lspconfig.gopls.setup {
+  cmd = {"gopls", "serve"},
+  on_attach = on_attach,
+  flags = {
+    debounce_text_changes = 150,
+  },
+  settings = {
+    gopls = {
+      buildFlags = { '-tags=integration,e2e' },
+      analyses = {
+        -- fieldalignment = true,
+        -- shadow = true,
+        unusedparams = true,
+      },
+    },
+  },
+}
