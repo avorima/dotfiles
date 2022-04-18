@@ -125,6 +125,16 @@ nnoremap q: <nop>
 
 " Functions {{{1
 
+function StripTrailingWhitespace()
+  if !&binary && &filetype != 'diff'
+    normal mz
+    normal Hmy
+    %s/\s\+$//e
+    normal 'yz<CR>
+    normal `z
+  endif
+endfunction
+
 function! TogglePaste()
   if &paste == 1
     set nopaste
@@ -243,6 +253,13 @@ augroup Security
   autocmd BufNewFile,BufRead *.crt setlocal noswapfile nobackup noundofile
   autocmd BufNewFile,BufRead id_* setlocal noswapfile nobackup noundofile
 augroup END
+
+augroup Filetypes
+  autocmd!
+  autocmd BufNewFile,BufRead .envrc setfiletype sh
+  autocmd filetype yaml nnoremap <buffer> <silent> <BS><BS> :call StripTrailingWhitespace()<CR>
+augroup END
+
 " 1}}}
 
 " Plugins {{{1
