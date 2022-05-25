@@ -13,6 +13,7 @@ Plug 'tpope/vim-surround'
 Plug 'tpope/vim-unimpaired'
 Plug 'tpope/vim-fugitive'
 
+Plug 'segeljakt/vim-silicon'
 Plug 'mzlogin/vim-markdown-toc', { 'for': 'markdown' }
 Plug 'editorconfig/editorconfig-vim'
 Plug 'lambdalisue/suda.vim'
