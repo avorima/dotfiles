@@ -1,3 +1,4 @@
+# shellcheck shell=bash
 export XDG_CONFIG_HOME=$HOME/.config
 export XDG_CACHE_HOME=$HOME/.cache
 export XDG_DATA_HOME=$HOME/.local/share
@@ -25,7 +26,8 @@ if [ -d "$SESSION_DIR" ]; then
 else
     eval "$(gpg-agent --enable-ssh-support --daemon --homedir "$GNUPGHOME")"
 fi
-export GPG_TTY=$(tty)
+GPG_TTY=$(tty)
+export GPG_TTY
 
 [ -d ~/.local/kubebuilder ] && {
     KUBEBUILDER_ASSETS=$HOME/.local/kubebuilder/bin
