@@ -1,11 +1,16 @@
 source ~/.config/shell/default.sh
 
 # yay -S zsh-vi-mode
-source /usr/share/zsh/plugins/zsh-vi-mode/zsh-vi-mode.plugin.zsh
+# function zvm_config() {
+#     ZVM_TERM=alacritty-256color
+#     ZVM_VI_HIGHLIGHT_BACKGROUND=#cc241d
+#     ZVM_CURSOR_STYLE_ENABLED=true
+#     ZVM_INSERT_MODE_CURSOR=ZVM_CURSOR_BLINKING_BEAM
+#     ZVM_NORMAL_MODE_CURSOR=ZVM_CURSOR_BLINKING_BLOCK
+# }
+source /usr/share/zsh/plugins/zsh-vi-mode/zsh-vi-mode.zsh
 function zvm_after_init() {
-    [ -d /usr/share/fzf ] && {
-        source /usr/share/fzf/key-bindings.zsh
-    }
+    [ -f /usr/share/fzf/key-bindings.zsh ] && source /usr/share/fzf/key-bindings.zsh
 }
 
 alias k=kubectl
