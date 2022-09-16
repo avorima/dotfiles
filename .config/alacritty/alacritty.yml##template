@@ -2,10 +2,10 @@
 env:
   TERM: xterm-256color
   LANGUAGE: en
-  XDG_CONFIG_HOME: {{ .chezmoi.homeDir }}/.config
-  XDG_CACHE_HOME: {{ .chezmoi.homeDir }}/.cache
-  XDG_DATA_HOME: {{ .chezmoi.homeDir }}/.local/share
-  XDG_STATE_HOME: {{ .chezmoi.homeDir }}/.local/state
+  XDG_CONFIG_HOME: /home/{{ yadm.user }}/.config
+  XDG_CACHE_HOME: /home/{{ yadm.user }}/.cache
+  XDG_DATA_HOME: /home/{{ yadm.user }}/.local/share
+  XDG_STATE_HOME: /home/{{ yadm.user }}/.local/state
 
 font:
   size: 9
