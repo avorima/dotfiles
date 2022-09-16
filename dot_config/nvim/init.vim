@@ -1,10 +1,6 @@
 " Plugins {{{1
 call plug#begin('~/.config/nvim/bundle')
 
-Plug 'towolf/vim-helm'
-Plug 'hashivim/vim-terraform'
-Plug 'arzg/vim-rust-syntax-ext'
-
 Plug 'tpope/vim-abolish'
 Plug 'tpope/vim-commentary'
 Plug 'tpope/vim-dispatch'
@@ -13,21 +9,25 @@ Plug 'tpope/vim-surround'
 Plug 'tpope/vim-unimpaired'
 Plug 'tpope/vim-fugitive'
 
-Plug 'segeljakt/vim-silicon'
-Plug 'mzlogin/vim-markdown-toc', { 'for': 'markdown' }
-Plug 'editorconfig/editorconfig-vim'
+" Plug 'segeljakt/vim-silicon'
+" Plug 'mzlogin/vim-markdown-toc', { 'for': 'markdown' }
+" Plug 'editorconfig/editorconfig-vim'
 Plug 'lambdalisue/suda.vim'
 Plug 'junegunn/vim-easy-align'
 Plug 'jremmen/vim-ripgrep'
 Plug 'tmux-plugins/vim-tmux-focus-events'
-Plug 'nvim-lua/plenary.nvim'
-Plug 'lewis6991/gitsigns.nvim'
-Plug 'neovim/nvim-lspconfig'
-Plug 'dense-analysis/ale'
 
-Plug 'morhetz/gruvbox'
-Plug 'itchyny/lightline.vim'
-Plug 'josa42/nvim-lightline-lsp'
+Plug 'lewis6991/gitsigns.nvim'
+Plug 'nvim-lua/popup.nvim'
+Plug 'nvim-lua/plenary.nvim'
+Plug 'neovim/nvim-lspconfig'
+Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
+Plug 'nvim-telescope/telescope.nvim'
+
+Plug 'kyazdani42/nvim-web-devicons'
+Plug 'hoob3rt/lualine.nvim'
+
+Plug 'savq/melange'
 
 call plug#end()
 " 1}}}
@@ -73,15 +73,11 @@ set nohlsearch
 set number
 set relativenumber
 
-if has('termguicolors')
-  set termguicolors
-endif
-set background=dark
-let g:gruvbox_italic = 1
-let g:gruvbox_contrast_dark = 'light'
-colorscheme gruvbox
+set termguicolors
+colorscheme melange
 
-let mapleader = ','
+nnoremap <space> <nop>
+let mapleader = "\<Space>"
 
 " Mappings {{{1
 
@@ -98,13 +94,7 @@ vnoremap <leader>y "+y
 vnoremap < <gv
 vnoremap > >gv
 
-" toggle folds
-nnoremap <silent> <space> @=(foldlevel('.')?'za':"\<space>")<CR>
-
-" close all folds
-nnoremap <F3> :set foldlevel=0<CR>
-
-" don't short jumps in jumplist
+" don't keep short jumps in jumplist
 nnoremap <silent> } :<C-u>execute "keepjumps norm! " . v:count1 . "}zz"<CR>
 nnoremap <silent> { :<C-u>execute "keepjumps norm! " . v:count1 . "{zz"<CR>
 
@@ -118,9 +108,15 @@ nnoremap <leader>S :%s/\C\<<C-r><C-w>\>//g<left><left>
 
 nnoremap <silent> <F2> :call TogglePaste()<CR>
 
-" don't accidentally go into ex-mode
-nnoremap Q <nop>
-nnoremap q: <nop>
+nnoremap <silent> <leader>ff <cmd>Telescope find_files<cr>
+nnoremap <silent> <leader>fg <cmd>Telescope live_grep<cr>
+nnoremap <silent> <leader>fb <cmd>Telescope buffers<cr>
+nnoremap <silent> <leader>fh <cmd>Telescope help_tags<cr>
+
+nnoremap <silent> <leader>fr <cmd>Telescope lsp_references<cr>
+nnoremap <silent> <leader>fd <cmd>Telescope lsp_definitions<cr>
+nnoremap <silent> <leader>ft <cmd>Telescope lsp_type_definitions<cr>
+nnoremap <silent> <leader>fi <cmd>Telescope lsp_implementations<cr>
 
 " 1}}}
 
@@ -269,90 +265,11 @@ augroup END
 let g:rg_command = 'rg --vimgrep --hidden'
 let g:rg_derive_root = 1
 
-" overwrite ale defaults to prevent conflicts with lsp
-let g:ale_linters = {
-      \ 'apkbuild': [],
-      \ 'csh': [],
-      \ 'elixir': [],
-      \ 'go': [],
-      \ 'hack': [],
-      \ 'help': [],
-      \ 'inko': [],
-      \ 'perl': [],
-      \ 'perl6': [],
-      \ 'python': [],
-      \ 'rust': [],
-      \ 'spec': [],
-      \ 'svelte': [],
-      \ 'text': [],
-      \ 'vue': [],
-      \ 'v': [],
-      \ }
-
-let g:ale_fixers = {
-      \ 'json': ['jq'],
-      \ }
-
-let g:ale_disable_lsp = 1
-let g:ale_virtualtext_cursor = 1
-
 " vim-easy-align {{{2
 xmap ga <Plug>(EasyAlign)
 nmap ga <Plug>(EasyAlign)
 
 let g:easy_align_ignore_groups = ['Comment', 'String']
-" 2}}}
-
-" lightline.vim {{{2
-
-let g:lightline#lsp#indicator_hints = "\uf110 "
-let g:lightline#lsp#indicator_info = "\uf129 "
-let g:lightline#lsp#indicator_warnings = "\uf071 "
-let g:lightline#lsp#indicator_errors = "\uf05e "
-let g:lightline#lsp#indicator_ok = "\uf00c "
-
-let g:lightline = {}
-let g:lightline.colorscheme = 'gruvbox'
-
-let g:lightline.component_function = {
-    \ 'gitbranch': 'FugitiveHead',
-    \ }
-
-let g:lightline.active = {
-    \ 'left': [
-        \ [ 'mode', 'paste' ],
-        \ [ 'gitbranch', 'readonly', 'filename', 'modified' ],
-        \ ],
-    \ 'right': [
-        \ [ 'lsp_info', 'lsp_hints', 'lsp_errors', 'lsp_warnings', 'lsp_ok' ],
-        \ [ 'lineinfo' ],
-        \ [ 'percent' ],
-        \ [ 'spell', 'fileformat', 'fileencoding', 'filetype'],
-        \ ],
-    \ }
-
-call lightline#lsp#register()
-
-let g:lightline.separator = {'left': "\ue0b0", 'right': "\ue0b2"}
-let g:lightline.subseparator = {'left': "\ue0b1", 'right': "\ue0b3"}
-
-let g:lightline.mode_map = {
-      \ 'n'      : ' N ',
-      \ 'i'      : ' I ',
-      \ 'R'      : ' R ',
-      \ 'v'      : ' V ',
-      \ 'V'      : 'V-L',
-      \ 'c'      : ' C ',
-      \ "\<C-v>" : 'V-B',
-      \ 's'      : ' S ',
-      \ 'S'      : 'S-L',
-      \ "\<C-s>" : 'S-B',
-      \ '?'      : ' ? '
-      \ }
-
-" Redraw the status each second
-call timer_start(1000, {->execute('call lightline#update()')}, #{repeat: -1})
-
 " 2}}}
 
 " 1}}}
