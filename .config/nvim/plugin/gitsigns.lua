@@ -1,7 +1,7 @@
 require('gitsigns').setup {
   current_line_blame_opts = {
-      delay = 250,
-      ignore_whitespace = true
+    delay = 250,
+    ignore_whitespace = true
   },
 
   preview_config = {
@@ -17,7 +17,7 @@ require('gitsigns').setup {
   numhl      = true,  -- Toggle with `:Gitsigns toggle_numhl`
 
   yadm = {
-      enable = true,
+    enable = true,
   },
 
   on_attach = function(bufnr)

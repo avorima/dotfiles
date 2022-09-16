@@ -36,45 +36,45 @@ local on_attach = function(_, bufnr)
 end
 
 require('vim.lsp.protocol').CompletionItemKind = {
-    '', -- Text
-    '', -- Method
-    '', -- Function
-    '', -- Constructor
-    '', -- Field
-    '', -- Variable
-    '', -- Class
-    'ﰮ', -- Interface
-    '', -- Module
-    '', -- Property
-    '', -- Unit
-    '', -- Value
-    '', -- Enum
-    '', -- Keyword
-    '﬌', -- Snippet
-    '', -- Color
-    '', -- File
-    '', -- Reference
-    '', -- Folder
-    '', -- EnumMember
-    '', -- Constant
-    '', -- Struct
-    '', -- Event
-    'ﬦ', -- Operator
-    '', -- TypeParameter
+  '', -- Text
+  '', -- Method
+  '', -- Function
+  '', -- Constructor
+  '', -- Field
+  '', -- Variable
+  '', -- Class
+  'ﰮ', -- Interface
+  '', -- Module
+  '', -- Property
+  '', -- Unit
+  '', -- Value
+  '', -- Enum
+  '', -- Keyword
+  '﬌', -- Snippet
+  '', -- Color
+  '', -- File
+  '', -- Reference
+  '', -- Folder
+  '', -- EnumMember
+  '', -- Constant
+  '', -- Struct
+  '', -- Event
+  'ﬦ', -- Operator
+  '', -- TypeParameter
 }
 
 vim.lsp.handlers["textDocument/publishDiagnostic"] = vim.lsp.with(
-    vim.lsp.diagnostic.on_publish_diagnostics, {
-        underline = true,
-        virtual_text = {
-            spacing = 4,
-            prefix = ''
-        }
-    }
+vim.lsp.diagnostic.on_publish_diagnostics, {
+  underline = true,
+  virtual_text = {
+    spacing = 4,
+    prefix = ''
+  }
+}
 )
 
 local lsp_flags = {
-      debounce_text_changes = 150,
+  debounce_text_changes = 150,
 }
 
 -- Use a loop to conveniently call 'setup' on multiple servers and
