@@ -12,17 +12,18 @@ Plug 'tpope/vim-fugitive'
 " Plug 'segeljakt/vim-silicon'
 " Plug 'mzlogin/vim-markdown-toc', { 'for': 'markdown' }
 " Plug 'editorconfig/editorconfig-vim'
+
 Plug 'lambdalisue/suda.vim'
 Plug 'junegunn/vim-easy-align'
-Plug 'jremmen/vim-ripgrep'
 Plug 'tmux-plugins/vim-tmux-focus-events'
 
-Plug 'lewis6991/gitsigns.nvim'
-Plug 'nvim-lua/popup.nvim'
-Plug 'nvim-lua/plenary.nvim'
 Plug 'neovim/nvim-lspconfig'
-Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
+Plug 'nvim-lua/plenary.nvim'
+Plug 'nvim-lua/popup.nvim'
 Plug 'nvim-telescope/telescope.nvim'
+Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
+Plug 'nvim-treesitter/nvim-treesitter-context'
+Plug 'lewis6991/gitsigns.nvim'
 
 Plug 'kyazdani42/nvim-web-devicons'
 Plug 'hoob3rt/lualine.nvim'
@@ -262,15 +263,12 @@ augroup END
 
 " Plugins {{{1
 
-let g:rg_command = 'rg --vimgrep --hidden'
-let g:rg_derive_root = 1
+highlight! default link TreesitterContextLineNumber CursorLineNr
 
-" vim-easy-align {{{2
 xmap ga <Plug>(EasyAlign)
 nmap ga <Plug>(EasyAlign)
 
 let g:easy_align_ignore_groups = ['Comment', 'String']
-" 2}}}
 
 " 1}}}
 
