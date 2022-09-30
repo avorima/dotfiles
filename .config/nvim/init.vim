@@ -3,12 +3,12 @@ call plug#begin('~/.config/nvim/bundle')
 
 Plug 'tpope/vim-abolish'
 Plug 'tpope/vim-commentary'
-Plug 'tpope/vim-dispatch'
 Plug 'tpope/vim-repeat'
 Plug 'tpope/vim-surround'
 Plug 'tpope/vim-unimpaired'
 Plug 'tpope/vim-fugitive'
 
+Plug 'towolf/vim-helm'
 " Plug 'segeljakt/vim-silicon'
 " Plug 'mzlogin/vim-markdown-toc', { 'for': 'markdown' }
 " Plug 'editorconfig/editorconfig-vim'
@@ -26,7 +26,7 @@ Plug 'nvim-treesitter/nvim-treesitter-context'
 Plug 'lewis6991/gitsigns.nvim'
 
 Plug 'kyazdani42/nvim-web-devicons'
-Plug 'hoob3rt/lualine.nvim'
+Plug 'nvim-lualine/lualine.nvim'
 
 Plug 'savq/melange'
 
