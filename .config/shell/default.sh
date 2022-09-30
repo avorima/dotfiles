@@ -59,5 +59,6 @@ alias sscp='scp -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null'
 [ -e /usr/bin/man ] && alias man='LC_ALL=en_US.UTF-8 /usr/bin/man'
 [ -e /usr/bin/wget ] && alias wget='/usr/bin/wget --hsts-file=$XDG_CACHE_HOME/wget-hsts'
 [ -e /usr/bin/mcli ] && alias mcli='/usr/bin/mcli --config-dir=$XDG_CONFIG_HOME/mcli'
+[ -e /usr/bin/kubectl-neat ] && alias neat=/usr/bin/kubectl-neat
 
 alias chromium='systemd-run --user --quiet /usr/bin/chromium'
