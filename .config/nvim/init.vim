@@ -109,16 +109,6 @@ nnoremap <leader>S :%s/\C\<<C-r><C-w>\>//g<left><left>
 
 nnoremap <silent> <F2> :call TogglePaste()<CR>
 
-nnoremap <silent> <leader>ff <cmd>Telescope find_files<cr>
-nnoremap <silent> <leader>fg <cmd>Telescope live_grep<cr>
-nnoremap <silent> <leader>fb <cmd>Telescope buffers<cr>
-nnoremap <silent> <leader>fh <cmd>Telescope help_tags<cr>
-
-nnoremap <silent> <leader>fr <cmd>Telescope lsp_references<cr>
-nnoremap <silent> <leader>fd <cmd>Telescope lsp_definitions<cr>
-nnoremap <silent> <leader>ft <cmd>Telescope lsp_type_definitions<cr>
-nnoremap <silent> <leader>fi <cmd>Telescope lsp_implementations<cr>
-
 " 1}}}
 
 " Functions {{{1
