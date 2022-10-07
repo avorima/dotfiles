@@ -24,7 +24,7 @@ local on_attach = function(_, bufnr)
   buf_set_keymap('n', '[d', '<cmd>lua vim.diagnostic.goto_prev()<CR>', opts)
   buf_set_keymap('n', ']d', '<cmd>lua vim.diagnostic.goto_next()<CR>', opts)
   buf_set_keymap('n', '<leader>q', '<cmd>lua vim.diagnostic.setloclist()<CR>', opts)
-  buf_set_keymap('n', '<bs><bs>', '<cmd>lua vim.lsp.buf.formatting()<CR>', opts)
+  buf_set_keymap('n', '<bs><bs>', '<cmd>lua vim.lsp.buf.format({async = true})<CR>', opts)
 
   -- Format on save
   -- if client.resolved_capabilities.document_formatting then
@@ -93,7 +93,7 @@ lspconfig.gopls.setup {
   flags = lsp_flags,
   settings = {
     gopls = {
-      -- gofumpt = true,
+      gofumpt = true,
       buildFlags = { '-tags=integration,e2e' },
       analyses = {
         -- fieldalignment = true,
