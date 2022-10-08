@@ -23,6 +23,7 @@ Plug 'nvim-lua/popup.nvim'
 Plug 'nvim-telescope/telescope.nvim'
 Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
 Plug 'nvim-treesitter/nvim-treesitter-context'
+Plug 'nvim-treesitter/nvim-treesitter-textobjects'
 Plug 'lewis6991/gitsigns.nvim'
 
 Plug 'kyazdani42/nvim-web-devicons'
