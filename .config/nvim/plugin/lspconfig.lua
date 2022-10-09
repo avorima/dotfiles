@@ -79,13 +79,36 @@ local lsp_flags = {
 
 -- Use a loop to conveniently call 'setup' on multiple servers and
 -- map buffer local keybindings when the language server attaches
-local servers = { 'pylsp', 'vimls', 'bashls', 'rust_analyzer' }
+local servers = { 'pylsp', 'vimls', 'rust_analyzer' }
 for _, lsp in ipairs(servers) do
   lspconfig[lsp].setup {
     on_attach = on_attach,
     flags = lsp_flags,
   }
 end
+
+lspconfig.efm.setup {
+  on_attach = on_attach,
+  flags = lsp_flags,
+  init_options = {documentFormatting = true},
+  filetypes = {'sh'},
+  settings = {
+    rootMarkers = {'.git/', '.config/'},
+    languages = {
+      sh = {
+        {
+          lintCommand = 'shellcheck -f gcc -x',
+          lintSource = 'shellcheck',
+          lintFormats = {'%f:%l:%c: %trror: %m', '%f:%l:%c: %tarning: %m', '%f:%l:%c: %tote: %m'},
+        },
+        {
+          formatCommand = 'shfmt -ci -s -bn -i 4',
+          formatStdin = true,
+        },
+      },
+    },
+  },
+}
 
 lspconfig.gopls.setup {
   cmd = {"gopls", "serve"},
