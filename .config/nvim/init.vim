@@ -179,6 +179,12 @@ function! GoRunTests(...)
   echom "Running: " . l:cmd
   exe "new | term " . l:cmd
 endfunction
+
+function! GoRunTestUnderCursor()
+  let wordUnderCursor = expand("<cword>")
+  call GoRunTests("-run=" . wordUnderCursor)
+endfunction
+
 " 1}}}
 
 " Autocommands {{{1

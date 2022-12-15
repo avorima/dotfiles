@@ -25,5 +25,6 @@ nnoremap <buffer> <silent> <leader>gav :call GoAlternateSwitch(1, "vsplit")<CR>
 nnoremap <buffer> <leader>tu :call GoRunTests('-short')<CR>
 nnoremap <buffer> <leader>tr :call GoRunTests('-race')<CR>
 nnoremap <buffer> <leader>tt :call GoRunTests()<CR>
+nnoremap <buffer> <leader>to :call GoRunTestUnderCursor()<CR>
 
 " vim: sw=2 ts=2 et
