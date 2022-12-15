@@ -40,7 +40,8 @@ sudo pacman -S --needed \
     kubectl \
     helm \
     minio-client \
-    docker
+    docker \
+    pinentry
 
 if ! command -v yay >/dev/null; then
     echo "installing AUR helper"
