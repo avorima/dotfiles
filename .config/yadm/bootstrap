@@ -42,7 +42,8 @@ sudo pacman -S --needed \
     helm \
     minio-client \
     docker \
-    pinentry
+    pinentry \
+    git-delta
 
 if ! command -v yay >/dev/null; then
     echo "installing AUR helper"
