@@ -23,7 +23,7 @@ nnoremap <buffer> <silent> <leader>gas :call GoAlternateSwitch(1, "split")<CR>
 nnoremap <buffer> <silent> <leader>gav :call GoAlternateSwitch(1, "vsplit")<CR>
 
 nnoremap <buffer> <leader>tu :call GoRunTests('-short')<CR>
-nnoremap <buffer> <leader>tr :call GoRunTests('-race')<CR>
+nnoremap <buffer> <leader>tr :call GoRunTests('-race', '-count=1')<CR>
 nnoremap <buffer> <leader>tt :call GoRunTests()<CR>
 nnoremap <buffer> <leader>to :call GoRunTestUnderCursor()<CR>
 
