@@ -37,6 +37,7 @@ sudo pacman -S --needed \
     python-lsp-server \
     rust-analyzer \
     lua-language-server \
+    typescript-language-server \
     kubectl \
     helm \
     minio-client \
