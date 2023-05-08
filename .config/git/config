@@ -6,6 +6,9 @@
 [core]
   editor = /usr/bin/nvim
 
+[diff]
+  colorMoved = default
+
 [push]
   default = simple
 
