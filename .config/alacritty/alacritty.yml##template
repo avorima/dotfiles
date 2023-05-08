@@ -12,7 +12,7 @@ selection:
   save_to_clipboard: true
 
 font:
-  size: 9
+  size: 8
   normal:
     family: SauceCodePro Nerd Font
     style: Regular
