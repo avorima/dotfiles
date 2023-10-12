@@ -56,7 +56,7 @@ fi
 
 yay -S --needed \
     efm-langserver \
-    tmux-plugin-manager-git \
+    tmux-plugin-manager \
     tmux-fastcopy \
     zsh-vi-mode \
     kubectl-neat \
