@@ -41,6 +41,7 @@ PATH=$HOME/.local/bin:$HOME/.local/bin/scripts:$KREW_ROOT/bin:$XDG_DATA_HOME/gem
 export PATH
 
 export EDITOR=/usr/bin/nvim
+export MANPAGER='nvim +Man!'
 
 export HISTSIZE=1000
 
