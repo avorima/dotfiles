@@ -1,0 +1,56 @@
+# vim: ft=toml:commentstring=#\ %s:
+[env]
+TERM = "xterm-256color"
+LANGUAGE = "en"
+XDG_CACHE_HOME = "/home/{{ yadm.user }}/.cache"
+XDG_CONFIG_HOME = "/home/{{ yadm.user }}/.config"
+XDG_DATA_HOME = "/home/{{ yadm.user }}/.local/share"
+XDG_STATE_HOME = "/home/{{ yadm.user }}/.local/state"
+
+[selection]
+save_to_clipboard = true
+
+[font]
+size = 8
+
+[font.normal]
+family = "SauceCodePro Nerd Font"
+style = "Regular"
+
+[font.bold]
+family = "SauceCodePro Nerd Font"
+style = "Bold"
+
+[font.italic]
+family = "SauceCodePro Nerd Font"
+style = "Italic"
+
+[font.bold_italic]
+family = "SauceCodePro Nerd Font"
+style = "Bold Italic"
+
+# Tender
+
+[colors.primary]
+background = "#282828"
+foreground = "#eeeeee"
+
+[colors.normal]
+black = "#282828"
+blue = "#b3deef"
+cyan = "#73cef4"
+green = "#c9d05c"
+magenta = "#d3b987"
+red = "#f43753"
+white = "#eeeeee"
+yellow = "#ffc24b"
+
+[colors.bright]
+black = "#4c4c4c"
+blue = "#b3deef"
+cyan = "#73cef4"
+green = "#c9d05c"
+magenta = "#d3b987"
+red = "#f43753"
+white = "#feffff"
+yellow = "#ffc24b"
