@@ -1,0 +1,116 @@
+// vim: ft=jsonc
+{
+	"layer": "top",
+	"position": "top",
+	"spacing": 4,
+	"margin-top": 4,
+	"margin-bottom": 0,
+	"margin-left": 4,
+	"margin-right": 4,
+	"spacing": 1,
+	"gtk-layer-shell": true,
+	"modules-left": ["custom/launcher", "cpu", "memory", "tray"],
+	"modules-center": ["hyprland/workspaces", "idle_inhibitor"],
+	"modules-right": ["network", "temperature", "backlight", "pulseaudio", "battery", "hyprland/language", "clock"],
+	"hyprland/workspaces": {
+		"format": "{icon}",
+		"on-scroll-up": "hyprctl dispatch workspace e+1",
+		"on-scroll-down": "hyprctl dispatch workspace e-1",
+		"on-click": "activate"
+	},
+  "hyprland/language": {
+    "format": "{}",
+    "format-en": "🇺🇸",
+    "format-de": "🇩🇪",
+    "keyboard-name": "at-translated-set-2-keyboard"
+  },
+  "idle_inhibitor": {
+    "format": "{icon}",
+    "format-icons": {
+      "activated": "",
+      "deactivated": ""
+    }
+  },
+  "custom/launcher": {
+    "format": " ",
+    "on-click": "wofi --conf ~/.config/wofi/config --style ~/.config/wofi/mocha.css",
+    "on-click-right": "killall wofi"
+  },
+  "tray": {
+    "spacing": 10
+  },
+  "clock": {
+    "tooltip-format": "<big>{:%Y %B}</big>\n<tt><small>{calendar}</small></tt>",
+    "format-alt": "{:%Y-%m-%d}"
+  },
+  "cpu": {
+    // "format": "{usage}% "
+    "format": "{icon0} {icon1} {icon2} {icon3}",
+    "format-icons": [
+      "<span color='#a6e3a1'>▁</span>",
+      "<span color='#89dceb'>▂</span>",
+      "<span color='#f8f8f2'>▃</span>",
+      "<span color='#f5e0dc'>▄</span>",
+      "<span color='#ffffa5'>▅</span>",
+      "<span color='#fab387'>▆</span>",
+      "<span color='#f38ba8'>▇</span>",
+      "<span color='#eba0ac'>█</span>"
+    ]
+  },
+  "memory": {
+    "format": "{}% "
+  },
+  "temperature": {
+    "critical-temperature": 80,
+    "format": "{temperatureC}°C {icon}",
+    "format-icons": ["", "", ""]
+  },
+  "backlight": {
+    "format": "{percent}% {icon}",
+    "format-icons": ["", "", "", "", "", "", "", "", ""]
+  },
+  "battery": {
+    "states": {
+      "warning": 30,
+      "critical": 15
+    },
+    "format": "{capacity}% {icon}",
+    "format-charging": "{capacity}% ",
+    "format-plugged": "{capacity}% ",
+    "format-alt": "{time} {icon}",
+    "format-icons": ["", "", "", "", ""]
+  },
+  "network": {
+      // "interface": "wlp2*", // (Optional) To force the use of this interface
+      // "format-wifi": "{essid} ({signalStrength}%) ",
+      "format-wifi": "{signalStrength}% ",
+      "format-ethernet": "{ipaddr}/{cidr} ",
+      "tooltip-format": "{ifname} via {gwaddr} ",
+      "format-linked": "{ifname} (No IP) ",
+      "format-disconnected": "Disconnected ⚠",
+      "format-alt": "{ifname}: {ipaddr}/{cidr}"
+  },
+  "pulseaudio": {
+    "format": "{volume}% {icon}",
+    "format-bluetooth": "{volume}% {icon}",
+    "format-source": "{volume}% 🎤",
+    "format-source-muted": "X 🎤",
+    "format-muted": "X ",
+    "format-icons": {
+      "headphone": "",
+      "hands-free": "",
+      "headset": "",
+      "default": ["", ""]
+    },
+    "scroll-step": 5
+    // "on-click": "pavucontrol",
+    // "ignored-sinks": ["Easy Effects Sink"]
+  },
+  "wireplumber": {
+    "format": "{volume}%",
+    "format-muted": "",
+    "on-click": "helvum",
+    "max-volume": 150,
+    "scroll-step": 0.2
+  }
+}
