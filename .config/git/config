@@ -20,6 +20,7 @@
   a = add
   ap = add --patch
   b = !"git symbolic-ref HEAD 2>/dev/null | cut -d/ -f3-"
+  bblame = blame -w -C -C -C
   bm = branch -m
   bd = branch -d
   c = commit -S
