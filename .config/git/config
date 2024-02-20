@@ -1,3 +1,4 @@
+# vim: sw=2 sts=2
 [user]
   name = "Mario Valderrama"
   email = "mario.valderrama@ionos.com"
@@ -69,4 +70,10 @@
 [includeIf "gitdir:~/.local/share/yadm/repo.git"]
   path = ~/.config/yadm/config
 
-# vim: sw=2 sts=2
+# Managed by: gh auth setup-git
+[credential "https://github.com"]
+	helper = 
+	helper = !/usr/bin/gh auth git-credential
+[credential "https://gist.github.com"]
+	helper = 
+	helper = !/usr/bin/gh auth git-credential
