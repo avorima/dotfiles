@@ -64,9 +64,8 @@ set dictionary=/usr/share/dict/words
 " enable undo persistence
 set undofile
 
-" don't continue comments
-set formatoptions-=r
-set formatoptions-=o
+" don't continue comments in normal mode
+set formatoptions=trjql/
 
 set lcs=tab:»·,trail:␣,nbsp:˷
 highlight InvisibleSpaces ctermfg=Black ctermbg=Black
@@ -75,6 +74,9 @@ call matchadd('InvisibleSpaces', '\S\@<=\s\+\%#\ze\s*$', -10)
 set nohlsearch
 set number
 set relativenumber
+
+" use existing buffer when using quickfix jumps
+set switchbuf=useopen
 
 set termguicolors
 colorscheme melange
