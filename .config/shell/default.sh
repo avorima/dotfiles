@@ -4,6 +4,8 @@ export XDG_CACHE_HOME=$HOME/.cache
 export XDG_DATA_HOME=$HOME/.local/share
 export XDG_STATE_HOME=$HOME/.local/state
 
+export XCURSOR_PATH=$XDG_DATA_HOME/icons
+
 export GNUPGHOME=$XDG_DATA_HOME/gnupg
 export KREW_ROOT=$HOME/.local/krew
 export KREW_NO_UPGRADE_CHECK=1
@@ -13,6 +15,7 @@ export NPM_CONFIG_CACHE=$XDG_CACHE_HOME/npm
 export NPM_CONFIG_TMP=$XDG_RUNTIME_DIR/npm
 export PYTHONSTARTUP=$XDG_CONFIG_HOME/pythonrc
 export MYSQL_HISTFILE=/dev/null
+export SQLITE_HISTORY=$XDG_DATA_HOME/sqlite_history
 export VAGRANT_HOME=$XDG_DATA_HOME/vagrant
 export VAGRANT_ALIAS_FILE=$XDG_DATA_HOME/vagrant/aliases
 export K9SCONFIG=$XDG_CONFIG_HOME/k9s
