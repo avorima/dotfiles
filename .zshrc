@@ -91,4 +91,11 @@ setopt INTERACTIVE_COMMENTS
 export LC_CTYPE=en_US.UTF-8
 export LC_ALL=en_US.UTF-8
 
-[ -e /usr/bin/direnv ] && eval "$(direnv hook zsh)"
+command -v direnv >/dev/null && eval "$(direnv hook zsh)"
+
+if test -n "$KITTY_INSTALLATION_DIR"; then
+    export KITTY_SHELL_INTEGRATION="enabled"
+    autoload -Uz -- "$KITTY_INSTALLATION_DIR"/shell-integration/zsh/kitty-integration
+    kitty-integration
+    unfunction kitty-integration
+fi
