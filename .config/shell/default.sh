@@ -67,3 +67,4 @@ alias sscp='scp -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null'
 [ -e /usr/bin/kubectl-neat ] && alias neat=/usr/bin/kubectl-neat
 
 alias chromium='systemd-run --user --quiet /usr/bin/chromium'
+alias firefox='systemd-run --user --quiet /usr/bin/firefox'
