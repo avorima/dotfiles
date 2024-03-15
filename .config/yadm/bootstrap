@@ -43,7 +43,8 @@ sudo pacman -S --needed \
     minio-client \
     docker \
     pinentry \
-    git-delta
+    git-delta \
+    tig
 
 if ! command -v yay >/dev/null; then
     echo "installing AUR helper"
@@ -61,5 +62,8 @@ yay -S --needed \
     zsh-vi-mode \
     kubectl-neat \
     ksd
+
+# needs to exist to write history file there
+mkdir -p ~/.local/share/tig
 
 echo "finished post-install steps for Arch Linux"
