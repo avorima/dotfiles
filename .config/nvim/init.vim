@@ -118,6 +118,8 @@ nmap <silent> <ESC> :nohlsearch<CR>
 vnoremap <leader>e64 c<c-r>=system('base64 -w0', @")<cr><esc>
 vnoremap <leader>d64 c<c-r>=system('base64 -d', @")<cr><esc>
 
+nnoremap <silent> <leader>e :call InlineCommand()<CR>
+
 " 1}}}
 
 " Functions {{{1
@@ -149,6 +151,14 @@ function! TogglePaste()
     endif
   endif
   execute "Gitsigns toggle_signs"
+endfunction
+
+" https://superuser.com/questions/457944/vim-r-in-cursor-position
+function InlineCommand()
+    let l:cmd = input('Command: ')
+    let l:output = system(l:cmd)
+    let l:output = substitute(l:output, '[\r\n]*$', '', '')
+    execute 'normal i' . l:output
 endfunction
 
 " Source: https://github.com/fatih/vim-go/blob/master/autoload/go/alternate.vim
