@@ -114,6 +114,10 @@ nnoremap <silent> <F2> :call TogglePaste()<CR>
 
 nmap <silent> <ESC> :nohlsearch<CR>
 
+" encode/decode base64 selection
+vnoremap <leader>e64 c<c-r>=system('base64 -w0', @")<cr><esc>
+vnoremap <leader>d64 c<c-r>=system('base64 -d', @")<cr><esc>
+
 " 1}}}
 
 " Functions {{{1
