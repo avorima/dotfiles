@@ -5,6 +5,7 @@ local dev_group = augroup("Development", {})
 local security_group = augroup("Security", {})
 local global_group = augroup("Global", {})
 local filetype_group = augroup("Filetypes", {})
+local visual_group = augroup("Visual", {})
 
 autocmd({ "BufNewFile", "BufRead" }, {
     group = security_group,
@@ -74,4 +75,11 @@ autocmd({ "BufNewFile", "BufRead" }, {
     group = filetype_group,
     pattern = { ".envrc" },
     command = "setfiletype sh",
+})
+
+autocmd("ColorScheme", {
+    group = visual_group,
+    command = "highlight link TreesitterContextLineNumber CursorLineNr",
+    pattern = "*",
+    desc = "Configure nvim-treesitter-context highlights",
 })
