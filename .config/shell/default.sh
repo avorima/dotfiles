@@ -70,5 +70,9 @@ alias scx='scp -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null'
 command -v kubectl-neat >/dev/null && alias neat=$(command -v kubectl-neat)
 command -v ionosctl >/dev/null && alias i=ionosctl
 
+if [ -e /run/user/1000/docker.sock ]; then
+    alias dive="docker run -ti --rm  -v /run/user/1000/docker.sock:/var/run/docker.sock wagoodman/dive"
+fi
+
 alias chromium='systemd-run --user --quiet /usr/bin/chromium'
 alias firefox='systemd-run --user --quiet /usr/bin/firefox'
