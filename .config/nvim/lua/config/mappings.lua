@@ -69,7 +69,7 @@ map("v", "<leader>db", "c<c-r>=system('base64 -d', @\")<cr><esc>", { desc = "Bas
 map("n", "+", "<C-a>", { desc = "Increment" })
 map("n", "-", "<C-x>", { desc = "Decrement" })
 
-map("n", "<C-a>", "gg<S-v>G", { desc = "Select All" })
+map("n", "<leader><C-a>", "gg<S-v>G", { desc = "Select All" })
 
 map("x", "<leader>s", ":s/\\%V", { silent = false, desc = "Replace In Selection" })
 
