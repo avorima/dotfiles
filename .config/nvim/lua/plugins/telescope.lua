@@ -13,8 +13,10 @@ return {
 
             { '<leader>fr', function() require("telescope.builtin").lsp_references() end, desc = 'LSP: [F]ind [R]eferences' },
             { '<leader>fd', function() require("telescope.builtin").lsp_definitions() end, desc = 'LSP: [F]ind [D]efinitions' },
-            { '<leader>ft', function() require("telescope.builtin").lsp_type_definition() end, desc = 'LSP: [F]ind [T]ype definitions' },
+            { '<leader>ft', function() require("telescope.builtin").lsp_type_definitions() end, desc = 'LSP: [F]ind [T]ype definitions' },
             { '<leader>fi', function() require("telescope.builtin").lsp_implementations() end, desc = 'LSP: [F]ind [I]mplementations' },
+            { '<leader>fic', function() require("telescope.builtin").lsp_incoming_calls() end, desc = 'LSP: [F]ind [I]ncoming [C]alls' },
+            { '<leader>foc', function() require("telescope.builtin").lsp_outgoing_calls() end, desc = 'LSP: [F]ind [O]utgoing [C]alls' },
         },
         config = function()
             require("telescope").setup({
