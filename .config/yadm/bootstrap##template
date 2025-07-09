@@ -1,3 +1,4 @@
+{% if yadm.os == "Linux" %}
 #!/usr/bin/env bash
 set -eo pipefail
 
@@ -51,3 +52,4 @@ yay -S --needed \
 mkdir -p ~/.local/share/tig
 
 echo "finished post-install steps for Arch Linux"
+{% endif %}
