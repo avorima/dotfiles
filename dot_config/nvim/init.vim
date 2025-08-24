@@ -3,6 +3,7 @@ call plug#begin('~/.config/nvim/bundle')
 
 Plug 'towolf/vim-helm'
 Plug 'hashivim/vim-terraform'
+Plug 'arzg/vim-rust-syntax-ext'
 
 Plug 'tpope/vim-abolish'
 Plug 'tpope/vim-commentary'
