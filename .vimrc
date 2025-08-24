@@ -614,6 +614,7 @@ nnoremap <BS><BS> :ALEFix<CR>
 nnoremap K :ALEHover<CR>
 
 nnoremap <leader>gf :ALEFindReferences<CR>
+nnoremap <leader>gs :ALESymbolSearch<CR>
 
 nnoremap <leader>do :ALEGoToDefinition<CR>
 nnoremap <leader>ds :ALEGoToDefinitionInSplit<CR>
