@@ -548,6 +548,7 @@ augroup FiletypeConfigs
   autocmd bufnewfile,bufreadpre *.yp     setfiletype yacc
   autocmd filetype gitcommit setlocal spell
   autocmd filetype markdown setlocal spell
+  autocmd filetype resolv setlocal commentstring=#\ %s
 augroup END
 
 augroup VisibleNaughtiness
