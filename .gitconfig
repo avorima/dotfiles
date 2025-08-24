@@ -63,3 +63,9 @@
 
 [format]
     pretty = "%h %ci $ce %ae %d %s"
+
+[url "git@gitlab.in.strato.de:"]
+    insteadOf = https://gitlab.in.strato.de/
+
+[url "git@github.com:ionos-cloud"]
+    insteadOf = https://github.com/ionos-cloud
