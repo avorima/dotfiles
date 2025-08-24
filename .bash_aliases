@@ -7,5 +7,3 @@ alias ..='cd ..'
 
 alias git='git-dotfiles'
 alias tig='tig-dotfiles'
-
-alias rfc3339='date --rfc-3339=seconds'
