@@ -71,7 +71,6 @@ set lcs=tab:»·,trail:␣,nbsp:˷
 highlight InvisibleSpaces ctermfg=Black ctermbg=Black
 call matchadd('InvisibleSpaces', '\S\@<=\s\+\%#\ze\s*$', -10)
 
-set nohlsearch
 set number
 set relativenumber
 
@@ -112,6 +111,8 @@ nnoremap <leader>s :s/\C\<<C-r><C-w>\>//g<left><left>
 nnoremap <leader>S :%s/\C\<<C-r><C-w>\>//g<left><left>
 
 nnoremap <silent> <F2> :call TogglePaste()<CR>
+
+nmap <silent> <ESC> :nohlsearch<CR>
 
 " 1}}}
 
