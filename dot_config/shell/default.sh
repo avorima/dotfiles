@@ -33,11 +33,7 @@ export GPG_TTY=$(tty)
     export KUBEBUILDER_ASSETS
 }
 
-if command -v go >/dev/null; then
-    PATH=$(go env GOPATH)/bin:$PATH
-    GOPATH=$(go env GOPATH)
-    export GOPATH
-fi
+PATH=$HOME/.local/go/bin:$PATH # g-install
 PATH=$HOME/.local/bin:$HOME/.local/bin/scripts:$KREW_ROOT/bin:$PATH
 export PATH
 
