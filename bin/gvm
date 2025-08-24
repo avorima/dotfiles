@@ -13,9 +13,10 @@ print_usage() {
             echo ""
             echo "Commands:"
             echo ""
-            echo "  install, i      Install a go version"
-            echo "  switch, s       Switch to a previously installed go version"
-            echo "  compile, c      Compile using the given go version"
+            echo "  install   Install a go version"
+            echo "  switch    Switch to a go version"
+            echo "  compile   Compile using the given go version"
+            echo "  test      Run go test using the given version"
             echo ""
             ;;
     esac
@@ -31,8 +32,8 @@ _check_arg() {
 }
 
 _switch_to_version() {
-    ln -sf "$(realpath "$(command -v "go${1}")")" "$HOME/.local/bin/go"
-    ln -sf "$HOME/sdk/go${1}/bin" "$HOME/.local/gobin"
+    rm -f "$GOROOT"
+    ln -s "$HOME/sdk/go${1}" "$GOROOT" 1>/dev/null
 }
 
 _install_version() {
@@ -53,7 +54,7 @@ install_cmd() {
 switch_cmd() {
     version=$(_check_arg "$1" "version")
     if ! command -v "go${version}" 2>/dev/null; then
-        print "Go ${version} is not installed. Install now? (y/N)"
+        printf "Go %s is not installed. Install now? (y/N) " "${version}"
         read -r yn
         [ "$yn" = "y" ] && _install_version "${version}"
     fi
@@ -66,6 +67,13 @@ compile_cmd() {
     shift
     [ $# -lt 1 ] && { print_usage 1>&2; exit 1; }
     "go${version}" build "$@"
+}
+
+test_cmd() {
+    version=$(_check_arg "$1" "version")
+    shift
+    [ $# -lt 1 ] && { print_usage 1>&2; exit 1; }
+    "go${version}" test "$@"
 }
 
 set -e
@@ -85,6 +93,13 @@ case $1 in
         shift
         shift
         compile_cmd "$v" "$@"
+        ;;
+    test)
+        _args="VERSION GOTESTARGS ..."
+        v=$2
+        shift
+        shift
+        test_cmd "$v" "$@"
         ;;
     *)
         _cmd=COMMAND
