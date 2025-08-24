@@ -3,10 +3,13 @@ set -eo pipefail
 
 echo "running post-install steps for Arch Linux"
 
-if [[ ! -e ~/.config/nvim/autoload/plug.vim ]]; then
-    echo "installing vim-plug"
-    curl -fLo ~/.config/nvim/autoload/plug.vim --create-dirs \
-        https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
+if ! command -v yay >/dev/null; then
+    echo "installing AUR helper"
+    git clone https://aur.archlinux.org/yay.git /tmp/yay
+    (
+        cd /tmp/yay
+        makepkg -si
+    )
 fi
 
 echo "installing packages"
@@ -15,8 +18,7 @@ sudo pacman -S --needed \
     man \
     neovim \
     direnv \
-    alacritty \
-    tmux \
+    wezterm \
     zsh \
     zsh-completions \
     ttf-sourcecodepro-nerd \
@@ -28,39 +30,21 @@ sudo pacman -S --needed \
     fd \
     bat \
     gopass \
-    sops \
     xh \
-    neofetch \
-    gopls \
     shellcheck \
     shfmt \
-    python-lsp-server \
-    rust-analyzer \
-    lua-language-server \
-    typescript-language-server \
     kubectl \
+    krew \
     helm \
     minio-client \
     docker \
     pinentry \
     git-delta \
-    tig
-
-if ! command -v yay >/dev/null; then
-    echo "installing AUR helper"
-    git clone https://aur.archlinux.org/yay.git /tmp/yay
-    (
-        cd /tmp/yay
-        makepkg -si
-    )
-fi
+    tig \
+    deno
 
 yay -S --needed \
-    efm-langserver \
-    tmux-plugin-manager \
-    tmux-fastcopy \
     zsh-vi-mode \
-    kubectl-neat \
     ksd
 
 # needs to exist to write history file there
