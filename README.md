@@ -1,4 +1,7 @@
 # dotfiles
 
-    git clone --bare https://github.com/avorima/dotfiles .dotfiles
-    git --git-dir=~/.dotfiles --work-tree=~ checkout
+Install [chezmoi](https://github.com/twpayne/chezmoi) and run:
+
+```
+chezmoi init https://github.com/avorima/dotfiles
+```
