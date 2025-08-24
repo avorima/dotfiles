@@ -143,7 +143,7 @@ export GOROOT=$HOME/.local/go
 export GOPATH=$HOME/go
 export GO111MODULE=auto
 
-PATH=$PATH:$GOROOT/bin:$GOPATH/bin:$HOME/.local/gobin
+PATH=$PATH:$GOPATH/bin:$GOROOT/bin
 
 [ -d ~/.plenv/bin ] && PATH=$HOME/.plenv/bin:$PATH && eval "$(plenv init -)"
 
