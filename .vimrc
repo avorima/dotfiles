@@ -141,6 +141,9 @@ cnoremap w!! %!sudo tee > /dev/null %
 " Hex mode mapping
 cnoremap hex :%!xxd
 
+" Reformat file
+map <F7> mzgg=G`z
+
 " Fuzzy searching
 cnoremap <leader>e e **/**/
 cnoremap <leader>vs vs **/**/
