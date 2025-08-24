@@ -113,6 +113,10 @@ nnoremap <leader>S :%s/\C\<<C-r><C-w>\>//g<left><left>
 
 nnoremap <silent> <F2> :call TogglePaste()<CR>
 
+" don't accidentally go into ex-mode
+nnoremap Q <nop>
+nnoremap q: <nop>
+
 " 1}}}
 
 " Functions {{{1
