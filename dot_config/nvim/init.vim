@@ -23,7 +23,7 @@ Plug 'dense-analysis/ale'
 
 Plug 'morhetz/gruvbox'
 Plug 'itchyny/lightline.vim'
-Plug 'avorima/nvim-lightline-lsp', { 'branch': 'fix-diagnostics' }
+Plug 'josa42/nvim-lightline-lsp'
 
 call plug#end()
 " 1}}}
