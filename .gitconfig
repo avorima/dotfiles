@@ -17,6 +17,7 @@
 
     s = status -sb
     st = status
+    sha = rev-parse --short
 
     m = merge --ff
     bl = blame -w
