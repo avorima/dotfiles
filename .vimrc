@@ -29,6 +29,8 @@ Plug 'junegunn/limelight.vim', { 'for': 'markdown' }
 Plug 'junegunn/seoul256.vim'
 Plug 'ryanoasis/vim-devicons'
 Plug 'szw/vim-tags', { 'for': ['c', 'cpp', 'python', 'ruby'] }
+Plug 'SirVer/ultisnips'
+Plug 'honza/vim-snippets'
 
 call plug#end()
 " Plugin End }}}
@@ -388,15 +390,21 @@ nmap <leader>hv <Plug>GitGutterPreviewHunk
 " nerdtree
 nnoremap <leader>5 :NERDTreeToggle<CR>
 
-" vim-tags
+" perl-tags-vim
+let g:PT_use_ppi = 1
+
+" ultisnips
+let g:UltiSnipsExpandTrigger = "<tab><tab>"
+let g:UltiSnipsJumpForwardTrigger = "<C-n>"
+let g:UltiSnipsJumpBackwardTrigger = "<C-z>"
+
+" vim-tags {{{
 let g:vim_tags_auto_generate = 1
 let g:vim_tags_ctags_binary = '/usr/bin/ctags'
 let g:vim_tags_use_vim_dispatch = 1
 let g:vim_tags_use_language_field = 1
 let g:vim_tags_cache_dir = expand($HOME . '/.vim/cache')
-
-" perl-tags-vim
-let g:PT_use_ppi = 1
+" }}}
 
 " syntastic {{{
 let g:syntastic_cpp_check_header = 1
