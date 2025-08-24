@@ -47,6 +47,10 @@
   skip = "!f() { git status | grep -q 'rebase in progress' && git rebase --skip; }; f"
   abort = "!f() { git status | grep -q 'rebase in progress' && git rebase --abort; }; f"
 
+[rerere]
+  enabled = true
+  autoUpdate = true
+
 [diff "sopsdiffer"]
   textconv = sops -d
 
