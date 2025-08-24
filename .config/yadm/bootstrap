@@ -15,6 +15,7 @@ sudo dnf install -y \
     fd-find \
     bat \
     tig \
+    gh \
     pinentry \
     podman \
     podman-docker \
