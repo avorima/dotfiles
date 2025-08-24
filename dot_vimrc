@@ -4,7 +4,6 @@ set expandtab
 set softtabstop=4
 set shiftwidth=4
 
-set inccommand=nosplit
 set nohlsearch
 set hidden
 set ignorecase
