@@ -25,6 +25,7 @@ if [ -d "$SESSION_DIR" ]; then
 else
     eval "$(gpg-agent --enable-ssh-support --daemon --homedir "$GNUPGHOME")"
 fi
+export GPG_TTY=$(tty)
 
 [ -d ~/.local/kubebuilder ] && {
     KUBEBUILDER_ASSETS=$HOME/.local/kubebuilder/bin
@@ -43,6 +44,10 @@ export PATH
 export EDITOR=/usr/bin/nvim
 
 export HISTSIZE=1000
+
+if [ -n "$TMUX" ]; then
+    export DISPLAY=:0
+fi
 
 alias ls='ls --color=auto --group-directories-first'
 alias ll='ls -lhA --color=auto --group-directories-first'
