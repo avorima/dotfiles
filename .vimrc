@@ -312,6 +312,9 @@ vnoremap <silent> <leader>k :<C-U>call <SID>ResizeVisualSelection(1, 1, v:count)
 vnoremap <silent> <leader>j :<C-U>call <SID>ResizeVisualSelection(0, 0, v:count)<CR>
 vnoremap <silent> <leader>K :<C-U>call <SID>ResizeVisualSelection(0, 1, v:count)<CR>
 vnoremap <silent> <leader>J :<C-U>call <SID>ResizeVisualSelection(1, 0, v:count)<CR>
+
+inoremap <leader>pwd <ESC>mp:.r!pwd<CR>i<BS><C-O>A
+
 " }}}
 
 " Functions {{{
