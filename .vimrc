@@ -420,6 +420,43 @@ function! EnsureDirExists ()
     endif
 endfunction
 " }}}
+
+" Golang {{{
+
+" Taken from https://github.com/fatih/vim-go/blob/master/autoload/go/alternate.vim
+function! GoAlternateSwitch(bang, cmd) abort
+  let file = expand('%')
+  if empty(file)
+    echoe "no buffer name"
+    return
+  elseif file =~# '^\f+_\test\.go$'
+    let l:root = split(file, '_test.go$')[0]
+    let l:alt_file = l:root . ".go"
+  elseif file =~# '^\f\+\.go$'
+    let l:root = split(file, '.go$')[0]
+    let l:alt_file = l:root . "_test.go"
+  else
+    echoe "not a go file"
+    return
+  endif
+  if !filereadable(alt_file) && !bufexists(alt_file) && !a:bang
+    echoe "couldn't file " . alt_file
+    return
+  elseif empty(a:cmd)
+    execute ":" . "edit" . " " . alt_file
+  else
+    execute ":" . a:cmd . " " . alt_file
+  endif
+endfunction
+
+nnoremap <silent> <Plug>(go-alternate-edit) :<C-u>call GoAlternateSwitch(0, "edit")<CR>
+nnoremap <silent> <Plug>(go-alternate-vertical) :<C-u>call GoAlternateSwitch(0, "vsplit")<CR>
+nnoremap <silent> <Plug>(go-alternate-split) :<C-u>call GoAlternateSwitch(0, "split")<CR>
+
+nnoremap <leader>gas :call GoAlternateSwitch(0, "split")<CR>
+nnoremap <leader>gav :call GoAlternateSwitch(0, "vsplit")<CR>
+
+" }}}
 " }}}
 
 " Autocommands {{{
