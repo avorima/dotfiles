@@ -21,7 +21,7 @@ Plug 'vim-syntastic/syntastic'
 Plug 'scrooloose/nerdtree', { 'on': 'NERDTreeToggle' }
 Plug 'kopischke/vim-stay'
 Plug 'kopischke/vim-fetch'
-Plug 'soramugi/auto-ctags.vim', { 'for': ['c','cpp','python'] }
+Plug 'soramugi/auto-ctags.vim', { 'for': ['c','cpp','python','ruby'] }
 Plug 'osfameron/perl-tags-vim', { 'for': ['perl'] }
 Plug 'tmux-plugins/vim-tmux'
 Plug 'tmux-plugins/vim-tmux-focus-events'
@@ -30,8 +30,6 @@ Plug 'edkolev/tmuxline.vim'
 Plug 'junegunn/goyo.vim', { 'for': 'markdown' }
 Plug 'junegunn/limelight.vim', { 'for': 'markdown' }
 Plug 'junegunn/seoul256.vim'
-
-Plug 'vim-scripts/TagHighlight'
 
 call plug#end()
 " }}}
