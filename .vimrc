@@ -132,7 +132,6 @@ set wildignore=*~,*.a,*.o,*.so,*.pyc,
       \*.jpg,*.jpeg,*.png,*.gif,*.pdf,*.git,
       \*.swp,*.swo
 set wildmode=list,list:longest,full
-set shortmess=atI
 
 set t_vb=
 set noerrorbells
