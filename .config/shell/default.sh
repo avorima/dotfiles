@@ -67,12 +67,14 @@ alias sx='ssh -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null'
 alias scx='scp -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null'
 
 [ -e /usr/bin/wget ] && alias wget='/usr/bin/wget --hsts-file=$XDG_CACHE_HOME/wget-hsts'
-command -v kubectl-neat >/dev/null && alias neat=$(command -v kubectl-neat)
+command -v kubectl-neat >/dev/null && alias neat=kubectl-neat
 command -v ionosctl >/dev/null && alias i=ionosctl
 
-if [ -e /run/user/1000/docker.sock ]; then
-    alias dive="docker run -ti --rm  -v /run/user/1000/docker.sock:/var/run/docker.sock wagoodman/dive"
+if [ -e "$XDG_RUNTIME_DIR/docker.sock" ]; then
+    alias dive='docker run -ti --rm  -v $XDG_RUNTIME_DIR/docker.sock:/var/run/docker.sock wagoodman/dive'
 fi
 
 alias chromium='systemd-run --user --quiet /usr/bin/chromium'
 alias firefox='systemd-run --user --quiet /usr/bin/firefox'
+
+alias tig='test $PWD = $HOME && GIT_DIR=$XDG_DATA_HOME/yadm/repo.git tig || tig'
