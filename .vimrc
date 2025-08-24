@@ -32,7 +32,7 @@ Plug 'junegunn/limelight.vim', { 'for': 'markdown' }
 Plug 'junegunn/seoul256.vim'
 
 call plug#end()
-" }}}
+" Plugin End }}}
 
 " Settings {{{
 set pastetoggle=<F2>
