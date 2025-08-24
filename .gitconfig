@@ -8,6 +8,9 @@
 [push]
     default = simple
 
+[pull]
+    rebase = true
+
 [alias]
     a = add
     ap = add --patch
