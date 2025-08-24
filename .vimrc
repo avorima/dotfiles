@@ -584,7 +584,7 @@ let g:UltiSnipsJumpBackwardTrigger = "<C-p>"
 " ale {{{
 
 let g:ale_linters = {
-      \ 'go': ['bingo'],
+      \ 'go': ['gopls'],
       \ 'tex': ['chktex'],
       \ 'plaintex': ['chktex'],
       \}
