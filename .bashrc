@@ -153,6 +153,7 @@ fi
 
 type -p kubectl >/dev/null && source <(kubectl completion bash)
 type -p kubeadm >/dev/null && source <(kubeadm completion bash)
+type -p helm >/dev/null && source <(helm completion bash)
 
 [ -f ~/.fzf.bash ] && source ~/.fzf.bash
 
