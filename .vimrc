@@ -114,14 +114,16 @@ set showmatch
 set matchtime=2
 set modeline
 
+set updatetime=250
+
 set path+=**
+
+set dictionary+=/usr/share/dict/words
 
 set tags=./tags;~
 
 " give files without filetype suffixes lower priority
 set suffixes+=,,
-
-set grepprg=ack
 
 let mapleader=','
 " }}}
@@ -272,9 +274,9 @@ vnoremap > >gv
 
 " delete block/function
 nnoremap <silent> <leader>db ]}mb[{^d'b:delmarks b<CR>
+nnoremap <silent> <leader>ifl ^mvw"byt;^%dd`vdd"bPa<space>&&<ESC>==
 
-nnoremap <leader>ifl ^mvw"byt;^%dd`vdd"bPa<space>&&<ESC>==
-
+" strip trailing whitespace in file
 nmap <silent> <BS><BS> :call <SID>StripTrailingWhitespace()<CR>
 
 nnoremap K :grep! "\b<C-R><C-W>\b"<CR>:cw<CR>
