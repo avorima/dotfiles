@@ -1,6 +1,0 @@
-#!/bin/sh
-if [ -n "$HOME" ] && [ "$PWD" = "$HOME" ]; then
-    exec /usr/bin/git --git-dir="$HOME/.dotfiles" --work-tree="$HOME" "$@"
-else
-    exec /usr/bin/git "$@"
-fi

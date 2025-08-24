@@ -1,6 +1,0 @@
-#!/bin/sh
-if [ -n "$HOME" ] && [ "$PWD" = "$HOME" ]; then
-    export GIT_DIR="$HOME/.dotfiles"
-    export GIT_WORK_TREE="$HOME"
-fi
-exec /usr/bin/tig "$@"
