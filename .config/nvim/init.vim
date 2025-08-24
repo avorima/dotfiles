@@ -170,7 +170,7 @@ endfunction
 
 function! GoRunTests(...)
   let l:path = '.' . substitute(expand('%:p:h'), getcwd(), '', '')
-  let l:cmd = "go test -cover"
+  let l:cmd = "go test -cover -timeout=60s"
   if !empty(a:000)
     let cmd = l:cmd . " " . join(a:000, " ")
   endif
