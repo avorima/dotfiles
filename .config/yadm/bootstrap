@@ -22,6 +22,7 @@ sudo dnf install -y \
 
 git clone https://github.com/jeffreytse/zsh-vi-mode.git ~/.local/zsh-vi-mode
 
+# https://krew.sigs.k8s.io/docs/user-guide/setup/install/#bash
 (
   set -x; cd "$(mktemp -d)" &&
   OS="$(uname | tr '[:upper:]' '[:lower:]')" &&

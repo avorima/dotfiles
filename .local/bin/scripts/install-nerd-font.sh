@@ -1,4 +1,5 @@
 #!/usr/bin/env bash
+# Inspired by https://blog.khmersite.net/p/installing-nerd-font-on-fedora/
 
 set -o errexit
 set -o nounset
