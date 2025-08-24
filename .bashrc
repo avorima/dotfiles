@@ -149,7 +149,6 @@ PATH=$PATH:$HOME/.local/bin:$HOME/bin
 
 export GOROOT=$HOME/.local/go
 export GOPATH=$HOME/go
-export GO111MODULE=auto
 
 PATH=$PATH:$GOPATH/bin:$GOROOT/bin
 
