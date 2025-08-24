@@ -27,10 +27,11 @@ sudo pacman -S --needed \
     gopass \
     sops \
     xh \
+    neofetch \
     gopls \
     python-lsp-server \
-    neofetch \
-    flameshot
+    rust-analyzer \
+    lua-language-server
 
 if ! command -v yay >/dev/null; then
     echo "installing AUR helper"
@@ -41,15 +42,13 @@ if ! command -v yay >/dev/null; then
     )
 fi
 
-yay -S --needed tmux-fastcopy zsh-vi-mode nerd-fonts-source-code-pro
+yay -S --needed tmux-plugin-manager-git tmux-fastcopy zsh-vi-mode nerd-fonts-source-code-pro
 printf "install additional packages? (y/N) "
 read -r yn
 if [[ $yn = "y" ]]; then
     echo "installing additional development packages"
     sudo pacman -S --needed \
         kubectl \
-        kubeseal \
-        skopeo \
         helm \
         minio-client \
         podman \
