@@ -93,7 +93,9 @@ lspconfig.gopls.setup {
       analyses = {
         -- fieldalignment = true,
         -- shadow = true,
-        unusedparams = true,
+        -- useany = true,
+        unusedvariable = true,
+        unusedwrite = true,
       },
     },
   },
