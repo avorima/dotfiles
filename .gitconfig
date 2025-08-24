@@ -1,0 +1,31 @@
+[user]
+    name = "Mario Valderrama"
+    email = "<>"
+[core]
+    editor = vim
+[push]
+    default = simple
+[alias]
+    a = add
+    b = branch
+    c = commit
+    s = status -sb
+    m = merge --no-ff --edit
+    bl = blame -w
+    co = checkout
+    ap = add --patch
+    be = branch --edit-description
+    ci = commit --interactive
+    st = status
+    amend = commit --amend
+    branches = branch -a
+    stashes = stash list
+    l = log --graph --oneline --decorate
+    lg = log --graph --all --decorate --pretty=short
+    last = log -1 HEAD'
+    unstage = reset HEAD --
+    temp = !"git branch -D temp; git checkout -b temp"
+    switch = "!./.git/hooks/pre-checkout.sh $1"
+    nicelog = log --pretty=format:'%Cred%h%Creset -%Creset %s %Cgreen(%cr) %C(bold blue)<%aE>%Creset [%G?]'
+[format]
+    pretty = "%h %ci $ce %ae %d %s"
