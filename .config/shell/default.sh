@@ -19,6 +19,7 @@ export SQLITE_HISTORY=$XDG_DATA_HOME/sqlite_history
 export VAGRANT_HOME=$XDG_DATA_HOME/vagrant
 export VAGRANT_ALIAS_FILE=$XDG_DATA_HOME/vagrant/aliases
 export K9SCONFIG=$XDG_CONFIG_HOME/k9s
+export MC_CONFIG_DIR=$XDG_CONFIG_HOME/mcli
 # export GTK2_RC_FILES=$XDG_CONFIG_HOME/gtk-2.0/gtkrc
 # export KDEHOME=$XDG_CONFIG_HOME/kde
 export BAT_THEME=gruvbox-dark
@@ -67,7 +68,6 @@ alias sscp='scp -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null'
 
 [ -e /usr/bin/man ] && alias man='LC_ALL=en_US.UTF-8 /usr/bin/man'
 [ -e /usr/bin/wget ] && alias wget='/usr/bin/wget --hsts-file=$XDG_CACHE_HOME/wget-hsts'
-[ -e /usr/bin/mcli ] && alias mcli='/usr/bin/mcli --config-dir=$XDG_CONFIG_HOME/mcli'
 [ -e /usr/bin/kubectl-neat ] && alias neat=/usr/bin/kubectl-neat
 
 alias chromium='systemd-run --user --quiet /usr/bin/chromium'
