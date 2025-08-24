@@ -145,8 +145,8 @@ highlight InvisibleSpaces ctermfg=Black ctermbg=Black
 call matchadd('InvisibleSpaces', '\S\@<=\s\+\%#\ze\s*$', -10)
 
 set more
-set textwidth=79
-set colorcolumn=80
+set textwidth=99
+set colorcolumn=100
 set relativenumber
 set number
 set noshowmode
