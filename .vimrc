@@ -99,7 +99,7 @@ set shiftwidth=4
 
 set scrolloff=1
 set magic
-set mouse=
+set mouse=a
 set shortmess=atToOI
 set viewoptions=cursor,folds,slash,unix
 set ttyfast
