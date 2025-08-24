@@ -18,10 +18,12 @@ export K9SCONFIG=$XDG_CONFIG_HOME/k9s
 # export KDEHOME=$XDG_CONFIG_HOME/kde
 
 SESSION_DIR=$(find "$XDG_RUNTIME_DIR/gnupg" -type d ! -path "$XDG_RUNTIME_DIR/gnupg" 2>/dev/null)
-[ -d "$SESSION_DIR" ] && {
-    export GPG_AGENT_INFO=$SESSION_DIR/S.gpg-agent
+if [ -d "$SESSION_DIR" ]; then
+    # export GPG_AGENT_INFO=$SESSION_DIR/S.gpg-agent
     export SSH_AUTH_SOCK=$SESSION_DIR/S.gpg-agent.ssh
-}
+else
+    eval "$(gpg-agent --enable-ssh-support --daemon --homedir "$GNUPGHOME")"
+fi
 
 [ -d ~/.local/kubebuilder ] && {
     KUBEBUILDER_ASSETS=$HOME/.local/kubebuilder/bin
