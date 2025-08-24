@@ -39,7 +39,7 @@ export GPG_TTY
     export KUBEBUILDER_ASSETS
 }
 
-PATH=$HOME/.local/bin:$HOME/.local/bin/scripts:$KREW_ROOT/bin:$PATH
+PATH=$HOME/.local/go/bin:$HOME/.local/bin:$HOME/.local/bin/scripts:$KREW_ROOT/bin:$PATH
 export PATH
 
 export EDITOR=/usr/bin/nvim
