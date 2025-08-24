@@ -16,6 +16,7 @@ function zvm_after_init() {
 alias k=kubectl
 alias kctx=kubectx
 alias vim=nvim
+alias S='sudo pacman -Syu'
 
 if [ -d ~/.config/zsh/source-once ]; then
     for f in ~/.config/zsh/source-once/*; do source $f; done
