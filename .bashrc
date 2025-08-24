@@ -75,7 +75,7 @@ __set_prompt() {
 
     kube_context=$(kubectl config current-context 2>/dev/null || echo "")
     if [ -n "${kube_context}" ]; then
-        kubectx=" ${__DARKBLUE}k8s:(${__RED}${kube_context}${__DARKBLUE})"
+        kubectx=" ${__DARKBLUE}k8s:(${__RED}${kube_context}${__DARKBLUE}/${__RED}$(kubens -c)${__DARKBLUE})"
     fi
     kubectx="${kubectx}${__CLEAR}"
 
