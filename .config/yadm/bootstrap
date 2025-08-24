@@ -1,0 +1,22 @@
+#!/usr/bin/env bash
+set -eo pipefail
+
+sudo dnf install -y \
+    golang \
+    zsh \
+    neovim \
+    direnv \
+    jq \
+    yq \
+    shellcheck \
+    shfmt \
+    ripgrep \
+    fd-find \
+    bat \
+    tig \
+    pinentry \
+    podman \
+    podman-docker \
+    libtree-sitter
+
+git clone https://github.com/jeffreytse/zsh-vi-mode.git ~/.local

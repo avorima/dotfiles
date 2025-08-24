@@ -1,8 +1,10 @@
 # vim: sw=2 sts=2
 [user]
   name = "Mario Valderrama"
-  email = "mario.valderrama@ionos.com"
-  signingkey = 54C103A0484A864929CAD5818B3977FB51077104
+  email = "valderra.ma@outlook.com"
+
+[init]
+  defaultBranch = main
 
 [core]
   editor = /usr/bin/nvim
@@ -52,12 +54,6 @@
 [diff "sopsdiffer"]
   textconv = sops -d
 
-[url "git@github.com:ionos-cloud"]
-  insteadOf = https://github.com/ionos-cloud
-
-[url "git@github.com:avorima"]
-  insteadOf = https://github.com/avorima
-
 [tag]
   sort = version:refname
 
@@ -79,5 +75,3 @@
 [credential "https://gist.github.com"]
 	helper = 
 	helper = !/usr/bin/gh auth git-credential
-[init]
-	defaultBranch = main

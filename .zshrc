@@ -1,27 +1,9 @@
 source ~/.config/shell/default.sh
 
-# yay -S zsh-vi-mode
-# function zvm_config() {
-#     ZVM_TERM=alacritty-256color
-#     ZVM_VI_HIGHLIGHT_BACKGROUND=#cc241d
-#     ZVM_CURSOR_STYLE_ENABLED=true
-#     ZVM_INSERT_MODE_CURSOR=ZVM_CURSOR_BLINKING_BEAM
-#     ZVM_NORMAL_MODE_CURSOR=ZVM_CURSOR_BLINKING_BLOCK
-# }
-source /usr/share/zsh/plugins/zsh-vi-mode/zsh-vi-mode.zsh
+source ~/.local/zsh-vi-mode/zsh-vi-mode.zsh
 function zvm_after_init() {
-    [ -f /usr/share/fzf/key-bindings.zsh ] && source /usr/share/fzf/key-bindings.zsh
+    [ -f /usr/share/fzf/shell/key-bindings.zsh ] && source /usr/share/fzf/shell/key-bindings.zsh
 }
-
-alias k=kubectl
-alias kctx=kubectx
-alias vim=nvim
-alias S='sudo pacman -Syu'
-
-if [ -d ~/.config/zsh/source-once ]; then
-    for f in ~/.config/zsh/source-once/*; do source $f; done
-    rm -r ~/.config/zsh/source-once
-fi
 
 fpath=(~/.config/zsh/functions/completion $fpath)
 autoload -Uz compinit && compinit -d "$XDG_CACHE_HOME/zcompdump"
@@ -87,6 +69,10 @@ setopt HIST_SAVE_NO_DUPS
 setopt HIST_REDUCE_BLANKS
 # allow bash-style commenting on the command-line
 setopt INTERACTIVE_COMMENTS
+
+function update_zsh_vi_mode() {
+   (cd ~/.local/zsh-vi-mode; git pull;)
+}
 
 command -v direnv >/dev/null && eval "$(direnv hook zsh)"
 
