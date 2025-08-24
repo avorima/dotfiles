@@ -140,7 +140,7 @@ PATH=$PATH:$HOME/.local/bin:$HOME/bin
 
 export GOPATH=$HOME/go
 
-PATH=$PATH:$GOPATH/bin
+PATH=$PATH:$HOME/.local/go/bin:$GOPATH/bin
 
 [ -d ~/.plenv/bin ] && PATH=$HOME/.plenv/bin:$PATH && eval "$(plenv init -)"
 
