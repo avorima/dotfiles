@@ -20,8 +20,8 @@ Plug 'tmux-plugins/vim-tmux-focus-events'
 Plug 'neovim/nvim-lspconfig'
 Plug 'nvim-lua/plenary.nvim'
 Plug 'nvim-lua/popup.nvim'
-Plug 'nvim-telescope/telescope.nvim'
-Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
+Plug 'nvim-telescope/telescope.nvim', { 'branch': '0.1.x' }
+Plug 'nvim-treesitter/nvim-treesitter', { 'do': ':TSUpdate'}
 Plug 'nvim-treesitter/nvim-treesitter-context'
 Plug 'nvim-treesitter/nvim-treesitter-textobjects'
 Plug 'lewis6991/gitsigns.nvim'
@@ -63,7 +63,7 @@ set dictionary=/usr/share/dict/words
 " enable undo persistence
 set undofile
 
-" don't continue comment when hitting 'o'/'O' in normal mode
+" don't continue comments
 set formatoptions-=r
 set formatoptions-=o
 
