@@ -257,6 +257,7 @@ augroup END
 augroup Filetypes
   autocmd!
   autocmd BufNewFile,BufRead .envrc setfiletype sh
+  autocmd BufNewFile,BufRead /etc/pacman.conf setlocal commentstring=#\ %s
   autocmd filetype yaml nnoremap <buffer> <silent> <BS><BS> :call StripTrailingWhitespace()<CR>
 augroup END
 
