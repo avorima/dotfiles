@@ -30,6 +30,7 @@ Plug 'edkolev/tmuxline.vim'
 Plug 'junegunn/goyo.vim', { 'for': 'markdown' }
 Plug 'junegunn/limelight.vim', { 'for': 'markdown' }
 Plug 'junegunn/seoul256.vim'
+Plug 'ryanoasis/vim-devicons'
 
 call plug#end()
 " Plugin End }}}
@@ -249,7 +250,7 @@ function! LightlineReadonly()
 endfunction
 
 function! LightlineFileformat()
-  return winwidth('.') > 90 ? &fileformat : ''
+  return winwidth('.') > 90 ? (&fileformat . ' ' . WebDevIconsGetFileFormatSymbol()) : ''
 endfunction
 
 function! LightlineFileencoding()
@@ -257,7 +258,7 @@ function! LightlineFileencoding()
 endfunction
 
 function! LightlineFiletype()
-  return winwidth('.') > 70 ? (strlen(&filetype) ? &filetype : 'no ft') : ''
+  return winwidth('.') > 70 ? (strlen(&filetype) ? &filetype . ' ' . WebDevIconsGetFileTypeSymbol() : 'no ft') : ''
 endfunction
 
 function! LightlineMode()
