@@ -16,9 +16,9 @@ setlocal list
 
 compiler go
 
-nnoremap <buffer> <leader>gao :call GoAlternateSwitch(1, "edit")<CR>
-nnoremap <buffer> <leader>gas :call GoAlternateSwitch(1, "split")<CR>
-nnoremap <buffer> <leader>gav :call GoAlternateSwitch(1, "vsplit")<CR>
+nnoremap <buffer> <silent> <leader>gao :call GoAlternateSwitch(1, "edit")<CR>
+nnoremap <buffer> <silent> <leader>gas :call GoAlternateSwitch(1, "split")<CR>
+nnoremap <buffer> <silent> <leader>gav :call GoAlternateSwitch(1, "vsplit")<CR>
 
 nnoremap <buffer> <leader>tu :call GoRunTests('-short')<CR>
 nnoremap <buffer> <leader>tt :call GoRunTests()<CR>
