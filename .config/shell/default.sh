@@ -6,6 +6,7 @@ export XDG_STATE_HOME=$HOME/.local/state
 
 export GNUPGHOME=$XDG_DATA_HOME/gnupg
 export KREW_ROOT=$HOME/.local/krew
+export KREW_NO_UPGRADE_CHECK=1
 # See https://github.com/npm/npm/issues/6675
 export NPM_CONFIG_USERCONFIG=$XDG_CONFIG_HOME/npm/config
 export NPM_CONFIG_CACHE=$XDG_CACHE_HOME/npm

@@ -89,6 +89,5 @@ setopt INTERACTIVE_COMMENTS
 
 export LC_CTYPE=en_US.UTF-8
 export LC_ALL=en_US.UTF-8
-export KREW_NO_UPGRADE_CHECK=1
 
 [ -e /usr/bin/direnv ] && eval "$(direnv hook zsh)"
