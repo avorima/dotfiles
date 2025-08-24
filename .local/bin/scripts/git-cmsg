@@ -5,8 +5,8 @@ else
     read -r msg
 fi
 
-if [ "$(printf "%s" "$msg" | wc -c)" -gt 50 ]; then
-    printf "Commit message has more than 50 characters. Confirm (y/N): " >&2
+if [ "$(printf "%s" "$msg" | wc -c)" -gt 60 ]; then
+    printf "Commit message has more than 60 characters. Confirm (y/N): " >&2
     read -r yn
     [ "$yn" = "y" ] || exit
 fi
