@@ -65,4 +65,45 @@ return {
         opts = {
         },
     },
+
+    {
+        "junegunn/vim-easy-align",
+        lazy = false,
+        keys = {
+            { "ga", "<Plug>(EasyAlign)", mode = "x" },
+        },
+        config = function()
+            vim.g.easy_align_ignore_groups = { 'Comment', 'String' }
+        end,
+    },
+
+    {
+        "johmsalas/text-case.nvim",
+        keys = {
+            { "crs", function() require("textcase").current_word("to_snake_case") end, },
+            { "crc", function() require("textcase").current_word("to_camel_case") end, },
+            { "crp", function() require("textcase").current_word("to_pascal_case") end, },
+            { "cr-", function() require("textcase").current_word("to_dash_case") end, },
+        },
+        config = function()
+            require("textcase").setup({
+                default_keymappings_enabled = false
+            })
+        end,
+        lazy = true,
+    },
+
+    {
+        "NeogitOrg/neogit",
+        dependencies = {
+            "nvim-lua/plenary.nvim",
+            "sindrets/diffview.nvim",
+            "nvim-telescope/telescope.nvim",
+        },
+        config = true
+    },
+
+    {
+        "lambdalisue/vim-suda",
+    },
 }
