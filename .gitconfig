@@ -31,7 +31,7 @@
     semver = tag --sort=v:refname
     pick = cherry-pick
     sneak-push = push -o ci.skip
-    nuke = !"git reset --hard origin/$(git symbolic-ref HEAD 2>/dev/null | cut -d'/' -f3)"
+    nuke = !"f(){ remote=$1; [ -z \"$remote\" ] && r=origin; git reset --hard $remote/$(git symbolic-ref HEAD 2>/dev/null | sed 's|refs/heads/||'); }; f"
 
     c = commit
     amend = commit --amend
