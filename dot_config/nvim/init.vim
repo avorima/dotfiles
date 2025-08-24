@@ -1,6 +1,9 @@
 " Plugins {{{1
 call plug#begin('~/.config/nvim/bundle')
 
+Plug 'towolf/vim-helm'
+Plug 'hashivim/vim-terraform'
+
 Plug 'tpope/vim-abolish'
 Plug 'tpope/vim-commentary'
 Plug 'tpope/vim-dispatch'
