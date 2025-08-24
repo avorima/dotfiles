@@ -511,7 +511,8 @@ function! GoTestRun(bang, compile, ...) abort
     execute ":term go " . join(args, " ") . " ./..."
 endfunction
 
-nnoremap <leader>ta :call GoTestRun(0, 0)<CR>
+nnoremap <leader>ta :call GoTestRun(0, 0, "-v")<CR>
+nnoremap <leader>tt :call GoTestRun(0, 0)<CR>
 nnoremap <leader>tf :call GoTestFunc(0, "-v")<CR>
 " }}}
 " }}}
