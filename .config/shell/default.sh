@@ -4,8 +4,13 @@ export XDG_DATA_HOME=$HOME/.local/share
 export XDG_STATE_HOME=$HOME/.local/state
 
 export GNUPGHOME=$XDG_DATA_HOME/gnupg
-
 export KREW_ROOT=$HOME/.local/krew
+# See https://github.com/npm/npm/issues/6675
+export NPM_CONFIG_USERCONFIG=$XDG_CONFIG_HOME/npm/config
+export NPM_CONFIG_CACHE=$XDG_CACHE_HOME/npm
+export NPM_CONFIG_TMP=$XDG_RUNTIME_DIR/npm
+export PYTHONSTARTUP=$XDG_CONFIG_HOME/pythonrc
+export MYSQL_HISTFILE=/dev/null
 
 SESSION_DIR=$(find "$XDG_RUNTIME_DIR/gnupg" -type d ! -path "$XDG_RUNTIME_DIR/gnupg" 2>/dev/null)
 [ -d "$SESSION_DIR" ] && {
@@ -26,8 +31,6 @@ export PATH
 export EDITOR=/usr/bin/nvim
 
 export HISTSIZE=1000
-
-export MYSQL_HISTFILE=/dev/null
 
 alias ls='ls --color=auto --group-directories-first'
 alias ll='ls -lhA --color=auto --group-directories-first'
