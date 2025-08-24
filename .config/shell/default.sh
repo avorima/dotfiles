@@ -63,12 +63,12 @@ alias lt='ls -lht --color=auto --group-directories-first'
 alias ..='cd ..'
 alias bat='bat --paging=always --italic-text=always'
 
-alias sssh='ssh -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null'
-alias sscp='scp -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null'
+alias sx='ssh -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null'
+alias scx='scp -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null'
 
-[ -e /usr/bin/man ] && alias man='LC_ALL=en_US.UTF-8 /usr/bin/man'
 [ -e /usr/bin/wget ] && alias wget='/usr/bin/wget --hsts-file=$XDG_CACHE_HOME/wget-hsts'
-[ -e /usr/bin/kubectl-neat ] && alias neat=/usr/bin/kubectl-neat
+command -v kubectl-neat >/dev/null && alias neat=$(command -v kubectl-neat)
+command -v ionosctl >/dev/null && alias i=ionosctl
 
 alias chromium='systemd-run --user --quiet /usr/bin/chromium'
 alias firefox='systemd-run --user --quiet /usr/bin/firefox'
