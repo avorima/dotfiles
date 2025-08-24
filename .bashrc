@@ -50,39 +50,35 @@ else
 fi
 
 parse_git_dirty() {
-    if [[ $(git status 2> /dev/null | grep "Changes to be committed") != "" ]]
-    then
+    if git status 2> /dev/null | grep -q "Changes to be committed"; then
         echo "${GREEN}${ICON_GIT_CLEAN}${CLEAR} "
-    elif [[ $(git diff --shortstat 2> /dev/null | tail -n1) != "" ]]
-    then
+    elif [ "$(git diff --shortstat 2> /dev/null | tail -n1 )" != "" ]; then
         echo "${YELLOW}${ICON_GIT_DIRTY}${CLEAR} "
-    elif [[ $(git status --porcelain 2>/dev/null | grep -c "^??") -ne 0 ]]
-    then
+    elif git status --porcelain 2>/dev/null | grep -q "^??"; then
         echo "${RED}${ICON_GIT_DIRTY}${CLEAR} "
     fi
 }
 
 git_prompt() {
-    local ref
-    ref=$(git symbolic-ref HEAD 2>/dev/null | sed 's/refs\/heads\///')
-    if [ "$ref" != "" ]; then
-        echo "${DARKBLUE}git:(${RED}$ref${DARKBLUE})${CLEAR} $(parse_git_dirty)"
+    local_ref=$(git symbolic-ref HEAD 2>/dev/null | sed 's/refs\/heads\///')
+    if [ "${local_ref}" != "" ]; then
+        echo "${DARKBLUE}git:(${RED}${local_ref}${DARKBLUE})${CLEAR} $(parse_git_dirty)"
     fi
 }
 
 set_prompt() {
     # Get last exit code
-    local EXIT="$?"
-    local current_dir="${LITEBLUE}\\W${CLEAR}"
+    EXIT_CODE="$?"
+    current_dir="${LITEBLUE}\\W${CLEAR}"
 
-    if [[ $VIRTUAL_ENV != "" ]]
+    if [ "${VIRTUAL_ENV}" != "" ]
     then
         venv=" ${YELLOW}[${VIRTUAL_ENV##*/}]"
     else
         venv="${CLEAR}"
     fi
 
-    if [ $EXIT -ne 0 ]; then
+    if [ ${EXIT_CODE} -ne 0 ]; then
         arrow="${RED}${ICON_PROMPT}${CLEAR}"
     else
         arrow="${GREEN}${ICON_PROMPT}${CLEAR}"
