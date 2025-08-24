@@ -1,0 +1,53 @@
+#!/usr/bin/env bash
+
+set -o pipefail
+set -e
+
+PHASE=Failed
+LIST_PODS=false
+INTERACTIVE=false
+
+usage() { echo "usage: $(basename "$0") [-n NAMESPACE] [-s PHASE]" 1>&2; exit 1; }
+
+while getopts ":lin:s:" opt; do
+    case $opt in
+        n)
+            NAMESPACE=$OPTARG
+            ;;
+        s)
+            PHASE=$OPTARG
+            ;;
+        l)
+            LIST_PODS=true
+            ;;
+        i)
+            INTERACTIVE=true
+            ;;
+        *)
+            usage
+            ;;
+    esac
+done
+shift $((OPTIND-1))
+
+GET_CMD="kubectl get pods --field-selector=status.phase=$PHASE"
+DEL_CMD="kubectl delete pods"
+
+if [[ -n $NAMESPACE ]]; then
+    GET_CMD="$GET_CMD -n $NAMESPACE"
+    DEL_CMD="$DEL_CMD -n $NAMESPACE"
+fi
+
+if $LIST_PODS; then
+    $GET_CMD | awk '{if(NR>1)print$1}'
+else
+    for pod in $($GET_CMD | awk '{if(NR>1)print$1}'); do
+        if $INTERACTIVE; then
+            echo -n "remove '$pod'? "
+            read -r yn
+            [[ $yn == "y" ]] && $DEL_CMD "$pod"
+        else
+            $DEL_CMD "$pod"
+        fi
+    done
+fi
