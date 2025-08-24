@@ -12,6 +12,7 @@ Plug 'tpope/vim-surround'
 Plug 'tpope/vim-unimpaired'
 Plug 'tpope/vim-fugitive'
 
+Plug 'editorconfig/editorconfig-vim'
 Plug 'lambdalisue/suda.vim'
 Plug 'junegunn/vim-easy-align'
 Plug 'jremmen/vim-ripgrep'
