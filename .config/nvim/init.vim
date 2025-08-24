@@ -169,9 +169,42 @@ function! GoAlternateSwitch(bang, cmd) abort
   endif
 endfunction
 
+function! s:goup(path) abort
+  let l:path = a:path
+  while 1
+    let l:current = l:path . '/go.mod'
+    if filereadable(l:current)
+      let l:git_dir = l:path . '/.git/'
+      if isdirectory(l:git_dir)
+        " If the go.mod is at the same level as the .git directory we don't
+        " need to change directories
+        return ''
+      endif
+      return l:path
+    endif
+    let l:next = fnamemodify(l:path, ':h')
+    if l:next ==# l:path
+      break
+    endif
+    let l:path = l:next
+  endwhile
+  return ''
+endfunction
+
 function! GoRunTests(...)
+  let l:pkgroot = s:goup(expand('%:p:h'))
+  if !empty(l:pkgroot)
+    exe 'lcd' l:pkgroot
+  endif
   let l:path = '.' . substitute(expand('%:p:h'), getcwd(), '', '')
+  if !empty(l:pkgroot)
+    exe 'lcd' '-'
+  endif
+
   let l:cmd = "go test -cover -timeout=60s"
+  if !empty(l:pkgroot)
+    let cmd = "cd " . l:pkgroot . " && " . l:cmd
+  endif
   if !empty(a:000)
     let cmd = l:cmd . " " . join(a:000, " ")
   endif
