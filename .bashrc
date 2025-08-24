@@ -163,6 +163,7 @@ command -v helm >/dev/null && source <(helm completion bash)
 command -v docker-ls >/dev/null && source <(docker-ls autocomplete bash)
 command -v operator-sdk >/dev/null && source <(operator-sdk completion bash)
 command -v direnv >/dev/null && eval "$(direnv hook bash)"
+command -v minikube >/dev/null && source <(minikube completion bash)
 
 [ -f ~/.fzf.bash ] && source ~/.fzf.bash
 
