@@ -1,4 +1,9 @@
 #!/usr/bin/env sh
-[ -n "$NOINLINE" ] && FLAGS="-gcflags -l"
+
+rm -f coverage.out
 go test -coverprofile=coverage.out $FLAGS $@
-go tool cover -html=coverage.out
+if command -v gocovsh; then
+    gocovsh
+else
+    go tool cover -html=coverage.out
+fi
