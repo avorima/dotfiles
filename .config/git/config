@@ -29,6 +29,7 @@
   lg = log --graph --all --decorate --pretty=short
   sc = switch -C
   co = checkout
+  po = !"git push -u origin $(git symbolic-ref HEAD 2>/dev/null | cut -d/ -f3-)"
 
   last = log -1 HEAD
   amend = commit --amend -S
