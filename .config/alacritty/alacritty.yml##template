@@ -1,3 +1,4 @@
+# vim: ft=yaml:commentstring=#\ %s:
 ---
 env:
   TERM: xterm-256color
@@ -6,6 +7,9 @@ env:
   XDG_CACHE_HOME: /home/{{ yadm.user }}/.cache
   XDG_DATA_HOME: /home/{{ yadm.user }}/.local/share
   XDG_STATE_HOME: /home/{{ yadm.user }}/.local/state
+
+selection:
+  save_to_clipboard: true
 
 font:
   size: 9
