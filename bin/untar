@@ -14,4 +14,4 @@ fi
 
 mkdir -p $target > /dev/null
 
-tar -xf $archive -C $target --strip-components=1
+tar -xvf $archive -C $target --strip-components=1
