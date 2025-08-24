@@ -588,10 +588,21 @@ augroup END
 
 augroup Security
   autocmd!
+  " passwords/logins
   autocmd BufNewFile,BufRead /dev/shm/gopass.* setlocal noswapfile nobackup noundofile
   autocmd BufNewFile,BufRead ~/.netrc setlocal noswapfile nobackup noundofile
   autocmd BufNewFile,BufRead ~/.docker/config.json setlocal noswapfile nobackup noundofile
   autocmd BufNewFile,BufRead .envrc setlocal noswapfile nobackup noundofile
+  " kubeconfigs
+  autocmd BufNewFile,BufRead *kubeconfig.yaml setlocal noswapfile nobackup noundofile
+  autocmd BufNewFile,BufRead kubeconfig setlocal noswapfile nobackup noundofile
+  autocmd BufNewFile,BufRead ~/.kube/* setlocal noswapfile nobackup noundofile
+  " keys and certs
+  autocmd BufNewFile,BufRead ~/.ssh/* setlocal noswapfile nobackup noundofile
+  autocmd BufNewFile,BufRead *.key setlocal noswapfile nobackup noundofile
+  autocmd BufNewFile,BufRead *.pem setlocal noswapfile nobackup noundofile
+  autocmd BufNewFile,BufRead *.crt setlocal noswapfile nobackup noundofile
+  autocmd BufNewFile,BufRead id_* setlocal noswapfile nobackup noundofile
 augroup END
 " }}}
 
