@@ -19,7 +19,7 @@ sudo dnf install -y \
     podman-docker \
     libtree-sitter
 
-git clone https://github.com/jeffreytse/zsh-vi-mode.git ~/.local
+git clone https://github.com/jeffreytse/zsh-vi-mode.git ~/.local/zsh-vi-mode
 
 (
   set -x; cd "$(mktemp -d)" &&
