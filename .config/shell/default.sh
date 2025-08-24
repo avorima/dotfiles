@@ -37,7 +37,7 @@ export GPG_TTY
 }
 
 PATH=$HOME/.local/go/bin:$PATH # g-install
-PATH=$HOME/.local/bin:$HOME/.local/bin/scripts:$KREW_ROOT/bin:$PATH
+PATH=$HOME/.local/bin:$HOME/.local/bin/scripts:$KREW_ROOT/bin:$XDG_DATA_HOME/gem/ruby/3.0.0/bin:$PATH
 export PATH
 
 export EDITOR=/usr/bin/nvim
