@@ -102,6 +102,7 @@ export GCC_COLORS='error=01;31:warning=01;35:note=01;36:caret=01;32:locus=01:quo
 export BROWSER=firefox
 export EDITOR=vim
 export LIBVIRT_DEFAULT_URI=qemu:///system
+export ETCDCTL_API=3
 
 [ -f "$HOME/.bash_aliases" ] && . "$HOME/.bash_aliases"
 
@@ -149,3 +150,5 @@ if [ -z "$TMUX" ]; then
     eval "$(keychain --eval --agents ssh id_rsa backup_id_rsa)"
     ln -sf "$SSH_AUTH_SOCK" "$HOME/.ssh/auth_sock"
 fi
+
+source <(kubectl completion bash)
