@@ -51,6 +51,8 @@ return {
             dap.listeners.before.event_exited["dapui_config"] = dapui.close
 
             require("dap-go").setup({})
+
+            dap.set_log_level('DEBUG')
         end,
     },
 }
