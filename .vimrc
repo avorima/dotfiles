@@ -133,43 +133,18 @@ set novisualbell
 " }}}
 
 " Mappings {{{
+map Q <nop>
+
 " write to readonly file
 cnoremap w!! %!sudo tee > /dev/null %
 
 " Hex mode mapping
 cnoremap hex :%!xxd
 
-" Reformat file
-map <F7> mzgg=G`z
-
 " Fuzzy searching
 cnoremap <leader>e e **/**/
 cnoremap <leader>vs vs **/**/
 cnoremap <leader>new new **/**/
-
-nmap ]h <Plug>GitGutterNextHunk
-nmap [h <Plug>GitGutterPrevHunk
-nmap <leader>hv <Plug>GitGutterPreviewHunk
-
-" toggle folds
-nnoremap <silent> <space> @=(foldlevel('.')?'za':"\<space>")<CR>
-
-" add and remove folds
-vnoremap <space> zf
-vnoremap d<space> zE
-
-" close all folds
-nnoremap <F3> :set foldlevel=0<CR>
-
-" paste things continuously
-xnoremap p "_dP
-
-" replace inside visual selection boundaries
-xmap <leader>s :s/\%V
-
-" easy align
-xmap ga <Plug>(EasyAlign)
-nmap ga <Plug>(EasyAlign)
 
 " copy the found line below cursor
 cnoremap $t <CR>:t''<CR>
@@ -177,6 +152,15 @@ cnoremap $t <CR>:t''<CR>
 cnoremap $m <CR>:m''<CR>
 " delete the found line
 cnoremap $d <CR>:d<CR>``
+
+" Reformat file
+nmap <F7> mzgg=G`z
+
+" toggle folds
+nnoremap <silent> <space> @=(foldlevel('.')?'za':"\<space>")<CR>
+
+" close all folds
+nnoremap <F3> :set foldlevel=0<CR>
 
 if exists('$TMUX')
   " remap tmux navigator movements
@@ -204,19 +188,10 @@ nnoremap <silent> { :<C-u>execute "keepjumps norm! " . v:count1 . "{zz"<CR>
 nnoremap <leader>qo :copen<CR>
 nnoremap <leader>qc :cclose<CR>
 
-" don't leave visual mode when indenting
-vnoremap < <gv
-vnoremap > >gv
-
 " yank, cut and paste with system register
 nnoremap <leader>p :set paste<CR>"+p:set nopaste<CR>
 nnoremap <leader>y "+y
 nnoremap <leader>x "+x
-
-nnoremap <leader>5 :NERDTreeToggle<CR>
-
-" we don't need ex-mode
-map Q <nop>
 
 " undo vim-surround VSurround command, i.e. ( a ) => (a)
 nnoremap <leader>di( vi(<ESC>g`>xg`<x
@@ -239,6 +214,20 @@ nnoremap <expr> N 'nN'[v:searchforward]
 " substitude word under cursor on line/globally
 nnoremap <leader>s :s/\<<C-r><C-w>\>//g<left><left>
 nnoremap <leader>S :%s/\<<C-r><C-w>\>//g<left><left>
+
+" add and remove folds
+vnoremap <space> zf
+vnoremap d<space> zE
+
+" paste things continuously
+xnoremap p "_dP
+
+" replace inside visual selection boundaries
+xmap <leader>s :s/\%V
+
+" don't leave visual mode when indenting
+vnoremap < <gv
+vnoremap > >gv
 " }}}
 
 " Functions {{{
@@ -387,6 +376,28 @@ augroup END
 " }}}
 
 " Plugins {{{
+" vim-easy-align
+xmap ga <Plug>(EasyAlign)
+nmap ga <Plug>(EasyAlign)
+
+" vim-gitgutter
+nmap ]h <Plug>GitGutterNextHunk
+nmap [h <Plug>GitGutterPrevHunk
+nmap <leader>hv <Plug>GitGutterPreviewHunk
+
+" nerdtree
+nnoremap <leader>5 :NERDTreeToggle<CR>
+
+" vim-tags
+let g:vim_tags_auto_generate = 1
+let g:vim_tags_ctags_binary = '/usr/bin/ctags'
+let g:vim_tags_use_vim_dispatch = 1
+let g:vim_tags_use_language_field = 1
+let g:vim_tags_cache_dir = expand($HOME . '/.vim/cache')
+
+" perl-tags-vim
+let g:PT_use_ppi = 1
+
 " syntastic {{{
 let g:syntastic_cpp_check_header = 1
 let g:syntastic_cpp_compiler_options = ' -std=c++0x'
@@ -456,12 +467,6 @@ let g:lightline.mode_map = {
       \ }
 " }}}
 
-" vim-tags {{{
-let g:vim_tags_auto_generate = 0
-let g:vim_tags_ctags_binary = '/usr/bin/ctags'
-let g:vim_tags_use_vim_dispatch = 1
-" }}}
-
 " goyo.vim {{{
 function! s:goyo_enter()
   " ensure :q quits
@@ -514,15 +519,5 @@ let g:tmuxline_preset = {
         \'cwin' : ['#I', '#W', '#F'],
         \'y'    : ['%R', '%a', '%Y-%m-%d'],
         \'z'    : '#H' }
-" }}}
-
-" auto-ctags.vim {{{
-
-let g:auto_ctags = 1
-
-" }}}
-
-" perl-tags-vim {{{
-let g:PT_use_ppi = 1
 " }}}
 " }}}
