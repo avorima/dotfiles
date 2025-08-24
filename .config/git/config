@@ -40,8 +40,7 @@
   uncommit = !"git reset --soft HEAD~1 && git reset HEAD --"
   unstage = reset HEAD --
   pick = cherry-pick
-  sneak-push = push -o ci.skip
-  faceroll = !"git commit --amend --no-edit -n -S && git push -f"
+  faceroll = !"git commit --amend --no-edit -n -S && git push --force-with-lease"
 
   sha = "!f() { git rev-parse --short ${1:-HEAD}; }; f"
   continue = "!f() { git status | grep -q 'rebase in progress' && git rebase --continue; }; f"
