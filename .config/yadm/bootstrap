@@ -33,6 +33,7 @@ sudo pacman -S --needed \
     neofetch \
     gopls \
     shellcheck \
+    shfmt \
     python-lsp-server \
     rust-analyzer \
     lua-language-server \
@@ -51,6 +52,7 @@ if ! command -v yay >/dev/null; then
 fi
 
 yay -S --needed \
+    efm-langserver \
     tmux-plugin-manager-git \
     tmux-fastcopy \
     zsh-vi-mode \
