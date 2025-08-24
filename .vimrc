@@ -243,8 +243,8 @@ nnoremap <expr> N 'nN'[v:searchforward]
 " substitude word under cursor on line/globally
 "nmap S   :%s//g<LEFT><LEFT>
 "xmap S   :s//g<LEFT><LEFT>
-nnoremap <leader>s :s/\<<C-r><C-w>\>//g<left><left>
-nnoremap <leader>S :%s/\<<C-r><C-w>\>//g<left><left>
+nnoremap <leader>s :s/\C\<<C-r><C-w>\>//g<left><left>
+nnoremap <leader>S :%s/\C\<<C-r><C-w>\>//g<left><left>
 
 " faster upper/lowercase
 nnoremap <leader>uc gUiw
