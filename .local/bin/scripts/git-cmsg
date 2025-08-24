@@ -1,7 +1,14 @@
-#!/usr/bin/zsh
+#!/bin/sh
 if [ $# -gt 0 ]; then
-    msg="$@"
+    msg="$*"
 else
     read -r msg
 fi
+
+if [ "$(printf "%s" "$msg" | wc -c)" -gt 50 ]; then
+    printf "Commit message has more than 50 characters. Confirm (y/N): " >&2
+    read -r yn
+    [ "$yn" = "y" ] || exit
+fi
+
 git commit -S -m "$msg"
