@@ -26,7 +26,7 @@ HISTFILESIZE=2000
 shopt -s checkwinsize
 
 # Source global definitions
-[[ -f /etc/bashrc ]] && . /etc/bashrc
+[ -f /etc/bashrc ] && . /etc/bashrc
 
 # make less more friendly for non-text input files, see lesspipe(1)
 [ -x /usr/bin/lesspipe ] && eval "$(SHELL=/bin/sh lesspipe)"
@@ -99,17 +99,11 @@ export LS_COLORS
 export GREP_COLOR='1;33'
 export GCC_COLORS='error=01;31:warning=01;35:note=01;36:caret=01;32:locus=01:quote=01'
 
-export PATH="/usr/sbin:/usr/bin:/sbin:/bin:/usr/local/bin:/usr/local/sbin:$HOME/bin"
-
 export BROWSER=firefox
 export EDITOR=vim
+export LIBVIRT_DEFAULT_URI=qemu:///system
 
-# .inputrc
-
-# Uncomment the following line if you don't like systemctl's auto-paging feature:
-# export SYSTEMD_PAGER=
-
-[[ -f ~/.bash_aliases ]] && . ~/.bash_aliases
+[ -f "$HOME/.bash_aliases" ] && . "$HOME/.bash_aliases"
 
 # enable programmable completion features (you don't need to enable
 # this, if it's already enabled in /etc/bash.bashrc and /etc/profile
@@ -122,16 +116,14 @@ if ! shopt -oq posix; then
   fi
 fi
 
-[ -d ~/perl5/perlbrew ] && source ~/perl5/perlbrew/etc/bashrc
-
 export NVM_DIR="$HOME/.nvm"
-if [ -d $NVM_DIR ]; then
+if [ -d "$NVM_DIR" ]; then
     [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
 fi
 
 # Node Completion - Auto-generated, do not touch.
 shopt -s progcomp
-if [ -d ~/.node-completion ]; then
+if [ -d "$HOME/.node-completion" ]; then
     for f in $(command ls ~/.node-completion); do
         f="$HOME/.node-completion/$f"
         test -f "$f" && . "$f"
@@ -139,8 +131,17 @@ if [ -d ~/.node-completion ]; then
 fi
 
 export RVM_DIR="$HOME/.rvm"
-if [ -d $RVM_DIR ]; then
-    source "$RVM_DIR/scripts/rvm" # Load rvm
+if [ -d "$RVM_DIR" ]; then
+    . "$RVM_DIR/scripts/rvm" # Load rvm
 fi
 
-[ -z $TMUX ] && eval `keychain --eval --agents ssh id_rsa`
+PATH=$PATH:$HOME/.local/bin:$HOME/bin
+
+[ -d ~/.plenv/bin ] && PATH=$HOME/.plenv/bin:$PATH && eval "$(plenv init -)"
+
+export PATH
+
+if [ -z "$TMUX" ]; then
+    eval "$(keychain --eval --agents ssh id_rsa backup_id_rsa)"
+    ln -sf "$SSH_AUTH_SOCK" "$HOME/.ssh/auth_sock"
+fi
