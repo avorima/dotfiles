@@ -314,7 +314,7 @@ let g:lightline = {}
 let g:lightline.colorscheme = 'gruvbox'
 
 let g:lightline.component_function = {
-    \ 'gitbranch': 'fugitive#head',
+    \ 'gitbranch': 'FugitiveHead',
     \ }
 
 let g:lightline.active = {
