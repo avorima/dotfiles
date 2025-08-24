@@ -32,6 +32,7 @@ _check_arg() {
 
 _switch_to_version() {
     ln -sf "$(realpath "$(command -v "go${1}")")" "$HOME/.local/bin/go"
+    ln -sf "$HOME/sdk/go${1}/bin" "$HOME/.local/gobin"
 }
 
 _install_version() {
