@@ -29,6 +29,7 @@ Plug 'ryanoasis/vim-devicons'
 Plug 'szw/vim-tags', { 'for': ['c', 'cpp', 'python', 'ruby'] }
 Plug 'SirVer/ultisnips', { 'for': ['c','cpp','python','ruby','perl'] }
 Plug 'honza/vim-snippets', { 'for': ['c','cpp','python','ruby','perl'] }
+Plug 'kana/vim-textobj-user'
 
 call plug#end()
 " Plugin End }}}
@@ -428,9 +429,45 @@ nnoremap <leader>5 :NERDTreeToggle<CR>
 let g:PT_use_ppi = 1
 
 " ultisnips
-let g:UltiSnipsExpandTrigger = "<tab><tab>"
+let g:UltiSnipsExpandTrigger = "<leader><tab>"
 let g:UltiSnipsJumpForwardTrigger = "<C-n>"
 let g:UltiSnipsJumpBackwardTrigger = "<C-p>"
+
+if executable('ag')
+  set grepprg=ag\ --nogroup\ --nocolor
+  let g:ctrlp_user_command = 'ag %s -l --nocolor -g ""'
+  let g:ctrlp_use_caching = 0
+endif
+
+" vim-textobj-user {{{
+
+" al/il for line objects
+call textobj#user#plugin('line', {
+\   '-': {
+\       'select-a-function': 'CurrentLineA',
+\       'select-a': 'al',
+\       'select-i-function': 'CurrentLineI',
+\       'select-i': 'il',
+\   },
+\ })
+
+function! CurrentLineA()
+  normal! 0
+  let head_pos = getpos('.')
+  normal! $
+  let tail_pos = getpos('.')
+  return ['v', head_pos, tail_pos]
+endfunction
+
+function! CurrentLineI()
+  normal! ^
+  let head_pos = getpos('.')
+  normal! g_
+  let tail_pos = getpos('.')
+  let non_blank_char_exists_p = getline('.')[head_pos[2] - 1] !~# '\s'
+  return non_blank_char_exists_p ? ['v', head_pos, tail_pos] : 0
+endfunction
+" }}}
 
 " vim-tags {{{
 let g:vim_tags_auto_generate = 1
