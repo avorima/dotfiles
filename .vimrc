@@ -212,14 +212,19 @@ nnoremap <leader>p :set paste<CR>"+p:set nopaste<CR>
 nnoremap <leader>y "+y
 nnoremap <leader>x "+x
 
-" toggle NERD
 nnoremap <leader>5 :NERDTreeToggle<CR>
 
 " we don't need ex-mode
 map Q <nop>
 
+" undo vim-surround VSurround command, i.e. ( a ) => (a)
+nnoremap <leader>di( vi(<ESC>g`>xg`<x
+nnoremap <leader>di{ vi{<ESC>g`>xg`<x
+nnoremap <leader>di[ vi[<ESC>g`>xg`<x
+
 nnoremap <leader>dd :call DeleteMultipleEmptyLines()<CR>
 
+" add/remove newlines above and below current line
 nnoremap <leader><space><space> mmO<ESC>jo<ESC>k`m
 nnoremap <leader><space>d mm{dd}dd`m
 
