@@ -154,8 +154,10 @@ PATH=$PATH:$GOROOT/bin:$GOPATH/bin
 export PATH
 
 if [ -z "$TMUX" ]; then
-    eval "$(keychain --eval --agents ssh id_ed25519 id_rsa backup_id_rsa)"
-    ln -sf "$SSH_AUTH_SOCK" "$HOME/.ssh/auth_sock"
+    if command -v keychain 2>/dev/null; then
+        eval "$(keychain --eval --agents ssh id_ed25519 id_rsa backup_id_rsa)"
+        ln -sf "$SSH_AUTH_SOCK" "$HOME/.ssh/auth_sock"
+    fi
 fi
 
 command -v kubectl >/dev/null && source <(kubectl completion bash)
