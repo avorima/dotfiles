@@ -167,11 +167,11 @@ nnoremap <F3> :set foldlevel=0<CR>
 if exists('$TMUX')
   " remap tmux navigator movements
   let g:tmux_navigator_no_mappings = 1
-  nnoremap <silent> <C-h> :TmuxNavigateLeft<cr>
-  nnoremap <silent> <C-j> :TmuxNavigateDown<cr>
-  nnoremap <silent> <C-k> :TmuxNavigateUp<cr>
-  nnoremap <silent> <C-l> :TmuxNavigateRight<cr>
-  nnoremap <silent> <C-\> :TmuxNavigatePrevious<cr>
+  nnoremap <silent> <C-h> :TmuxNavigateLeft<CR>
+  nnoremap <silent> <C-j> :TmuxNavigateDown<CR>
+  nnoremap <silent> <C-k> :TmuxNavigateUp<CR>
+  nnoremap <silent> <C-l> :TmuxNavigateRight<CR>
+  nnoremap <silent> <C-\> :TmuxNavigatePrevious<CR>
 else
   nnoremap <silent> <C-h> <C-W>h
   nnoremap <silent> <C-j> <C-W>j
@@ -201,7 +201,7 @@ nnoremap <leader>di{ vi{<ESC>g`>xg`<x
 nnoremap <leader>di[ vi[<ESC>g`>xg`<x
 
 " squash newlines under cursors
-nnoremap <leader>dd vips<ESC>
+nnoremap <leader>dd cip<ESC>
 " squash newlines in file
 nnoremap <leader>%dd :g/^\_$\n\_^$/d<CR>
 
