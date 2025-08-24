@@ -62,9 +62,9 @@ switch_cmd() {
 
 compile_cmd() {
     version=$(_check_arg "$1" "version")
-    target=$(_check_arg "$2" "target")
-
-    "go${version}" build "${target}"
+    shift
+    [ $# -lt 1 ] && { print_usage 1>&2; exit 1; }
+    "go${version}" build "$@"
 }
 
 set -e
@@ -79,8 +79,11 @@ case $1 in
         switch_cmd "$2"
         ;;
     compile|c)
-        _args="VERSION TARGET"
-        compile_cmd "$2" "$3"
+        _args="VERSION GOBUILDARGS ..."
+        v=$2
+        shift
+        shift
+        compile_cmd "$v" "$@"
         ;;
     *)
         _cmd=COMMAND
