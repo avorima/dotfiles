@@ -37,28 +37,6 @@ return {
     },
 
     {
-        "toppair/peek.nvim",
-        build = "deno task --quiet build:fast",
-        opts = {
-            auto_load = false,
-            app = { "chromium", "--new-window" }
-        },
-        keys = {
-            {
-                "<F6>",
-                function()
-                    local peek = require("peek")
-                    if peek.is_open() then
-                        peek.close()
-                    else
-                        peek.open()
-                    end
-                end
-            },
-        },
-    },
-
-    {
         "hedyhli/markdown-toc.nvim",
         ft = "markdown",
         cmd = { "Mtoc" },
