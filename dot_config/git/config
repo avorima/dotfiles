@@ -26,7 +26,6 @@
   lg = log --graph --all --decorate --pretty=short
   sc = switch -C
 
-  branches = branch -a
   last = log -1 HEAD
   amend = commit --amend -S
   redate = !"git commit --amend -S --no-edit --date=\"$(date -R)\""
