@@ -82,6 +82,9 @@ xnoremap p "_dP
 " replace inside visual selection boundaries
 xnoremap <leader>s :s/\%V
 
+" yank to system clipboard
+vnoremap <leader>y "+y
+
 " don't leave visual mode when indenting
 vnoremap < <gv
 vnoremap > >gv
