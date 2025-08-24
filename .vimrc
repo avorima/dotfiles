@@ -440,7 +440,7 @@ function! GoAlternateSwitch(bang, cmd) abort
     return
   endif
   if !filereadable(alt_file) && !bufexists(alt_file) && !a:bang
-    echoe "couldn't file " . alt_file
+    echoe "couldn't find file " . alt_file
     return
   elseif empty(a:cmd)
     execute ":" . "edit" . " " . alt_file
