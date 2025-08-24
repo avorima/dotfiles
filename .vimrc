@@ -21,6 +21,8 @@ Plug 'hashivim/vim-terraform'
 Plug 'ericpruitt/tmux.vim'
 Plug 'cespare/vim-toml'
 Plug 'stephpy/vim-yaml'
+Plug 'tikhomirov/vim-glsl'
+Plug 'rhysd/vim-syntax-codeowners'
 
 Plug 'tpope/vim-abolish'
 Plug 'tpope/vim-commentary'
