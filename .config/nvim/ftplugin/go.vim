@@ -27,4 +27,6 @@ nnoremap <buffer> <leader>tr :call GoRunTests('-race', '-count=1')<CR>
 nnoremap <buffer> <leader>tt :call GoRunTests()<CR>
 nnoremap <buffer> <leader>to :call GoRunTestUnderCursor()<CR>
 
+nnoremap <buffer> <leader>gdb :call GoDebugTests()<CR>
+
 " vim: sw=2 ts=2 et
