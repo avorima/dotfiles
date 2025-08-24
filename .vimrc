@@ -553,6 +553,7 @@ augroup FiletypeConfigs
   autocmd filetype markdown setlocal foldlevel=999
   autocmd filetype resolv setlocal commentstring=#\ %s
   autocmd filetype helm setlocal commentstring=#\ %s
+  autocmd filetype gomod setlocal commentstring=//\ %s
 augroup END
 
 augroup VisibleNaughtiness
