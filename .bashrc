@@ -64,7 +64,7 @@ parse_git_dirty() {
 
 git_prompt() {
     local ref
-    ref=$(git symbolic-ref HEAD 2>/dev/null | cut -d'/' -f3)
+    ref=$(git symbolic-ref HEAD 2>/dev/null | sed 's/refs\/heads\///')
     if [ "$ref" != "" ]; then
         echo "${DARKBLUE}git:(${RED}$ref${DARKBLUE})${CLEAR} $(parse_git_dirty)"
     fi
