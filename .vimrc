@@ -585,6 +585,14 @@ augroup VisibleNaughtiness
     autocmd BufEnter *.txt   set nolist
     autocmd BufEnter *       if !&modifiable | set nolist | endif
 augroup END
+
+augroup Security
+  autocmd!
+  autocmd BufNewFile,BufRead /dev/shm/gopass.* setlocal noswapfile nobackup noundofile
+  autocmd BufNewFile,BufRead ~/.netrc setlocal noswapfile nobackup noundofile
+  autocmd BufNewFile,BufRead ~/.docker/config.json setlocal noswapfile nobackup noundofile
+  autocmd BufNewFile,BufRead .envrc setlocal noswapfile nobackup noundofile
+augroup END
 " }}}
 
 " Plugins {{{
