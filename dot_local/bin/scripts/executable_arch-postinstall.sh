@@ -30,8 +30,7 @@ sudo pacman -S --needed \
     gopls \
     python-lsp-server \
     neofetch \
-    xsel \
-    wl-clipboard
+    flameshot
 
 if ! command -v yay >/dev/null; then
     echo "installing AUR helper"
@@ -42,7 +41,7 @@ if ! command -v yay >/dev/null; then
     )
 fi
 
-yay -S --needed tmux-plugin-manager tmux-fastcopy zsh-vi-mode nerd-fonts-source-code-pro vim-language-server
+yay -S --needed tmux-fastcopy zsh-vi-mode nerd-fonts-source-code-pro
 printf "install additional packages? (y/N) "
 read -r yn
 if [[ $yn = "y" ]]; then
