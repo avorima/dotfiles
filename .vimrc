@@ -657,6 +657,8 @@ let g:ale_completion_max_suggestions = 20
 
 let g:ale_set_balloons_legacy_echo = 1
 
+let g:ale_go_golangci_lint_options = ''
+
 let g:ale_python_pyls_auto_pipenv = 1
 
 let g:ale_c_ccls_init_options = {
