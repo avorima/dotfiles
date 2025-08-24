@@ -1,11 +1,18 @@
 set nocompatible
 
+set nobackup
+set noswapfile
+
 set expandtab
 set softtabstop=4
 set shiftwidth=4
 
 set nohlsearch
+set incsearch
+
+set magic
 set hidden
+
 set ignorecase
 set smartcase
 set updatetime=100
