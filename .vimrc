@@ -222,6 +222,10 @@ nnoremap <leader><space>d mm{dd}dd`m
 " make n and N behave the same way for *,#,/,?
 nnoremap <expr> n 'Nn'[v:searchforward]
 nnoremap <expr> N 'nN'[v:searchforward]
+
+" substitude word under cursor on line/globally
+nnoremap <leader>s :s/\<<C-r><C-w>\>//g<left><left>
+nnoremap <leader>S :%s/\<<C-r><C-w>\>//g<left><left>
 " }}}
 
 " Functions {{{
