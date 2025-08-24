@@ -1,4 +1,4 @@
-require('telescope').setup{
+require('telescope').setup {
   defaults = {
     mappings = {
       i = {
@@ -25,7 +25,20 @@ require('telescope').setup{
       theme = 'ivy',
     },
   },
+  extensions = {
+    undo = {
+      side_by_side = true,
+      layout_strategy = "vertical",
+      layout_config = {
+        preview_height = 0.8,
+      },
+    },
+  },
 }
+
+require('telescope').load_extension('undo')
+
+vim.keymap.set("n", "<leader>fu", "<cmd>Telescope undo<cr>", { desc = '[F]ind in [U]ndo buffer' })
 
 vim.keymap.set('n', '<leader>ff', require('telescope.builtin').find_files, { desc = '[F]ind [F]iles' })
 vim.keymap.set('n', '<leader>fg', require('telescope.builtin').live_grep, { desc = '[F]ind using [G]rep' })
