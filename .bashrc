@@ -154,7 +154,7 @@ PATH=$PATH:$GOROOT/bin:$GOPATH/bin
 export PATH
 
 if [ -z "$TMUX" ]; then
-    eval "$(keychain --eval --agents ssh id_rsa backup_id_rsa)"
+    eval "$(keychain --eval --agents ssh id_ed25519 id_rsa backup_id_rsa)"
     ln -sf "$SSH_AUTH_SOCK" "$HOME/.ssh/auth_sock"
 fi
 
