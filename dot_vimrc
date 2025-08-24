@@ -23,7 +23,6 @@ set splitright
 
 set number
 set relativenumber
-set nohlsearch
 
 set lcs=tab:»·,trail:␣,nbsp:˷
 highlight InvisibleSpaces ctermfg=Black ctermbg=Black
