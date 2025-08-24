@@ -1,0 +1,53 @@
+#!/usr/bin/env bash
+
+set -o errexit
+set -o pipefail
+set -o nounset
+if [[ "${TRACE-0}" == "1" ]]; then
+    set -o xtrace
+fi
+
+GROUP_NAME=${1-}
+
+case $GROUP_NAME in
+    -h|--help)
+        cat <<EOM
+Display RBAC verbs for Kubernetes API groups.
+Defaults to the "core" group if no arguments are provided.
+
+See: https://stackoverflow.com/questions/57661494/list-of-kubernetes-rbac-rule-verbs
+
+Options:
+  --groups  List available API groups ("core" is omitted)
+
+Usage: $(basename "$0") [-h|--help] [--groups] [GROUP]
+EOM
+        ;;
+    --groups)
+        kubectl proxy --port=0 &
+        PROXY_PID=$!
+        trap 'kill -TERM $PROXY_PID' EXIT
+
+        # server needs some time to come up
+        sleep 1
+
+        SERVER=$(ss -tlpn | grep kubectl | grep -oE '127.0.0.1:[0-9]+')
+        curl -s "http://$SERVER/apis" | jq -r '.groups[].preferredVersion.groupVersion'
+        ;;
+    *)
+        kubectl proxy --port=0 &
+        PROXY_PID=$!
+        trap 'kill -TERM $PROXY_PID' EXIT
+
+        # server needs some time to come up
+        sleep 1
+
+        SERVER=$(ss -tlpn | grep kubectl | grep -oE '127.0.0.1:[0-9]+')
+        if [[ -z $GROUP_NAME ]] || [[ $GROUP_NAME == "core" ]]; then
+            curl -s "http://$SERVER/api/v1" | jq -r '.resources[] | [.name, (.verbs | join(" "))] | join(" = ")'
+        else
+            GROUP_VERSION=$(curl -s "http://$SERVER/apis" | jq -r '.groups[].preferredVersion.groupVersion' | grep ^"$GROUP_NAME")
+            curl -s "http://$SERVER/apis/$GROUP_VERSION" | jq -r '.resources[] | [.name, (.verbs | join(" "))] | join(" = ")'
+        fi
+        ;;
+esac
