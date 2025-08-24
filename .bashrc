@@ -22,14 +22,9 @@ HISTFILESIZE=2000
 # update the values of LINES and COLUMNS.
 shopt -s checkwinsize
 
-# If set, the pattern "**" used in a pathname expansion context will
-# match all files and zero or more directories and subdirectories.
-#shopt -s globstar
-
 # Source global definitions
-if [ -f /etc/bashrc ]; then
-    . /etc/bashrc
-fi
+[[ -f /etc/bashrc ]] && . /etc/bashrc
+
 # make less more friendly for non-text input files, see lesspipe(1)
 [ -x /usr/bin/lesspipe ] && eval "$(SHELL=/bin/sh lesspipe)"
 
@@ -92,6 +87,7 @@ export GCC_COLORS='error=01;31:warning=01;35:note=01;36:caret=01;32:locus=01:quo
 
 export PATH="/usr/sbin:/usr/bin:/sbin:/bin:/usr/local/bin:/usr/local/sbin:$HOME/bin"
 
+export BROWSER=firefox
 export EDITOR=vim
 
 # .inputrc
@@ -99,13 +95,7 @@ export EDITOR=vim
 # Uncomment the following line if you don't like systemctl's auto-paging feature:
 # export SYSTEMD_PAGER=
 
-if [ -f ~/.bash_aliases ]; then
-    . ~/.bash_aliases
-fi
-
-if [ -f ~/.Xdefaults ]; then
-    xrdb -merge ~/.Xdefaults
-fi
+[[ -f ~/.bash_aliases ]] && . ~/.bash_aliases
 
 # enable programmable completion features (you don't need to enable
 # this, if it's already enabled in /etc/bash.bashrc and /etc/profile
