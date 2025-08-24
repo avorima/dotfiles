@@ -258,6 +258,11 @@ augroup Filetypes
   autocmd filetype yaml nnoremap <buffer> <silent> <BS><BS> :call StripTrailingWhitespace()<CR>
 augroup END
 
+augroup FileTemplates
+  autocmd!
+  autocmd BufNewFile *.sh 0r ~/.config/nvim/templates/skeleton.sh
+augroup END
+
 " 1}}}
 
 " Plugins {{{1
