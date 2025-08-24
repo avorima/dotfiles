@@ -1,0 +1,29 @@
+#!/usr/bin/env sh
+# git - merge or rebase
+
+isProbablyRebase() {
+    git status | grep -q 'rebase in progress'
+}
+
+isProbablyMerge() {
+    git status | grep -qE '(have diverged|unmerged paths)'
+}
+
+verb=
+if isProbablyRebase; then
+    verb="rebase"
+elif isProbablyMerge; then
+    verb="merge"
+fi
+
+[ -z "$verb" ] && { echo "Could not determine if rebase or merge is in progress" 1>&2; exit 1; }
+
+case "$1" in
+    continue|abort|skip) ;;
+    *)
+        echo "Invalid flag: --$1" 1>&2
+        exit 1
+        ;;
+esac
+
+git $verb "--$1"
