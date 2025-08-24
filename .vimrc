@@ -315,6 +315,9 @@ vnoremap <silent> <leader>J :<C-U>call <SID>ResizeVisualSelection(1, 0, v:count)
 
 inoremap <leader>pwd <ESC>mp:.r!pwd<CR>i<BS><C-O>A
 
+" Run go test under cursor
+nnoremap <leader>gt :term go test -run=<C-r><C-w><CR>
+
 " }}}
 
 " Functions {{{
