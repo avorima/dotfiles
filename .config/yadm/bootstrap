@@ -10,6 +10,7 @@ sudo dnf install -y \
     yq \
     shellcheck \
     shfmt \
+    fzf \
     ripgrep \
     fd-find \
     bat \
