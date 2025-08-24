@@ -88,9 +88,6 @@ setopt HIST_REDUCE_BLANKS
 # allow bash-style commenting on the command-line
 setopt INTERACTIVE_COMMENTS
 
-export LC_CTYPE=en_US.UTF-8
-export LC_ALL=en_US.UTF-8
-
 command -v direnv >/dev/null && eval "$(direnv hook zsh)"
 
 if test -n "$KITTY_INSTALLATION_DIR"; then
