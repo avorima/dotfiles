@@ -31,6 +31,7 @@
     cmsg = "!f() { if [ $# -gt 0 ]; then msg=\"$@\"; git commit -m \"$msg\"; else read -r msg; git commit -m \"$msg\"; fi; }; f"
     uncommit = !"git reset --soft HEAD~1 && git reset HEAD --"
     faceroll = !"git commit --amend --no-edit; git push -f"
+    dammit = "!f() { $EDITOR $1; git add $1; git commit --amend --no-edit; git push -f; }; f"
 
     l = log --graph --oneline --decorate
     lg = log --graph --all --decorate --pretty=short
