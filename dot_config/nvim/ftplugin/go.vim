@@ -14,6 +14,8 @@ setlocal softtabstop=8
 
 setlocal list
 
+setlocal textwidth=120
+
 compiler go
 
 nnoremap <buffer> <silent> <leader>gao :call GoAlternateSwitch(1, "edit")<CR>
@@ -21,6 +23,7 @@ nnoremap <buffer> <silent> <leader>gas :call GoAlternateSwitch(1, "split")<CR>
 nnoremap <buffer> <silent> <leader>gav :call GoAlternateSwitch(1, "vsplit")<CR>
 
 nnoremap <buffer> <leader>tu :call GoRunTests('-short')<CR>
+nnoremap <buffer> <leader>tr :call GoRunTests('-race')<CR>
 nnoremap <buffer> <leader>tt :call GoRunTests()<CR>
 
 " vim: sw=2 ts=2 et
