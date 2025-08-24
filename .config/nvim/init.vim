@@ -240,16 +240,18 @@ augroup Security
   autocmd BufNewFile,BufRead ~/.netrc setlocal noswapfile nobackup noundofile
   autocmd BufNewFile,BufRead ~/.docker/config.json setlocal noswapfile nobackup noundofile
   autocmd BufNewFile,BufRead .envrc setlocal noswapfile nobackup noundofile
-  " kubeconfigs
+  " kubeconfigs and kubectl tempfiles
   autocmd BufNewFile,BufRead *kubeconfig.yaml setlocal noswapfile nobackup noundofile
   autocmd BufNewFile,BufRead kubeconfig setlocal noswapfile nobackup noundofile
   autocmd BufNewFile,BufRead ~/.kube/* setlocal noswapfile nobackup noundofile
+  autocmd BufNewFile,BufRead /tmp/kubectl-edit*.yaml setlocal noswapfile nobackup noundofile
   " keys and certs
   autocmd BufNewFile,BufRead ~/.ssh/* setlocal noswapfile nobackup noundofile
   autocmd BufNewFile,BufRead *.key setlocal noswapfile nobackup noundofile
   autocmd BufNewFile,BufRead *.pem setlocal noswapfile nobackup noundofile
   autocmd BufNewFile,BufRead *.crt setlocal noswapfile nobackup noundofile
   autocmd BufNewFile,BufRead id_* setlocal noswapfile nobackup noundofile
+  autocmd BufNewFile,BufRead *values-secrets.yaml setlocal noswapfile nobackup noundofile
 augroup END
 
 augroup Filetypes
