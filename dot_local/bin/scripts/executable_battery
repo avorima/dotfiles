@@ -1,0 +1,21 @@
+#!/bin/sh
+
+battery_status()
+{
+    for BAT_PATH in /sys/class/power_supply/BAT*; do
+        if [ -f "$BAT_PATH/capacity" ]; then
+            cat "$BAT_PATH/capacity"
+            return 0
+        elif [ -f "$BAT_PATH/energy_full" ]; then
+            naming="energy"
+        elif [ -f "$BAT_PATH/charge_full" ]; then
+            naming="charge"
+        fi
+        echo $((100 * $(cat "$BAT_PATH/${naming}_now") / $(cat "$BAT_PATH/${naming}_full")))
+        return 0
+    done
+}
+
+BATTERY_STATUS=$(battery_status)
+[ -z "$BATTERY_STATUS" ] && exit
+echo "${BATTERY_STATUS}%"
