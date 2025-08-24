@@ -152,3 +152,5 @@ if [ -z "$TMUX" ]; then
 fi
 
 source <(kubectl completion bash)
+
+[ -f ~/.fzf.bash ] && source ~/.fzf.bash
