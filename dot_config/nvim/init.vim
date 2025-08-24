@@ -45,7 +45,10 @@ set wildignore=*~,*.a,*.o,*.so,*.pyc,
       \*.jpg,*.jpeg,*.png,*.gif,*.pdf,*.git,
       \*.swp,*.swo
 set wildmode=list,list:longest,full
-set completeopt=menuone,noselect
+" menuone: popup even when there's only one match
+" noinsert: Do not insert text until a selection is made
+" noselect: Do not select, force user to select one from the menu
+set completeopt=menuone,noinsert,noselect
 set mouse=a
 
 " give files without filetype suffixes lower priority
