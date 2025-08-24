@@ -113,6 +113,13 @@ if ! shopt -oq posix; then
   fi
 fi
 
+# Load custom completions if they exist
+if [ -d ~/.bash_completion.d ]; then
+    for completion in ~/.bash_completion.d/*; do
+        [ -f "$completion" ] && . "$completion"
+    done
+fi
+
 export NVM_DIR="$HOME/.nvm"
 if [ -d "$NVM_DIR" ]; then
     [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
