@@ -30,15 +30,16 @@
   last = log -1 HEAD
   amend = commit --amend -S
   redate = !"git commit --amend -S --no-edit --date=\"$(date -R)\""
+  resign = rebase --exec 'git commit --amend --no-edit -n -S' -i
   uncommit = !"git reset --soft HEAD~1 && git reset HEAD --"
   unstage = reset HEAD --
   pick = cherry-pick
   sneak-push = push -o ci.skip
-  faceroll = !"git commit --amend -S --no-edit && git push -f"
-  fetch--tags = fetch --tags
+  faceroll = !"git commit --amend --no-edit -n -S && git push -f"
 
-  continue = "!f() { git status | grep -q 'rebase in progress' && git rebase --continue; }; f "
-  skip = "!f() { git status | grep -q 'rebase in progress' && git rebase --skip; }; f "
+  sha = "!f() { git rev-parse --short ${1:-HEAD}; }; f"
+  continue = "!f() { git status | grep -q 'rebase in progress' && git rebase --continue; }; f"
+  skip = "!f() { git status | grep -q 'rebase in progress' && git rebase --skip; }; f"
   abort = "!f() { git status | grep -q 'rebase in progress' && git rebase --abort; }; f"
 
 [diff "sopsdiffer"]
