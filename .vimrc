@@ -13,6 +13,8 @@ Plug 'junegunn/vim-easy-align'
 Plug 'airblade/vim-gitgutter'
 Plug 'itchyny/lightline.vim'
 Plug 'sheerun/vim-polyglot'
+Plug 'b4b4r07/vim-hcl'
+Plug 'hashivim/vim-terraform'
 Plug 'w0rp/ale'
 Plug 'maximbaz/lightline-ale'
 Plug 'scrooloose/nerdtree', { 'on': 'NERDTreeToggle' }
@@ -27,8 +29,8 @@ Plug 'junegunn/limelight.vim', { 'for': 'markdown' }
 Plug 'junegunn/seoul256.vim'
 Plug 'ryanoasis/vim-devicons'
 Plug 'szw/vim-tags', { 'for': ['c', 'cpp', 'python', 'ruby'] }
-Plug 'SirVer/ultisnips', { 'for': ['c','cpp','python','ruby','perl'] }
-Plug 'honza/vim-snippets', { 'for': ['c','cpp','python','ruby','perl'] }
+Plug 'SirVer/ultisnips', { 'for': ['c','cpp','python','ruby','perl','go'] }
+Plug 'honza/vim-snippets', { 'for': ['c','cpp','python','ruby','perl','go'] }
 Plug 'kana/vim-textobj-user'
 
 call plug#end()
@@ -454,6 +456,10 @@ if executable('ag')
   let g:ctrlp_user_command = 'ag %s -l --nocolor -g ""'
   let g:ctrlp_use_caching = 0
 endif
+
+let g:go_auto_type_info = 1
+let g:go_addtags_transform = "snakecase"
+let g:go_fmt_command = "goimports"
 
 " vim-textobj-user {{{
 
