@@ -43,9 +43,7 @@
   faceroll = !"git commit --amend --no-edit -n -S && git push --force-with-lease"
 
   sha = "!f() { git rev-parse --short ${1:-HEAD}; }; f"
-  continue = "!f() { git status | grep -q 'rebase in progress' && git rebase --continue; }; f"
-  skip = "!f() { git status | grep -q 'rebase in progress' && git rebase --skip; }; f"
-  abort = "!f() { git status | grep -q 'rebase in progress' && git rebase --abort; }; f"
+  authors = "!f() { git log --pretty=format:'%an <%ae>' $1..HEAD; }; f"
 
 [rerere]
   enabled = true
