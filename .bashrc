@@ -41,23 +41,23 @@ LITEBLUE="\e[0;36m"
 DARKBLUE="\e[0;34m"
 CLEAR="\e[0m"
 
-function parse_git_dirty {
+parse_git_dirty() {
     if [[ $(git status 2> /dev/null | grep "Changes to be committed") != "" ]]
     then
-        echo " ${GREEN}✓${CLEAR}"
+        echo "${GREEN}✓${CLEAR} "
     elif [[ $(git diff --shortstat 2> /dev/null | tail -n1) != "" ]]
     then
-        echo " ${YELLOW}✗${CLEAR}"
+        echo "${YELLOW}✗${CLEAR} "
     elif [[ $(git status --porcelain 2>/dev/null | grep "^??" | wc -l) -ne 0 ]]
     then
-        echo " ${RED}✗${CLEAR}"
+        echo "${RED}✗${CLEAR} "
     fi
 }
 
 git_prompt() {
     local ref=$(git symbolic-ref HEAD 2>/dev/null | cut -d'/' -f3)
     if [ "$ref" != "" ]; then
-        echo " ${DARKBLUE}git:(${RED}$ref${DARKBLUE})${CLEAR}$(parse_git_dirty)"
+        echo "${DARKBLUE}git:(${RED}$ref${DARKBLUE})${CLEAR} $(parse_git_dirty)"
     fi
 }
 
@@ -67,12 +67,12 @@ set_prompt() {
 
     current_dir="\[$LITEBLUE\]\W\[$CLEAR\]"
 
-    # if [[ $VIRTUAL_ENV != "" ]]
-    # then
-    #     venv="${YELLOW}(${VIRTUAL_ENV##*/}) "
-    # else
-    #     venv="${CLEAR}"
-    # fi
+    if [[ $VIRTUAL_ENV != "" ]]
+    then
+        venv=" ${YELLOW}[${VIRTUAL_ENV##*/}]"
+    else
+        venv="${CLEAR}"
+    fi
 
     if [ $EXIT -ne 0 ]; then
         arrow="${RED}➜${CLEAR}"
@@ -80,7 +80,7 @@ set_prompt() {
         arrow="${GREEN}➜${CLEAR}"
     fi
 
-    export PS1="${arrow}  ${current_dir}$(git_prompt) "
+    export PS1="${arrow} ${venv} ${current_dir} $(git_prompt)"
 }
 
 export PROMPT_COMMAND=set_prompt
