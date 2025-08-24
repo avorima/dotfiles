@@ -166,6 +166,7 @@ command -v docker-ls >/dev/null && source <(docker-ls autocomplete bash)
 command -v operator-sdk >/dev/null && source <(operator-sdk completion bash)
 command -v direnv >/dev/null && eval "$(direnv hook bash)"
 command -v minikube >/dev/null && source <(minikube completion bash)
+command -v golangci-lint > /dev/null && source <(golangci-lint completion bash)
 
 [ -f ~/.fzf.bash ] && source ~/.fzf.bash
 
