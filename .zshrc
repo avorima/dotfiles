@@ -48,13 +48,11 @@ __kube_prompt() {
     if [[ -z $ctx ]]; then
         return
     fi
-    if command -v kubens >/dev/null 2>/dev/null; then
-        ns=$(kubens -c)
+    if ns=$(kubectl ns -c 2>/dev/null) && test -n "$ns"; then
+        echo " %F{blue}k8s:(%F{red}${ctx}%F{blue}/%F{red}${ns}%F{blue})%f"
     else
-        ns=$(kubectl config get-contexts | grep -w "\\s${ctx}\\s" | awk '{print $4}')
-        [[ -z $ns ]] && ns=default
+        echo " %F{blue}k8s:(%F{red}${ctx}%F{blue}%f"
     fi
-    echo " %F{blue}k8s:(%F{red}${ctx}%F{blue}/%F{red}${ns}%F{blue})%f"
 }
 
 setopt PROMPT_SUBST
