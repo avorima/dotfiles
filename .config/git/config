@@ -26,6 +26,7 @@
   bm = branch -m
   bd = branch -d
   c = commit -S
+  cm = commit -m
   m = merge --ff
   s = status -sb
   st = status
