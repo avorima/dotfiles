@@ -20,11 +20,10 @@ zstyle ':completion:*' cache-path ~/.cache/zsh
 zstyle ':completion:*:(all-|)files' ignored-patterns '(|*/)CVS'
 zstyle ':completion:*:cd:*' ignored-patterns '(*/)#CVS'
 
-zstyle ':completion:*' rehash true
+zstyle ':completion:*:make:*:targets' call-command true # run make to generate make targets
+zstyle ':completion:*:*:make:*' tag-order 'targets'     # prioritize targets over variables/files
 
-# zstyle ':completion:*' completer _complete _match _approximate
-# zstyle ':completion:*:match:*' original only
-# zstyle ':completion:*:approximate:*' max-errors 1 numeric
+zstyle ':completion:*' rehash true
 
 __git_prompt() {
     local ref state
