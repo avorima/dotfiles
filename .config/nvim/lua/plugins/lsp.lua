@@ -6,24 +6,36 @@ return {
             "mason-org/mason-lspconfig.nvim",
         },
         config = function()
+            require("mason").setup()
+            require("mason-lspconfig").setup({
+                ensure_installed = {
+                    "clangd",
+                    "gopls",
+                    "pylsp",
+                    "lua_ls",
+                    "rust_analyzer",
+                    "vimls",
+                    "efm",
+                    "yamlls",
+                }
+            })
+
             vim.lsp.config("efm", {
+                init_options = { documentFormatting = true },
+                filetypes = { "sh" },
                 settings = {
-                    init_options = { documentFormatting = true },
-                    filetypes = { "sh" },
-                    settings = {
-                        rootMarkers = { ".git/", ".config/" },
-                        languages = {
-                            sh = {
-                                {
-                                    lintCommand = "shellcheck -f gcc -x",
-                                    lintSource = "shellcheck",
-                                    lintFormats = { "%f:%l:%c: %trror: %m", "%f:%l:%c: %tarning: %m",
+                    rootMarkers = { ".git/", ".config/" },
+                    languages = {
+                        sh = {
+                            {
+                                lintCommand = "shellcheck -f gcc -x",
+                                lintSource = "shellcheck",
+                                lintFormats = { "%f:%l:%c: %trror: %m", "%f:%l:%c: %tarning: %m",
                                     "%f:%l:%c: %tote: %m" },
-                                },
-                                {
-                                    formatCommand = "shfmt -ci -s -bn -i 4",
-                                    formatStdin = true,
-                                },
+                            },
+                            {
+                                formatCommand = "shfmt -ci -s -bn -i 4",
+                                formatStdin = true,
                             },
                         },
                     },
@@ -32,15 +44,30 @@ return {
 
             vim.lsp.config("gopls", {
                 settings = {
-                    cmd = { "gopls", "serve" },
-                    settings = {
-                        gopls = {
-                            gofumpt = true,
-                            buildFlags = { "-tags=unit,integration,e2e" },
-                            analyses = {
-                                unusedvariable = true,
-                                unusedwrite = true,
-                            },
+                    gopls = {
+                        buildFlags = { "-tags=e2e" },
+                        directoryFilters = { "-.git", "-.vscode", "-.idea", "-.vscode-test", "-node_modules" },
+                        completeUnimported = true,
+                        gofumpt = true,
+                        staticcheck = true,
+                        analyses = {
+                            staticcheck = true,
+                            unparam = true,
+                            deadcode = true,
+                            nilness = true,
+                            typeparams = true,
+                            unusedwrite = true,
+                            unusedparams = true,
+                            unusedresult = true,
+                        },
+                        hints = {
+                            assignVariableTypes = true,
+                            compositeLiteralFields = true,
+                            compositeLiteralTypes = true,
+                            constantValues = true,
+                            functionTypeParameters = true,
+                            parameterNames = true,
+                            rangeVariableTypes = true,
                         },
                     },
                 }
@@ -56,7 +83,6 @@ return {
                             globals = { "vim" },
                         },
                         workspace = {
-                            checkThirdPart = false,
                             library = {
                                 vim.env.VIMRUNTIME
                             }
@@ -73,7 +99,7 @@ return {
                         },
                         schemas = {
                             ["https://json.schemastore.org/github-workflow.json"] = { "/.github/workflows/*" },
-                            ["https://raw.githubusercontent.com/yannh/kubernetes-json-schema/master/v1.31.3-standalone-strict/all.json"] = {
+                            ["https://raw.githubusercontent.com/yannh/kubernetes-json-schema/master/v1.34.1-standalone-strict/all.json"] = {
                                 "kubectl-*.yaml",
                                 "/*.k8s.yaml",
                             },
@@ -82,20 +108,6 @@ return {
                             ["https://raw.githubusercontent.com/kyverno/chainsaw/main/.schemas/json/test-chainsaw-v1alpha1.json"] = { "chainsaw-test.yaml" },
                         }
                     }
-                }
-            })
-
-            require("mason").setup()
-            require("mason-lspconfig").setup({
-                ensure_installed = {
-                    "clangd",
-                    "gopls",
-                    "pylsp",
-                    "lua_ls",
-                    "rust_analyzer",
-                    "vimls",
-                    "efm",
-                    "yamlls",
                 }
             })
 
