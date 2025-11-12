@@ -1,0 +1,18 @@
+#!/usr/bin/env bash
+
+set -o errexit
+set -o pipefail
+set -o nounset
+
+if [[ $# -eq 0 ]]; then
+    echo "missing arguments" >&2
+    exit 1
+fi
+
+archive=$1
+
+target=${archive%.tar.gz}
+target=${target%.tgz}
+mkdir "$target"
+echo "extracting to $target"
+tar -xvf "$archive" -C "$target"
