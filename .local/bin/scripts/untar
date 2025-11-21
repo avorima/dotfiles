@@ -11,8 +11,13 @@ fi
 
 archive=$1
 
-target=${archive%.tar.gz}
-target=${target%.tgz}
+case ${archive##*.} in
+    gz) target=${archive%.tar.gz} ;;
+    tgz) target=${archive%.tgz} ;;
+    tar) target=${archive%.tar} ;;
+    *) echo "unsupported file extension: ${archive##*.}"; exit 1 ;;
+esac
+
 mkdir "$target"
 echo "extracting to $target"
 tar -xvf "$archive" -C "$target"
