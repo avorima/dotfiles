@@ -11,7 +11,6 @@ return {
                 ensure_installed = {
                     "clangd",
                     "gopls",
-                    "pylsp",
                     "lua_ls",
                     "rust_analyzer",
                     "vimls",
@@ -106,6 +105,19 @@ return {
                             ["https://www.schemastore.org/kustomization.json"] = { "kustomization.yaml" },
                             ["https://raw.githubusercontent.com/kyverno/chainsaw/main/.schemas/json/configuration-chainsaw-v1alpha1.json"] = { ".chainsaw.yaml" },
                             ["https://raw.githubusercontent.com/kyverno/chainsaw/main/.schemas/json/test-chainsaw-v1alpha1.json"] = { "chainsaw-test.yaml" },
+                        }
+                    }
+                }
+            })
+
+            vim.lsp.config("pylsp", {
+                settings = {
+                    pylsp = {
+                        plugins = {
+                            pycodestyle = {
+                                -- ignore = {"W391"},
+                                maxLineLength = 120
+                            }
                         }
                     }
                 }
