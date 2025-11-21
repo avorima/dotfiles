@@ -98,12 +98,12 @@ return {
                             enable = true,
                         },
                         schemas = {
-                            ["https://json.schemastore.org/github-workflow.json"] = { "/.github/workflows/*" },
+                            ["https://www.schemastore.org/github-workflow.json"] = { "/.github/workflows/*" },
                             ["https://raw.githubusercontent.com/yannh/kubernetes-json-schema/master/v1.34.1-standalone-strict/all.json"] = {
                                 "kubectl-*.yaml",
                                 "/*.k8s.yaml",
                             },
-                            ["http://json.schemastore.org/kustomization"] = { "kustomization.yaml" },
+                            ["https://www.schemastore.org/kustomization.json"] = { "kustomization.yaml" },
                             ["https://raw.githubusercontent.com/kyverno/chainsaw/main/.schemas/json/configuration-chainsaw-v1alpha1.json"] = { ".chainsaw.yaml" },
                             ["https://raw.githubusercontent.com/kyverno/chainsaw/main/.schemas/json/test-chainsaw-v1alpha1.json"] = { "chainsaw-test.yaml" },
                         }
