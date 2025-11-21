@@ -1,4 +1,3 @@
 #!/usr/bin/sh
-remote=$(git remote | head -1)
-[ -n "$1" ] && remote=$1
+remote=${1-origin}
 git reset --hard "$remote"/"$(git symbolic-ref HEAD 2>/dev/null | sed 's|refs/heads/||')"
