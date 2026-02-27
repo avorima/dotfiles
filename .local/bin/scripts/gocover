@@ -1,8 +1,15 @@
-#!/usr/bin/env sh
+#!/bin/bash -e
+
+package=${*: -1}
+if ! [[ $package =~ \./[a-z]+ ]]; then
+    idx=$#
+    idx=$((idx-1))
+    set -- "${@:1:$idx}" "./$package"
+fi
 
 rm -f coverage.out
-go test -coverprofile=coverage.out -covermode=atomic $@
-if command -v gocovsh; then
+go test -coverprofile=coverage.out -covermode=atomic "$@"
+if command -v gocovsh >/dev/null; then
     gocovsh
 else
     go tool cover -html=coverage.out
