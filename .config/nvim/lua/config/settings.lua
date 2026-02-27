@@ -28,6 +28,8 @@ vim.opt.wildmode = { "list", "list:longest", "full" }
 
 vim.opt.completeopt = { "menuone", "noinsert", "noselect" }
 
+vim.opt.complete:append { "k" }
+
 vim.opt.mouse = ""
 
 vim.opt.dictionary = "/usr/share/dict/words"
