@@ -39,7 +39,7 @@ export GPG_TTY
     export KUBEBUILDER_ASSETS
 }
 
-PATH=$HOME/.local/go/bin:$HOME/.local/bin:$HOME/.local/bin/scripts:$KREW_ROOT/bin:$PATH
+PATH=$HOME/.local/bin:$HOME/.local/bin/scripts:$HOME/.local/go/bin:$HOME/.cargo/bin:$KREW_ROOT/bin:$PATH
 export PATH
 
 export EDITOR=/usr/bin/nvim
@@ -71,3 +71,11 @@ command -v wget >/dev/null && alias wget='wget --hsts-file=$XDG_CACHE_HOME/wget-
 command -v kubectl-neat >/dev/null && alias neat=kubectl-neat
 
 alias tig='test $PWD = $HOME && GIT_DIR=$XDG_DATA_HOME/yadm/repo.git tig || tig'
+
+# vim fat finger
+alias :wq=exit
+alias :q=exit
+
+flatpak info com.vscodium.codium &>/dev/null && alias codium='FLATPAK_ENABLE_SDK_EXT=golang flatpak run com.vscodium.codium'
+
+alias dive='podman run --rm -it -v $XDG_RUNTIME_DIR/podman/podman.sock:/var/run/docker.sock docker.io/wagoodman/dive'
