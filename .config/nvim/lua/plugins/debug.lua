@@ -14,7 +14,7 @@ return {
             { "<F3>",       function() require("dap").step_out() end,          desc = "Debug: Step Out", },
             { "<leader>dr", function() require("dap").continue() end,          desc = "Debug: Start/Continue" },
             { "<leader>db", function() require("dap").toggle_breakpoint() end, desc = "Debug: Toggle Breakpoint" },
-            { "<F7>",       function() require("dapui").toggle() end,          desc = "Debug: See last session result.", },
+            { "<F7>",       function() require("dapui").toggle() end,          desc = "Debug: See last session result", },
             { "<leader>dt", function() require("dap-go").debug_test() end,     desc = "Debug: Go Test" },
         },
         config = function()
@@ -50,7 +50,20 @@ return {
             dap.listeners.before.event_terminated["dapui_config"] = dapui.close
             dap.listeners.before.event_exited["dapui_config"] = dapui.close
 
-            require("dap-go").setup({})
+            require("dap-go").setup({
+                dap_configurations = {
+                    {
+                        type = "go",
+                        name = "Debug (Build Flags)",
+                        request = "launch",
+                        program = "${file}",
+                        buildFlags = require("dap-go").get_build_flags,
+                    },
+                },
+                delve = {
+                    build_flags = { "-tags=e2e" }
+                }
+            })
 
             dap.set_log_level('DEBUG')
         end,
