@@ -1,25 +1,69 @@
 #!/usr/bin/env bash
 set -eo pipefail
 
-sudo dnf install -y \
-    golang \
-    zsh \
-    neovim \
-    direnv \
-    jq \
-    yq \
-    shellcheck \
-    shfmt \
-    fzf \
-    ripgrep \
-    fd-find \
-    bat \
-    tig \
-    gh \
-    pinentry \
-    podman \
-    podman-docker \
-    libtree-sitter
+OS_NAME=$(source /etc/os-release; echo $ID)
+
+case "$OS_NAME" in
+    ubuntu)
+        fc-cache -f
+
+        curl -fsSL https://apt.fury.io/wez/gpg.key | sudo gpg --yes --dearmor -o /usr/share/keyrings/wezterm-fury.gpg
+        sudo chmod 644 /usr/share/keyrings/wezterm-fury.gpg
+        echo 'deb [signed-by=/usr/share/keyrings/wezterm-fury.gpg] https://apt.fury.io/wez/ * *' | sudo tee /etc/apt/sources.list.d/wezterm.list
+
+        curl -fsSL https://deb.nodesource.com/gpgkey/nodesource-repo.gpg.key | sudo gpg --dearmor -o /etc/apt/keyrings/nodesource.gpg
+        sudo chmod 644 /etc/apt/keyrings/nodesource.gpg
+        NODE_MAJOR=24
+        echo "deb [signed-by=/etc/apt/keyrings/nodesource.gpg] https://deb.nodesource.com/node_$NODE_MAJOR.x nodistro main" | sudo tee /etc/apt/sources.list.d/nodesource.list
+
+        (
+            cd ~/Downloads
+            NVIM_VERSION=0.11.6
+            wget https://github.com/neovim/neovim/releases/download/v$NVIM_VERSION/nvim-linux-x86_64.appimage
+            chmod u+x nvim-linux-x86_64.appimage
+            sudo cp nvim-linux-x86_64.appimage /usr/bin/nvim
+        )
+
+        sudo apt update
+        sudo apt install -y \
+            zsh \
+            direnv \
+            nodejs \
+            wezterm \
+            fonts-powerline \
+            ripgrep \
+            fd-find \
+            bat \
+            tig \
+            podman \
+            podman-docker \
+            kubectl
+        ;;
+    fedora)
+        sudo dnf install -y \
+            golang \
+            zsh \
+            neovim \
+            direnv \
+            jq \
+            yq \
+            shellcheck \
+            shfmt \
+            fzf \
+            ripgrep \
+            fd-find \
+            bat \
+            tig \
+            gh \
+            pinentry \
+            podman \
+            podman-docker \
+            libtree-sitter
+        ;;
+    *)
+        echo "skipping package installation for $OS_NAME"
+        ;;
+esac
 
 git clone https://github.com/jeffreytse/zsh-vi-mode.git ~/.local/zsh-vi-mode
 
@@ -33,6 +77,9 @@ git clone https://github.com/jeffreytse/zsh-vi-mode.git ~/.local/zsh-vi-mode
   tar zxvf "${KREW}.tar.gz" &&
   KREW_ROOT=$HOME/.local/krew ./"${KREW}" install krew
 )
+
+kubectl krew install ctx
+kubectl krew install ns
 
 # fix permissions
 chmod 700 ~/.local/share/gnupg
