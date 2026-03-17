@@ -16,16 +16,10 @@ case "$OS_NAME" in
         NODE_MAJOR=24
         echo "deb [signed-by=/etc/apt/keyrings/nodesource.gpg] https://deb.nodesource.com/node_$NODE_MAJOR.x nodistro main" | sudo tee /etc/apt/sources.list.d/nodesource.list
 
-        (
-            cd ~/Downloads
-            NVIM_VERSION=0.11.6
-            wget https://github.com/neovim/neovim/releases/download/v$NVIM_VERSION/nvim-linux-x86_64.appimage
-            chmod u+x nvim-linux-x86_64.appimage
-            sudo cp nvim-linux-x86_64.appimage /usr/bin/nvim
-        )
-
         sudo apt update
         sudo apt install -y \
+            build-essential \
+            wl-clipboard \
             zsh \
             direnv \
             nodejs \
@@ -38,6 +32,18 @@ case "$OS_NAME" in
             podman \
             podman-docker \
             kubectl
+
+        (
+            cd $(mktemp -d)
+            curl -LO https://github.com/tree-sitter/tree-sitter/releases/latest/download/tree-sitter-cli-linux-x64.zip
+            unzip https://github.com/tree-sitter/tree-sitter/releases/latest/download/tree-sitter-cli-linux-x64.zip
+            chmod +x tree-sitter
+            mv tree-sitter ~/.local/bin
+
+            curl -LO https://github.com/neovim/neovim/releases/latest/download/nvim-linux-x86_64.tar.gz
+            sudo rm -rf /opt/nvim-linux-x86_64
+            sudo tar -C /opt -xzf nvim-linux-x86_64.tar.gz
+        )
         ;;
     fedora)
         sudo dnf install -y \

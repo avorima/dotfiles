@@ -39,10 +39,10 @@ export GPG_TTY
     export KUBEBUILDER_ASSETS
 }
 
-PATH=$HOME/.local/bin:$HOME/.local/bin/scripts:$HOME/.local/go/bin:$HOME/.cargo/bin:$KREW_ROOT/bin:$PATH
+PATH=$HOME/.local/bin:$HOME/.local/bin/scripts:$HOME/.local/go/bin:$HOME/.cargo/bin:$KREW_ROOT/bin:/opt/nvim-linux-x86_64/bin:$PATH
 export PATH
 
-export EDITOR=/usr/bin/nvim
+export EDITOR=nvim
 export MANPAGER='nvim +Man!'
 
 export HISTSIZE=1000
@@ -59,23 +59,34 @@ alias ls='ls --color=auto --group-directories-first'
 alias ll='ls -lhA --color=auto --group-directories-first'
 alias lt='ls -lht --color=auto --group-directories-first'
 alias ..='cd ..'
-alias bat='bat --paging=always --italic-text=always'
 
 alias sx='ssh -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null'
 alias scx='scp -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null'
 
 alias k=kubectl
 alias vim=nvim
+alias kctx='kubectl-ctx'
+alias neat='kubectl-neat'
 
-command -v wget >/dev/null && alias wget='wget --hsts-file=$XDG_CACHE_HOME/wget-hsts'
-command -v kubectl-neat >/dev/null && alias neat=kubectl-neat
-
+alias wget='wget --hsts-file=$XDG_CACHE_HOME/wget-hsts'
 alias tig='test $PWD = $HOME && GIT_DIR=$XDG_DATA_HOME/yadm/repo.git tig || tig'
 
 # vim fat finger
 alias :wq=exit
 alias :q=exit
 
-flatpak info com.vscodium.codium &>/dev/null && alias codium='FLATPAK_ENABLE_SDK_EXT=golang flatpak run com.vscodium.codium'
+if [ -e "$XDG_RUNTIME_DIR/docker.sock" ]; then
+    export DOCKER_HOST=unix://$XDG_RUNTIME_DIR/docker.sock
+elif [ -e "$XDG_RUNTIME_DIR/podman/podman.sock" ]; then
+    alias dive='podman run --rm -it -v $XDG_RUNTIME_DIR/podman/podman.sock:/var/run/docker.sock docker.io/wagoodman/dive'
+fi
 
-alias dive='podman run --rm -it -v $XDG_RUNTIME_DIR/podman/podman.sock:/var/run/docker.sock docker.io/wagoodman/dive'
+if [ -e /usr/bin/batcat ]; then
+    alias bat='batcat --paging=always --italic-text=always'
+else
+    alias bat='bat --paging=always --italic-text=always'
+fi
+
+if [ -e /usr/bin/fdfind ]; then
+    alias fd=fdfind
+fi
