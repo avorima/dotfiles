@@ -42,16 +42,19 @@ __git_prompt() {
 }
 
 __kube_prompt() {
+    if [ ! -f ${KUBECONFIG-~/.kube/config} ]; then
+        return
+    fi
     local ctx ns
-    ctx=$(kubectl config current-context 2>/dev/null)
+    ctx=$(yq '.current-context' ${KUBECONFIG-~/.kube/config} 2>/dev/null)
     if [[ -z $ctx ]]; then
         return
     fi
-    if ns=$(kubectl ns -c 2>/dev/null) && test -n "$ns"; then
-        echo " %F{blue}k8s:(%F{red}${ctx}%F{blue}/%F{red}${ns}%F{blue})%f"
-    else
-        echo " %F{blue}k8s:(%F{red}${ctx}%F{blue}%f"
+    ns=$(yq ".contexts[]|select(.name==\"${ctx}\")|.context.namespace" ${KUBECONFIG-~/.kube/config} 2>/dev/null)
+    if [[ -z $ns ]] || [[ $ns == "null" ]]; then
+        ns=default
     fi
+    echo " %F{blue}k8s:(%F{red}${ctx}%F{blue}/%F{red}${ns}%F{blue})%f"
 }
 
 setopt PROMPT_SUBST
