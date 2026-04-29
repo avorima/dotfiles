@@ -47,7 +47,7 @@ __kube_prompt() {
     fi
     local ctx ns
     ctx=$(yq '.current-context' ${KUBECONFIG-~/.kube/config} 2>/dev/null)
-    if [[ -z $ctx ]]; then
+    if [[ -z $ctx ]] || [[ $ctx == "null" ]]; then
         return
     fi
     ns=$(yq ".contexts[]|select(.name==\"${ctx}\")|.context.namespace" ${KUBECONFIG-~/.kube/config} 2>/dev/null)
