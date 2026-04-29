@@ -29,6 +29,8 @@ else
     ROOTFS_DIR=$(mktemp -d)
 fi
 
+echo "unpacking to $ROOTFS_DIR" >&2
+
 CONTAINER_ID=$($CONTAINER_TOOL create "$IMAGE")
 trap 'docker rm $CONTAINER_ID' EXIT
 $CONTAINER_TOOL export "$CONTAINER_ID" | tar -xC "$ROOTFS_DIR"
