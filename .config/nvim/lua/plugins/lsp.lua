@@ -98,7 +98,7 @@ return {
                         },
                         schemas = {
                             ["https://www.schemastore.org/github-workflow.json"] = { "/.github/workflows/*" },
-                            ["https://raw.githubusercontent.com/yannh/kubernetes-json-schema/master/v1.34.1-standalone-strict/all.json"] = {
+                            ["https://raw.githubusercontent.com/yannh/kubernetes-json-schema/master/v1.34.6-standalone-strict/all.json"] = {
                                 "kubectl-*.yaml",
                                 "/*.k8s.yaml",
                             },
