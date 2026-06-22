@@ -47,6 +47,7 @@
 
   sha = "!f() { git rev-parse --short ${1:-HEAD}; }; f"
   authors = "!f() { git log --pretty=format:'%an <%ae>' $1..HEAD; }; f"
+  show-sig = log HEAD~1..HEAD --show-signature
 
 [rerere]
   enabled = true
