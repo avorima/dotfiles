@@ -49,3 +49,5 @@ vim.opt.updatetime = 50
 vim.opt.scrolloff = 4
 
 vim.opt.cursorline = true
+
+vim.opt.maxmempattern = 10000
