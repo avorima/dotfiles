@@ -9,6 +9,10 @@ fpath=(~/.config/zsh/functions/completion $fpath)
 autoload -Uz compinit && compinit -d "$XDG_CACHE_HOME/zcompdump"
 _comp_options+=(globdots)
 
+export NVM_DIR="$HOME/.config/nvm"
+[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
+[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
+
 autoload -U +X bashcompinit && bashcompinit
 [ -e /usr/bin/mcli ] && complete -o nospace -C /usr/bin/mcli mcli
 
