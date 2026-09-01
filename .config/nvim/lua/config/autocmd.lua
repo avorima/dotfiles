@@ -65,6 +65,23 @@ autocmd("BufNewFile", {
     desc = "Create intermediate directory",
 })
 
+autocmd("BufWritePost", {
+    group = global_group,
+    callback = function(_)
+        local filename = vim.fn.expand("%:p")
+        if vim.fs.ext(filename) ~= 'sh' then
+            return
+        end
+        local mode = vim.uv.fs_stat(filename).mode
+        local bit = require("bit")
+        local exec_flag = tonumber("100", 8)
+        if bit.band(mode, exec_flag) ~= exec_flag then
+            vim.uv.fs_chmod(filename, bit.bor(mode, exec_flag))
+        end
+    end,
+    desc = "Ensure files are executable",
+})
+
 autocmd("BufReadPost", {
     group = global_group,
     command = [[if &ft !~# 'commit\|rebase' && line("'\"") > 1 && line("'\"") <= line("$") | exe 'normal! g`"' | endif]],
