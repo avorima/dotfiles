@@ -19,6 +19,8 @@ export VAGRANT_HOME=$XDG_DATA_HOME/vagrant
 export VAGRANT_ALIAS_FILE=$XDG_DATA_HOME/vagrant/aliases
 export K9SCONFIG=$XDG_CONFIG_HOME/k9s
 export MC_CONFIG_DIR=$XDG_CONFIG_HOME/mcli
+export GOPATH=$HOME/.local/go
+export CARGO_HOME=$HOME/.local/cargo
 # export GTK2_RC_FILES=$XDG_CONFIG_HOME/gtk-2.0/gtkrc
 # export KDEHOME=$XDG_CONFIG_HOME/kde
 export BAT_THEME=gruvbox-dark
@@ -39,7 +41,7 @@ export GPG_TTY
     export KUBEBUILDER_ASSETS
 }
 
-PATH=$HOME/.local/bin:$HOME/.local/bin/scripts:$HOME/.local/go/bin:$HOME/.cargo/bin:$KREW_ROOT/bin:/opt/nvim-linux-x86_64/bin:$PATH
+PATH=$HOME/.local/bin:$HOME/.local/bin/scripts:$GOPATH/bin:$CARGO_HOME/bin:$KREW_ROOT/bin:/opt/nvim-linux-x86_64/bin:$PATH
 export PATH
 
 export EDITOR=nvim

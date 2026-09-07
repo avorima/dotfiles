@@ -89,6 +89,3 @@ kubectl krew install ns
 
 # fix permissions
 chmod 700 ~/.local/share/gnupg
-
-# set up GOPATH here (prevents having to use a template file)
-go env -w GOPATH=$HOME/.local/go
