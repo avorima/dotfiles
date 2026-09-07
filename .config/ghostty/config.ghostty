@@ -1,3 +1,5 @@
+copy-on-select = clipboard
+
 keybind = ctrl+alt+arrow_down=unbind
 keybind = ctrl+alt+arrow_left=unbind
 keybind = ctrl+alt+arrow_right=unbind
