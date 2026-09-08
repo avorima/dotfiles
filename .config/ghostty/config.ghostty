@@ -15,3 +15,9 @@ keybind = super+ctrl+]=unbind
 
 keybind = ctrl+shift+[=previous_tab
 keybind = ctrl+shift+]=next_tab
+
+keybind = ctrl+shift+,=unbind
+keybind = ctrl+shift+r=reload_config
+
+keybind = ctrl+shift+,=move_tab:-1
+keybind = ctrl+shift+.=move_tab:1
