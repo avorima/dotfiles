@@ -56,10 +56,6 @@ map("n", "]q", "<cmd>cnext<cr>zv", { desc = "Next Quickfix" })
 map("n", "[l", "<cmd>lprev<cr>zv", { desc = "Previous Location" })
 map("n", "]l", "<cmd>lnext<cr>zv", { desc = "Next Location" })
 
-map("n", "<leader>cd", vim.diagnostic.open_float, { desc = "Line Diagnostics" })
-map("n", "]d", vim.diagnostic.goto_next, { desc = "Next Diagnostic" })
-map("n", "[d", vim.diagnostic.goto_prev, { desc = "Prev Diagnostic" })
-
 map("n", "]<space>", ":<C-u>call append(line('.'),   repeat([''], v:count1))<cr>", { desc = "Add Newline Above" })
 map("n", "[<space>", ":<C-u>call append(line('.')-1, repeat([''], v:count1))<cr>", { desc = "Add Newline Above" })
 
