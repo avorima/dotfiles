@@ -8,8 +8,22 @@ if [[ ${TRACE-} == "1" ]]; then
 fi
 
 readonly BIN_DIR=~/.local/bin
-readonly LINK_NAME=$BIN_DIR/go
-readonly TEMP_LINK=${LINK_NAME}_tmp
+
+atomic_link() {
+    local src=$1
+    local dst=$2
+    local temp="${dst}_tmp"
+    if ! ln -s "$src" "$temp"; then
+        rc=$?
+        rm -f "$temp"
+        return $rc
+    fi
+    if ! mv -T "$temp" "$dst"; then
+        rc=$?
+        rm -f "$temp"
+        return $rc
+    fi
+}
 
 CURRENT_VERSION=
 if [[ -f ~/.local/bin/go ]]; then
@@ -17,7 +31,7 @@ if [[ -f ~/.local/bin/go ]]; then
 fi
 
 if [[ $# -eq 0 ]]; then
-    SELECTED_VERSION=$(find ~/sdk/ -maxdepth 1 -type d -name 'go*' -printf "%f\n" | fzf)
+    SELECTED_VERSION=$(find ~/sdk/ -maxdepth 1 -type d -name 'go*' -printf "%f\n" | sort | fzf)
 else
     SELECTED_VERSION=$1
     SELECTED_VERSION=go${SELECTED_VERSION#go*}
@@ -28,7 +42,6 @@ else
 fi
 
 if [[ $SELECTED_VERSION != "$CURRENT_VERSION" ]]; then
-    trap 'rm -f $TEMP_LINK' ERR
-    ln -s ~/.local/go/bin/"$SELECTED_VERSION" $TEMP_LINK
-    mv -T $TEMP_LINK $LINK_NAME
+    atomic_link ~/.local/go/bin/"$SELECTED_VERSION" $BIN_DIR/go
+    atomic_link ~/sdk/"$SELECTED_VERSION"/bin/gofmt $BIN_DIR/gofmt
 fi
