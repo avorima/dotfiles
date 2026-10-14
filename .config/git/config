@@ -25,6 +25,7 @@
   bblame = blame -w -C -C -C
   bm = branch -m
   bd = branch -d
+  bdd = branch -D
   c = commit -S
   cm = commit -m
   m = merge --ff
